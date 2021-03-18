@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_100"
+    android:layout_height="@dimen/dp_150"
+    android:layout_gravity="center"
+    android:background="@drawable/more_func_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_push"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:clickable="true"
+        android:layout_margin="5dp"
+        android:drawableLeft="@drawable/push"
+        android:textColor="@drawable/file_more_oper_tv_color_s"
+        android:gravity="center"
+        android:paddingStart="10dp"
+        android:text="@string/push"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_download"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:clickable="true"
+        android:paddingStart="10dp"
+        android:textColor="@drawable/file_more_oper_tv_color_s"
+        android:drawableLeft="@drawable/download"
+        android:gravity="center"
+        android:text="@string/download"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/tv_cache"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:paddingStart="10dp"
+        android:clickable="true"
+        android:textColor="@drawable/file_more_oper_tv_color_s"
+        android:drawableLeft="@drawable/cache"
+        android:gravity="center"
+        android:text="@string/cache"
+        android:textSize="20sp" />
+</LinearLayout>

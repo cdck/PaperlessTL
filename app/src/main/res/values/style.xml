@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="btn_pressed_style">
+        <item name="android:background">@drawable/btn_pressed_bg</item>
+        <item name="android:textColor">@drawable/white_black_text_pressed</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_width">@dimen/dp_100</item>
+        <item name="android:layout_height">@dimen/dp_30</item>
+    </style>
+
+    <style name="btn_selected_style">
+        <item name="android:background">@drawable/btn_selected_bg</item>
+        <item name="android:textColor">@drawable/white_black_text_selected</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_width">@dimen/dp_100</item>
+        <item name="android:layout_height">@dimen/dp_30</item>
+    </style>
+
+    <style name="btn_file_type_style">
+        <item name="android:background">@drawable/share_file_type_s</item>
+        <item name="android:textColor">@drawable/share_file_type_text_selected</item>
+        <item name="android:textSize">@dimen/sp_18</item>
+        <item name="android:layout_width">@dimen/dp_60</item>
+        <item name="android:layout_height">@dimen/dp_30</item>
+    </style>
+
+    <style name="TableTitleStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginEnd">1px</item>
+        <item name="android:layout_marginBottom">1px</item>
+        <item name="background">@color/admin_table_title_bg</item>
+        <item name="android:gravity">center</item>
+        <item name="textColor">@color/white</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">2</item>
+        <item name="android:maxLines">2</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:textSize">@dimen/sp_14</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">@dimen/dp_2</item>
+        <item name="android:lines">1</item>
+    </style>
+
+    <style name="draw_tv_pressed">
+        <item name="android:textColor">@drawable/white_black_text_pressed</item>
+        <item name="android:background">@drawable/shape_btn_pressed</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">@dimen/dp_2</item>
+        <item name="android:layout_margin">@dimen/dp_2</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/dp_2</item>
+        <item name="android:layout_centerInParent">true</item>
+        <!--<item name="android:textSize">@dimen/sp_12</item>-->
+        <!--<item name="android:layout_width">@dimen/dp_50</item>-->
+        <!--<item name="android:layout_height">@dimen/dp_20</item>-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="draw_tv_selected">
+        <item name="android:textColor">@drawable/white_black_text_selected</item>
+        <item name="android:background">@drawable/shape_btn_selected</item>
+        <item name="android:clickable">true</item>
+        <item name="android:drawablePadding">@dimen/dp_2</item>
+        <item name="android:layout_margin">@dimen/dp_2</item>
+        <!--<item name="android:textSize">@dimen/sp_12</item>-->
+        <item name="android:gravity">center</item>
+        <item name="android:padding">@dimen/dp_2</item>
+        <item name="android:layout_centerInParent">true</item>
+        <!--<item name="android:layout_width">@dimen/dp_50</item>-->
+        <!--<item name="android:layout_height">@dimen/dp_20</item>-->
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+</resources>

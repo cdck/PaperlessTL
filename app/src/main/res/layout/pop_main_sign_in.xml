@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dialog_full_holo_light"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_top_corner_blue"
+        android:padding="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="签到标题" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_draw_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <com.xlk.paperlesstl.ui.ArtBoard
+            android:id="@+id/art_board"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:id="@+id/ll_draw_pwd_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_margin="@dimen/dp_5"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/password" />
+
+            <EditText
+                android:id="@+id/edt_pwd"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/editbox_background_normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/pwd_draw_revoke"
+                style="@style/btn_pressed_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/draw_revoke" />
+
+            <Button
+                android:id="@+id/pwd_draw_clear"
+                style="@style/btn_pressed_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/draw_clear" />
+
+            <Button
+                android:id="@+id/pwd_draw_determine"
+                style="@style/btn_pressed_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/ensure" />
+
+            <Button
+                android:id="@+id/pwd_draw_cancel"
+                style="@style/btn_pressed_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_pwd_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/edt_pwd_only"
+                android:layout_width="@dimen/dp_200"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_gravity="center"
+                android:background="@drawable/editbox_background_normal"
+                tools:text="多少" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_ensure"
+                style="@style/btn_pressed_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/ensure" />
+
+            <Button
+                android:id="@+id/btn_cancel"
+                style="@style/btn_pressed_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

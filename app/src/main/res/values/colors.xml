@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="transparent">#00ffffff</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="gray">#C2C2C2</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="green">#00FF26</color>
+    <color name="yellow">#d8c81b</color>
+    <color name="blue">#4ea7eb</color>
+    <color name="light_blue">#4DA7EB</color>
+    <color name="notice_div_line">#009688</color>
+
+    <color name="select_item_bg">#1376F8</color>
+    <color name="div_line">#5A5A5A</color>
+    <color name="devline">#9EBDBDBD</color>
+    <color name="text_color_red">#E10000</color>
+    <color name="video_time">#45F24C</color>
+    <color name="video_pop_bg">#99000000</color>
+    <color name="option_a">#FF0000</color>
+    <color name="option_b">#00FF00</color>
+    <color name="option_c">#0000FF</color>
+    <color name="option_d">#00FFFF</color>
+    <color name="option_e">#FF00FF</color>
+    <color name="chart_content">#0d68d8</color>
+    <color name="chart_title">#d63ac2</color>
+    <color name="enable_false_color">#989CA3</color>
+    <color name="gray_bg">#C8C8C8</color>
+    <color name="light_gray">#E9E9E9</color>
+    <color name="text_color_black">#4a4a4a</color>
+    <color name="online">#005EFF</color>
+    <color name="text_blue">#0000fa</color>
+    <color name="vote_selected">#5ad2fa</color>
+    <color name="light_black">#28282d</color>
+    <color name="admin_table_title_bg">#738494</color>
+    <color name="table_line_color">#c0dcf2</color>
+    <color name="meet_fragment_bg">#cfcfcf</color>
+    <color name="admin_rv_bg">#1E2F47</color>
+    <drawable name="text_color_white">#ffffff</drawable>
+    <drawable name="text_color_gray">#4a4a4a</drawable>
+    <drawable name="text_color_black">#000000</drawable>
+    <color name="red">#ce081c</color>
+    <color name="btn_choosed">#12e6fe</color>
+    <color name="wm_view_bg">#FFFFFF</color>
+
+    <!--会议界面时间文本颜色-->
+    <color name="meet_time_text_color">#FFFFFF</color>
+    <!--文件item更多操作中弹框文本颜色-->
+    <drawable name="file_more_oper_tv_color_p">#FF0000</drawable>
+    <drawable name="file_more_oper_tv_color_n">#000000</drawable>
+    <!--按钮选中状态时颜色-->
+    <color name="button_color_p">#3170B7</color>
+    <!--按钮选中状态时字体颜色-->
+    <drawable name="button_text_color_p">#FFFFFF</drawable>
+    <!--按钮未选中状态时颜色-->
+    <color name="button_color_n">#B6B6B6</color>
+    <!--按钮未选中状态时字体颜色-->
+    <drawable name="button_text_color_n">#000000</drawable>
+
+    <!--查看图表中的颜色-->
+    <color name="chart_color_red">#FF0000</color>
+    <color name="chart_color_green">#00FF00</color>
+    <color name="chart_color_blue">#0000FF</color>
+    <color name="chart_color_aqua">#00FFFF</color>
+    <color name="chart_color_pink">#FF00FF</color>
+    <color name="chart_color_yellow">#FFFF00</color>
+
+    <drawable name="transparent">#00FFFFFF</drawable>
+    <drawable name="file_type_text_p">#FA800A</drawable>
+    <drawable name="file_type_text_n">#000000</drawable>
+
+    <drawable name="text_n">#03A9F4</drawable>
+    <drawable name="text_p">#000000</drawable>
+
+    <color name="signed_text_color">#4CAF50</color>
+    <color name="unsigned_text_color">#000000</color>
+
+    <color name="other_menu_bg_p">#A0D9F6</color>
+    <color name="other_menu_bg_n">#00000000</color>
+    <!--设备控制右侧背景色-->
+    <color name="device_control_right_bg">#1062BC</color>
+
+</resources>
