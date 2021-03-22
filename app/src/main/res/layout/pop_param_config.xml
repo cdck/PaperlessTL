@@ -649,6 +649,7 @@
             android:id="@+id/cb_client_all"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:textSize="12sp"
             android:layout_weight="1"
             android:text="@string/client_all" />
 
@@ -661,6 +662,7 @@
                 android:id="@+id/cb_parameter_all"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="12sp"
                 android:layout_centerVertical="true"
                 android:text="@string/enable_all" />
 
@@ -668,13 +670,14 @@
                 android:id="@+id/cb_restart_app"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:textSize="12sp"
+                android:layout_toEndOf="@+id/cb_parameter_all"
                 android:text="@string/app_restart_after_modify" />
 
             <Button
                 android:id="@+id/btn_cancel"
                 style="@style/btn_pressed_style"
-                android:layout_width="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dp_5"
@@ -684,7 +687,6 @@
             <Button
                 android:id="@+id/btn_modify"
                 style="@style/btn_pressed_style"
-                android:layout_width="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/btn_cancel"
                 android:text="@string/modify" />

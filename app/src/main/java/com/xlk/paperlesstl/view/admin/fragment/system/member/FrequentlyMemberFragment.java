@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -100,15 +102,15 @@ public class FrequentlyMemberFragment extends BaseFragment implements Frequently
                     ToastUtils.showShort(R.string.please_enter_user_name);
                     return;
                 }
-                if (!RegexUtils.isMobileSimple(phone)) {
+                if (!TextUtils.isEmpty(phone) && !RegexUtils.isMobileSimple(phone)) {
                     ToastUtils.showShort(R.string.phone_format_error);
                     return;
                 }
-                if (!RegexUtils.isEmail(email)) {
+                if (!TextUtils.isEmpty(email) && !RegexUtils.isEmail(email)) {
                     ToastUtils.showShort(R.string.email_format_error);
                     return;
                 }
-                if (pwd.length() != 6) {
+                if (!TextUtils.isEmpty(pwd) && pwd.length() != 6) {
                     ToastUtils.showShort(R.string.password_format_error);
                     return;
                 }
@@ -135,15 +137,15 @@ public class FrequentlyMemberFragment extends BaseFragment implements Frequently
                     ToastUtils.showShort(R.string.please_enter_user_name);
                     return;
                 }
-                if (!RegexUtils.isMobileSimple(phone)) {
+                if (!TextUtils.isEmpty(phone) && !RegexUtils.isMobileSimple(phone)) {
                     ToastUtils.showShort(R.string.phone_format_error);
                     return;
                 }
-                if (!RegexUtils.isEmail(email)) {
+                if (!TextUtils.isEmpty(email) && !RegexUtils.isEmail(email)) {
                     ToastUtils.showShort(R.string.email_format_error);
                     return;
                 }
-                if (pwd.length() != 6) {
+                if (!TextUtils.isEmpty(pwd) && pwd.length() != 6) {
                     ToastUtils.showShort(R.string.password_format_error);
                     return;
                 }
@@ -180,23 +182,23 @@ public class FrequentlyMemberFragment extends BaseFragment implements Frequently
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == EXCEL_FILE_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri uri = data.getData();
-                File file = UriUtils.uri2File(uri);
-                if(file!=null){
-                    String realPath = file.getAbsolutePath();
-                    LogUtils.e(TAG, "onActivityResult 获取的文件路径=" + realPath);
-                    if (realPath.endsWith(".xls")) {
-                        List<InterfacePerson.pbui_Item_PersonDetailInfo> memberXls = JxlUtil.readMemberXls(realPath);
-                        if (!memberXls.isEmpty()) {
-                            presenter.addMembers(memberXls);
-                        } else {
-                            LogUtils.e(TAG, "onActivityResult 读取表格结果为空");
-                        }
+            File file = UriUtils.uri2File(uri);
+            if (file != null) {
+                String realPath = file.getAbsolutePath();
+                LogUtils.e(TAG, "onActivityResult 获取的文件路径=" + realPath);
+                if (realPath.endsWith(".xls")) {
+                    List<InterfacePerson.pbui_Item_PersonDetailInfo> memberXls = JxlUtil.readMemberXls(realPath);
+                    if (!memberXls.isEmpty()) {
+                        presenter.addMembers(memberXls);
                     } else {
-                        ToastUtils.showShort(R.string.please_choose_xls_file);
+                        LogUtils.e(TAG, "onActivityResult 读取表格结果为空");
                     }
-                }else {
-
+                } else {
+                    ToastUtils.showShort(R.string.please_choose_xls_file);
                 }
+            } else {
+
+            }
 
         }
     }
@@ -218,7 +220,9 @@ public class FrequentlyMemberFragment extends BaseFragment implements Frequently
                 edt_remarks.setText(info.getComment().toStringUtf8());
                 edt_phone.setText(info.getPhone().toStringUtf8());
                 edt_email.setText(info.getEmail().toStringUtf8());
-                edt_pwd.setText(info.getPassword().toStringUtf8());
+                String pwd = info.getPassword().toStringUtf8();
+                LogUtils.e(TAG, "参会人:" + info.getName().toStringUtf8() + "的签到密码=" + pwd);
+//                edt_pwd.setText(pwd);
             });
         } else {
             memberAdapter.notifyDataSetChanged();

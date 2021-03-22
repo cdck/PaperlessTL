@@ -5,7 +5,7 @@
         <item name="android:background">@drawable/btn_pressed_bg</item>
         <item name="android:textColor">@drawable/white_black_text_pressed</item>
         <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:layout_width">@dimen/dp_100</item>
+        <item name="android:layout_width">@dimen/dp_60</item>
         <item name="android:layout_height">@dimen/dp_30</item>
     </style>
 
@@ -13,7 +13,7 @@
         <item name="android:background">@drawable/btn_selected_bg</item>
         <item name="android:textColor">@drawable/white_black_text_selected</item>
         <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:layout_width">@dimen/dp_100</item>
+        <item name="android:layout_width">@dimen/dp_60</item>
         <item name="android:layout_height">@dimen/dp_30</item>
     </style>
 

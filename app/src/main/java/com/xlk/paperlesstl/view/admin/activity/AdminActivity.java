@@ -190,7 +190,7 @@ public class AdminActivity extends BaseActivity<AdminPresenter> implements Admin
                 level2FunctionBeans.add(new AdminFunctionBean(R.drawable.icon_admin_voteset));
                 level2FunctionBeans.add(new AdminFunctionBean(R.drawable.icon_admin_electionset));
                 level2FunctionBeans.add(new AdminFunctionBean(R.drawable.icon_admin_seatset));
-                level2FunctionBeans.add(new AdminFunctionBean(R.drawable.icon_admin_tablecardset));
+//                level2FunctionBeans.add(new AdminFunctionBean(R.drawable.icon_admin_tablecardset));
                 level2FunctionBeans.add(new AdminFunctionBean(R.drawable.icon_admin_functionset));
                 break;
             case 3:
@@ -409,14 +409,14 @@ public class AdminActivity extends BaseActivity<AdminPresenter> implements Admin
                 }
                 ft.show(seatBindFragment);
                 break;
+//            case 8:
+//                if (tableCardFragment == null) {
+//                    tableCardFragment = new TableCardFragment();
+//                    ft.add(R.id.admin_fl, tableCardFragment);
+//                }
+//                ft.show(tableCardFragment);
+//                break;
             case 8:
-                if (tableCardFragment == null) {
-                    tableCardFragment = new TableCardFragment();
-                    ft.add(R.id.admin_fl, tableCardFragment);
-                }
-                ft.show(tableCardFragment);
-                break;
-            case 9:
                 if (functionFragment == null) {
                     functionFragment = new FunctionFragment();
                     ft.add(R.id.admin_fl, functionFragment);

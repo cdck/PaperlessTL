@@ -49,8 +49,8 @@ public class AdminDeviceManageFragment extends BaseFragment implements AdminDevi
     private RecyclerView rv_device;
     private TextInputEditText tie_dev_name;
     private TextInputEditText tie_dev_ip;
-    private TextInputEditText tie_lift_id;
-    private TextInputEditText tie_mike_id;
+//    private TextInputEditText tie_lift_id;
+//    private TextInputEditText tie_mike_id;
     private Button btn_modify;
     private Button btn_delete;
     private Button btn_visitors;
@@ -79,8 +79,8 @@ public class AdminDeviceManageFragment extends BaseFragment implements AdminDevi
         rv_device = (RecyclerView) inflate.findViewById(R.id.rv_device);
         tie_dev_name = (TextInputEditText) inflate.findViewById(R.id.tie_dev_name);
         tie_dev_ip = (TextInputEditText) inflate.findViewById(R.id.tie_dev_ip);
-        tie_lift_id = (TextInputEditText) inflate.findViewById(R.id.tie_lift_id);
-        tie_mike_id = (TextInputEditText) inflate.findViewById(R.id.tie_mike_id);
+//        tie_lift_id = (TextInputEditText) inflate.findViewById(R.id.tie_lift_id);
+//        tie_mike_id = (TextInputEditText) inflate.findViewById(R.id.tie_mike_id);
         btn_modify = (Button) inflate.findViewById(R.id.btn_modify);
         btn_delete = (Button) inflate.findViewById(R.id.btn_delete);
         btn_visitors = (Button) inflate.findViewById(R.id.btn_visitors);
@@ -103,19 +103,19 @@ public class AdminDeviceManageFragment extends BaseFragment implements AdminDevi
                 }
                 String currentDevName = tie_dev_name.getText().toString();
                 String currentDevIp = tie_dev_ip.getText().toString().trim();
-                String currentLiftId = tie_lift_id.getText().toString().trim();
-                String currentMikeId = tie_mike_id.getText().toString().trim();
-                if (currentDevName.isEmpty() || currentDevIp.isEmpty() || currentLiftId.isEmpty() || currentMikeId.isEmpty()) {
+//                String currentLiftId = tie_lift_id.getText().toString().trim();
+//                String currentMikeId = tie_mike_id.getText().toString().trim();
+                if (currentDevName.isEmpty()) {
                     ToastUtils.showShort(R.string.please_enter_all_content);
                     return;
                 }
-                int liftId = Integer.parseInt(currentLiftId);
-                int mikeId = Integer.parseInt(currentMikeId);
+//                int liftId = Integer.parseInt(currentLiftId);
+//                int mikeId = Integer.parseInt(currentMikeId);
                 InterfaceDevice.pbui_SubItem_DeviceIpAddrInfo build = InterfaceDevice.pbui_SubItem_DeviceIpAddrInfo.newBuilder().setIp(ConvertUtil.s2b(currentDevIp)).build();
                 int modflag = InterfaceMacro.Pb_DeviceModifyFlag.Pb_DEVICE_MODIFYFLAG_NAME_VALUE
                         | InterfaceMacro.Pb_DeviceModifyFlag.Pb_DEVICE_MODIFYFLAG_IPADDR_VALUE
                         | InterfaceMacro.Pb_DeviceModifyFlag.Pb_DEVICE_MODIFYFLAG_LIFTRES_VALUE;
-                presenter.modifyDevice(modflag, selectedDevice.getDevcieid(), currentDevName, liftId, mikeId, selectedDevice.getDeviceflag(), build);
+                presenter.modifyDevice(modflag, selectedDevice.getDevcieid(), currentDevName, selectedDevice.getLiftgroupres0(), selectedDevice.getLiftgroupres1(), selectedDevice.getDeviceflag(), build);
                 break;
             case R.id.btn_delete:
                 if (deviceAdapter == null || deviceAdapter.getSelected() == null) {
@@ -789,8 +789,8 @@ public class AdminDeviceManageFragment extends BaseFragment implements AdminDevi
             InterfaceDevice.pbui_SubItem_DeviceIpAddrInfo item = ipinfoList.get(0);
             tie_dev_ip.setText(item.getIp().toStringUtf8());
         }
-        tie_lift_id.setText(String.valueOf(info.getLiftgroupres0()));
-        tie_mike_id.setText(String.valueOf(info.getLiftgroupres1()));
+//        tie_lift_id.setText(String.valueOf(info.getLiftgroupres0()));
+//        tie_mike_id.setText(String.valueOf(info.getLiftgroupres1()));
     }
 
     @Override

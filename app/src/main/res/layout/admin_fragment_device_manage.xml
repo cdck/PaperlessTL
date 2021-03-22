@@ -68,47 +68,49 @@
                     android:maxLines="1" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_weight="1"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextAppearance="?android:attr/textAppearanceSmall"
-                app:layout_constraintStart_toStartOf="parent">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/dp_10"-->
+<!--                android:layout_weight="1"-->
+<!--                app:hintAnimationEnabled="true"-->
+<!--                android:visibility="gone"-->
+<!--                app:hintEnabled="true"-->
+<!--                app:hintTextAppearance="?android:attr/textAppearanceSmall"-->
+<!--                app:layout_constraintStart_toStartOf="parent">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_lift_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:ellipsize="end"
-                    android:hint="@string/lift_id_"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/tie_lift_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:digits="0123456789"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:hint="@string/lift_id_"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:maxLines="1" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dp_10"
-                android:layout_weight="1"
-                app:hintAnimationEnabled="true"
-                app:hintEnabled="true"
-                app:hintTextAppearance="?android:attr/textAppearanceSmall"
-                app:layout_constraintStart_toStartOf="parent">
+<!--            <com.google.android.material.textfield.TextInputLayout-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginEnd="@dimen/dp_10"-->
+<!--                android:layout_weight="1"-->
+<!--                app:hintAnimationEnabled="true"-->
+<!--                android:visibility="gone"-->
+<!--                app:hintEnabled="true"-->
+<!--                app:hintTextAppearance="?android:attr/textAppearanceSmall"-->
+<!--                app:layout_constraintStart_toStartOf="parent">-->
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tie_mike_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:digits="0123456789"
-                    android:ellipsize="end"
-                    android:hint="@string/mike_id_"
-                    android:imeOptions="actionNext"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+<!--                <com.google.android.material.textfield.TextInputEditText-->
+<!--                    android:id="@+id/tie_mike_id"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:digits="0123456789"-->
+<!--                    android:ellipsize="end"-->
+<!--                    android:hint="@string/mike_id_"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:maxLines="1" />-->
+<!--            </com.google.android.material.textfield.TextInputLayout>-->
         </LinearLayout>
 
         <LinearLayout

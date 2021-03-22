@@ -28,6 +28,7 @@ import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.mogujie.tt.protobuf.InterfaceMacro;
 import com.mogujie.tt.protobuf.InterfaceMeet;
+import com.mogujie.tt.protobuf.InterfaceRoom;
 import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.helper.AfterTextWatcher;
 import com.xlk.paperlesstl.util.DateUtil;
@@ -65,7 +66,7 @@ public class MeetingManageFragment extends BaseFragment implements MeetingManage
     private Button btn_keep_template;
     private MeetingManagePresenter presenter;
     private MeetingAdapter meetingAdapter;
-    private ArrayAdapter<String> roomSpAdapter;
+    private ArrayAdapter<SpRoomBean> roomSpAdapter;
     private int currentRoomId;
     private TimePickerView mStartTimePickerView, mEndTimePickerView;
     /**
@@ -447,10 +448,11 @@ public class MeetingManageFragment extends BaseFragment implements MeetingManage
             ToastUtils.showShort(R.string.err_start_time);
             return;
         }
+        int roomid = presenter.roomBeans.get(sp_room.getSelectedItemPosition()).getRoom().getRoomid();
         InterfaceMeet.pbui_Item_MeetMeetInfo build = InterfaceMeet.pbui_Item_MeetMeetInfo.newBuilder()
                 .setId(item.getId())
                 .setName(s2b(meetingName))
-                .setRoomId(currentRoomId)
+                .setRoomId(roomid)
                 .setSecrecy(sp_confidential.getSelectedItemPosition())
                 .setStartTime(currentStartTime)
                 .setEndTime(currentEndTime)
@@ -476,9 +478,10 @@ public class MeetingManageFragment extends BaseFragment implements MeetingManage
             return;
         }
         String orderName = edt_meet_booker.getText().toString().trim();
+        int roomid = presenter.roomBeans.get(sp_room.getSelectedItemPosition()).getRoom().getRoomid();
         InterfaceMeet.pbui_Item_MeetMeetInfo build = InterfaceMeet.pbui_Item_MeetMeetInfo.newBuilder()
                 .setName(s2b(meetingName))
-                .setRoomId(currentRoomId)
+                .setRoomId(roomid)
                 .setSecrecy(sp_confidential.getSelectedItemPosition())
                 .setStartTime(currentStartTime)
                 .setEndTime(currentEndTime)
@@ -489,10 +492,10 @@ public class MeetingManageFragment extends BaseFragment implements MeetingManage
     }
 
     @Override
-    public void updateRooms(ArrayList<String> roomNames) {
+    public void updateRooms() {
         if (roomSpAdapter == null) {
-            roomSpAdapter = new ArrayAdapter<String>(getContext(), R.layout.spinner_checked_text,
-                    roomNames);
+             roomSpAdapter = new ArrayAdapter<SpRoomBean>(getContext(), R.layout.spinner_checked_text,
+                     presenter.roomBeans);
             roomSpAdapter.setDropDownViewResource(R.layout.spinner_item_text);
             sp_room.setAdapter(roomSpAdapter);
         } else {

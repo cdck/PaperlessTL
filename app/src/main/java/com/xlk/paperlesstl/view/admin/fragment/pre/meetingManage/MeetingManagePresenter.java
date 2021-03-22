@@ -21,10 +21,8 @@ public class MeetingManagePresenter extends BasePresenter {
      * 所有会议
      */
     public List<InterfaceMeet.pbui_Item_MeetMeetInfo> meetings = new ArrayList<>();
-    /**
-     * 所有会议室
-     */
-    private List<InterfaceRoom.pbui_Item_MeetRoomDetailInfo> rooms = new ArrayList<>();
+
+    public List<SpRoomBean> roomBeans = new ArrayList<>();
 
     public MeetingManagePresenter(MeetingManageInterface view) {
         super();
@@ -33,18 +31,17 @@ public class MeetingManagePresenter extends BasePresenter {
 
     void queryRoom() {
         InterfaceRoom.pbui_Type_MeetRoomDetailInfo infos = jni.queryRoom();
-        rooms.clear();
-        ArrayList<String> roomNames = new ArrayList<>();
+        roomBeans.clear();
         if (infos != null) {
             List<InterfaceRoom.pbui_Item_MeetRoomDetailInfo> itemList = infos.getItemList();
-            for (InterfaceRoom.pbui_Item_MeetRoomDetailInfo item : itemList) {
-                if(!item.getName().isEmpty()) {
-                    roomNames.add(item.getName().toStringUtf8());
-                    rooms.add(item);
+            for (int i = 0; i < itemList.size(); i++) {
+                InterfaceRoom.pbui_Item_MeetRoomDetailInfo item = itemList.get(i);
+                if (!item.getName().isEmpty()) {
+                    roomBeans.add(new SpRoomBean(item));
                 }
             }
         }
-        view.updateRooms(roomNames);
+        view.updateRooms();
         queryAllMeeting();
     }
 
@@ -84,8 +81,8 @@ public class MeetingManagePresenter extends BasePresenter {
     }
 
     public int getCurrentRoom(int roomId) {
-        for (int i = 0; i < rooms.size(); i++) {
-            if (roomId == rooms.get(i).getRoomid()) {
+        for (int i = 0; i < roomBeans.size(); i++) {
+            if (roomId == roomBeans.get(i).getRoom().getRoomid()) {
                 return i;
             }
         }

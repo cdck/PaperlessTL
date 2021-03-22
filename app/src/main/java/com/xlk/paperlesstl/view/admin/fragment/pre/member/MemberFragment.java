@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.Spinner;
 
+import com.blankj.utilcode.util.ConvertUtils;
+import com.blankj.utilcode.util.EncryptUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.RegexUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -578,13 +580,18 @@ public class MemberFragment extends BaseFragment implements MemberInterface, Vie
             return;
         }
         String email = edt_email.getText().toString();
-        if (!RegexUtils.isEmail(email)) {
+        if (!TextUtils.isEmpty(email) && !RegexUtils.isEmail(email)) {
             ToastUtils.showShort(R.string.email_format_error);
             return;
         }
         String phone = edt_phone.getText().toString();
-        if (!RegexUtils.isMobileSimple(phone)) {
+        if (!TextUtils.isEmpty(phone) && !RegexUtils.isMobileSimple(phone)) {
             ToastUtils.showShort(R.string.phone_format_error);
+            return;
+        }
+        String pwd = edt_pwd.getText().toString();
+        if (!TextUtils.isEmpty(pwd) && pwd.length() < 6) {
+            ToastUtils.showShort(R.string.password_format_error);
             return;
         }
         InterfaceMember.pbui_Item_MemberDetailInfo build = InterfaceMember.pbui_Item_MemberDetailInfo.newBuilder()
@@ -595,7 +602,7 @@ public class MemberFragment extends BaseFragment implements MemberInterface, Vie
                 .setComment(s2b(edt_remarks.getText().toString()))
                 .setPhone(s2b(phone))
                 .setEmail(s2b(email))
-                .setPassword(s2b(edt_pwd.getText().toString()))
+                .setPassword(s2b(pwd))
                 .build();
         presenter.modifyMember(build);
     }
@@ -607,13 +614,18 @@ public class MemberFragment extends BaseFragment implements MemberInterface, Vie
             return;
         }
         String email = edt_email.getText().toString();
-        if (!RegexUtils.isEmail(email)) {
+        if (!TextUtils.isEmpty(email) && !RegexUtils.isEmail(email)) {
             ToastUtils.showShort(R.string.email_format_error);
             return;
         }
         String phone = edt_phone.getText().toString();
-        if (!RegexUtils.isMobileSimple(phone)) {
+        if (!TextUtils.isEmpty(phone) && !RegexUtils.isMobileSimple(phone)) {
             ToastUtils.showShort(R.string.phone_format_error);
+            return;
+        }
+        String pwd = edt_pwd.getText().toString();
+        if (!TextUtils.isEmpty(pwd) && pwd.length() < 6) {
+            ToastUtils.showShort(R.string.password_format_error);
             return;
         }
         InterfaceMember.pbui_Item_MemberDetailInfo build = InterfaceMember.pbui_Item_MemberDetailInfo.newBuilder()
@@ -623,7 +635,7 @@ public class MemberFragment extends BaseFragment implements MemberInterface, Vie
                 .setComment(s2b(edt_remarks.getText().toString()))
                 .setPhone(s2b(phone))
                 .setEmail(s2b(email))
-                .setPassword(s2b(edt_pwd.getText().toString()))
+                .setPassword(s2b(pwd))
                 .build();
         presenter.createMember(build);
     }
@@ -636,13 +648,18 @@ public class MemberFragment extends BaseFragment implements MemberInterface, Vie
         }
 
         String email = edt_email.getText().toString();
-        if (!RegexUtils.isEmail(email)) {
+        if (!TextUtils.isEmpty(email) && !RegexUtils.isEmail(email)) {
             ToastUtils.showShort(R.string.email_format_error);
             return;
         }
         String phone = edt_phone.getText().toString();
-        if (!RegexUtils.isMobileSimple(phone)) {
+        if (!TextUtils.isEmpty(phone) && !RegexUtils.isMobileSimple(phone)) {
             ToastUtils.showShort(R.string.phone_format_error);
+            return;
+        }
+        String pwd = edt_pwd.getText().toString();
+        if (!TextUtils.isEmpty(pwd) && pwd.length() < 6) {
+            ToastUtils.showShort(R.string.password_format_error);
             return;
         }
         InterfacePerson.pbui_Item_PersonDetailInfo build = InterfacePerson.pbui_Item_PersonDetailInfo.newBuilder()

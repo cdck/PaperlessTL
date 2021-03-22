@@ -20,7 +20,6 @@ public interface MeetingManageInterface extends BaseInterface {
 
     /**
      * 更新会议室Spinner
-     * @param roomNames 所有会议室的名称
      */
-    void updateRooms(ArrayList<String> roomNames);
+    void updateRooms();
 }

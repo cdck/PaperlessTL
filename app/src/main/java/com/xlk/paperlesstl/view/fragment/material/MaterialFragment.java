@@ -2,9 +2,12 @@ package com.xlk.paperlesstl.view.fragment.material;
 
 import android.view.View;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.chad.library.adapter.base.entity.node.BaseNode;
 import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.view.base.BaseFragment;
 import com.xlk.paperlesstl.view.fragment.material.node.FileNodeAdapter;
+import com.xlk.paperlesstl.view.fragment.material.node.LevelDirNode;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class MaterialFragment extends BaseFragment<MaterialPresenter> implements MaterialContract.View {
 
     private RecyclerView rv_material;
-    /**
-     * =0文档，=1图片，=2视频，=3其它，=-1全部
-     */
-    private int fileFilterType = -1;
     private FileNodeAdapter fileNodeAdapter;
 
     @Override
@@ -50,6 +49,15 @@ public class MaterialFragment extends BaseFragment<MaterialPresenter> implements
     @Override
     public void showFiles() {
         if (fileNodeAdapter == null) {
+            if (!presenter.showFiles.isEmpty()) {
+                BaseNode baseNode = presenter.showFiles.get(0);
+                if (baseNode instanceof LevelDirNode) {
+                    LevelDirNode dirNode = (LevelDirNode) baseNode;
+                    dirNode.setExpanded(true);
+                }
+            } else {
+                LogUtils.e(TAG, "会议目录和文件是空的");
+            }
             fileNodeAdapter = new FileNodeAdapter(presenter.showFiles);
             rv_material.setLayoutManager(new LinearLayoutManager(getContext()));
             rv_material.setAdapter(fileNodeAdapter);

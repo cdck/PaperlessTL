@@ -28,7 +28,6 @@ public class MaterialPresenter extends BasePresenter<MaterialContract.View> impl
      * 存放目录的展开和收缩状态
      */
     Map<Integer, Boolean> isExpandedMap = new HashMap<>();
-    Map<Integer, Boolean> isSelectedMap = new HashMap<>();
 
     public MaterialPresenter(MaterialContract.View view) {
         super(view);

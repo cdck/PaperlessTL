@@ -119,7 +119,7 @@ public class SendEmailFragment extends BaseFragment implements SendEmailInterfac
         String meetName = currentMeet == null ? "" : currentMeet.getName().toStringUtf8();
         edt_theme.setText(meetName);
         String content = edt_content.getText().toString().trim();
-        if (content.isEmpty()) {
+        if (currentMeet!=null && content.isEmpty()) {
             String startTime = DateUtil.secondFormatDateTime(currentMeet.getStartTime());
             String endTime = DateUtil.secondFormatDateTime(currentMeet.getEndTime());
             String useTime = startTime + "-" + endTime;
