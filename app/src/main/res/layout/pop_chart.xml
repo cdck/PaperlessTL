@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dp_5"
-    android:background="@drawable/dialog_full_holo_light">
+    android:background="@drawable/dialog_bg">
 
     <ImageView
         android:id="@+id/pop_chart_close"
@@ -76,6 +76,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_option_a_color"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@color/option_a" />
@@ -97,6 +98,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_option_b_color"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@color/option_b" />
@@ -118,6 +120,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_option_c_color"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@color/option_c" />
@@ -139,6 +142,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_option_d_color"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@color/option_d" />
@@ -160,6 +164,7 @@
             android:orientation="horizontal">
 
             <ImageView
+                android:id="@+id/iv_option_e_color"
                 android:layout_width="@dimen/dp_20"
                 android:layout_height="@dimen/dp_20"
                 android:background="@color/option_e" />

@@ -161,35 +161,35 @@
 
             <Button
                 android:id="@+id/btn_increase"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/increase" />
 
             <Button
                 android:id="@+id/btn_modify"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/modify" />
 
             <Button
                 android:id="@+id/btn_delete"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/delete" />
 
             <Button
                 android:id="@+id/btn_sort"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/sort" />
 
             <Button
                 android:id="@+id/btn_member_permission"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/member_permission" />
@@ -207,35 +207,35 @@
 
             <Button
                 android:id="@+id/btn_import"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/import_excel" />
 
             <Button
                 android:id="@+id/btn_export"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/export_excel" />
 
             <Button
                 android:id="@+id/btn_import_frequently"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/import_from_frequently" />
 
             <Button
                 android:id="@+id/btn_export_frequently"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/export_frequently" />
 
             <Button
                 android:id="@+id/btn_member_role"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/member_role" />

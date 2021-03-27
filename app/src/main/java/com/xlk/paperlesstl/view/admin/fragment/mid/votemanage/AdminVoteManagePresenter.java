@@ -84,10 +84,6 @@ public class AdminVoteManagePresenter extends BasePresenter {
         }
     }
 
-    public void launchVote(List<Integer> memberIds, int voteid, int timeouts) {
-        jni.launchVote(memberIds, voteid, timeouts);
-    }
-
     public void stopVote(int voteid) {
         jni.stopVote(voteid);
     }

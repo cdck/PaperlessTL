@@ -38,14 +38,18 @@ public class BulletFragment extends BaseFragment<BulletPresenter> implements Bul
         inflate.findViewById(R.id.btn_add).setOnClickListener(v -> {
             String title = edtTitle.getText().toString().trim();
             String content = edtContent.getText().toString().trim();
-            if (title.isEmpty()) {
-                ToastUtils.showShort(R.string.please_enter_title_first);
+            if(title.isEmpty() && content.isEmpty()){
+                ToastUtils.showShort(R.string.please_enter_title_or_content);
                 return;
             }
-            if (content.isEmpty()) {
-                ToastUtils.showShort(R.string.please_enter_content_first);
-                return;
-            }
+//            if (title.isEmpty()) {
+//                ToastUtils.showShort(R.string.please_enter_title_first);
+//                return;
+//            }
+//            if (content.isEmpty()) {
+//                ToastUtils.showShort(R.string.please_enter_content_first);
+//                return;
+//            }
             InterfaceBullet.pbui_Item_BulletDetailInfo build = InterfaceBullet.pbui_Item_BulletDetailInfo.newBuilder()
                     .setTitle(s2b(title))
                     .setContent(s2b(content))

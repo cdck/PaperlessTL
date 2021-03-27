@@ -91,7 +91,7 @@ public class FileUtil {
                 fileName.endsWith(".flv");
     }
 
-    public static boolean isVideo(String fileName){
+    public static boolean isVideo(String fileName) {
         if (TextUtils.isEmpty(fileName)) return false;
         return fileName.endsWith(".mp4") ||
                 fileName.endsWith(".3gp") ||
@@ -111,18 +111,18 @@ public class FileUtil {
     public static void openFile(Context context, String dir, String filename, int mediaid) {
         FileUtils.createOrExistsDir(dir);
         String pathname = dir + filename;
-        File file = new File(pathname);
-        if (!file.exists()) {
-            LogUtils.d(TAG, "openFile -->" + "下载将要打开的文件 pathname= " + pathname);
-            JniHelper.getInstance().creationFileDownload(pathname, mediaid, 1, 0,
-                    Constant.DOWNLOAD_SHOULD_OPEN_FILE);
-        } else {
-            if (GlobalValue.downloadingFiles.contains(mediaid)) {
-                ToastUtils.showShort(R.string.currently_downloading);
-            } else {
-                openFile(context, file);
-            }
-        }
+//        File file = new File(pathname);
+//        if (!file.exists()) {
+        LogUtils.d(TAG, "openFile -->" + "下载将要打开的文件 pathname= " + pathname);
+        JniHelper.getInstance().creationFileDownload(pathname, mediaid, 1, 0,
+                Constant.DOWNLOAD_SHOULD_OPEN_FILE);
+//        } else {
+//            if (GlobalValue.downloadingFiles.contains(mediaid)) {
+//                ToastUtils.showShort(R.string.currently_downloading);
+//            } else {
+//                openFile(context, file);
+//            }
+//        }
     }
 
     public static void openFile(Context context, File file) {
@@ -293,6 +293,7 @@ public class FileUtil {
             }
         });
     }
+
     /**
      * 将BitMap保存到指定目录下
      *
@@ -315,6 +316,7 @@ public class FileUtil {
             }
         }
     }
+
     /**
      * 文件名是否合法
      *
@@ -324,5 +326,41 @@ public class FileUtil {
     public static boolean isLegalName(String fileName) {
         String regex = "[^\\s\\\\/:\\*\\?\\\"<>\\|](\\x20|[^\\s\\\\/:\\*\\?\\\"<>\\|])*[^\\s\\\\/:\\*\\?\\\"<>\\|\\.]$";
         return fileName.matches(regex);
+    }
+
+    /**
+     * 从目录下查找某文件
+     *
+     * @param dirPath  目录路径
+     * @param fileName 带后缀的文件名 eg：123.txt
+     * @return
+     */
+    public static File findFileByDir(String dirPath, String fileName, long fileSize) {
+        File dirFile = new File(dirPath);
+        return findFileByDir(dirFile, fileName, fileSize);
+    }
+
+    /**
+     * 从目录下查找某文件
+     *
+     * @param dirFile  目录文件
+     * @param fileName 带后缀的文件名 eg：123.txt
+     * @return
+     */
+    public static File findFileByDir(File dirFile, String fileName, long fileSize) {
+        if (!dirFile.exists() || !dirFile.isDirectory()) {
+            return null;
+        }
+        File[] files = dirFile.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                findFileByDir(file, fileName, fileSize);
+            } else {
+                if (fileName.equals(file.getName()) && file.length() == fileSize) {
+                    return file;
+                }
+            }
+        }
+        return null;
     }
 }

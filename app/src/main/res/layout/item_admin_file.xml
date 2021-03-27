@@ -90,7 +90,7 @@
 
     <Button
         android:id="@+id/item_btn_open"
-        style="@style/btn_pressed_style"
+        style="@style/btn_gray_blue_pressed_style"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_marginEnd="1px"

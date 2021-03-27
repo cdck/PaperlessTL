@@ -292,6 +292,11 @@ public class VoteResultFragment extends BaseFragment implements VoteResultInterf
         public TextView pop_option_e_tv;
         public LinearLayout pop_option_e_ll;
         public LinearLayout linearLayout3;
+        public ImageView iv_option_a_color;
+        public ImageView iv_option_b_color;
+        public ImageView iv_option_c_color;
+        public ImageView iv_option_d_color;
+        public ImageView iv_option_e_color;
 
         public ChartViewHolder(View rootView) {
             this.rootView = rootView;
@@ -299,6 +304,11 @@ public class VoteResultFragment extends BaseFragment implements VoteResultInterf
             this.pop_chart_type = (TextView) rootView.findViewById(R.id.pop_chart_type);
             this.pop_chart_title = (TextView) rootView.findViewById(R.id.pop_chart_title);
             this.pop_chart = (PieChart) rootView.findViewById(R.id.pop_chart);
+            this.iv_option_a_color = (ImageView) rootView.findViewById(R.id.iv_option_a_color);
+            this.iv_option_b_color = (ImageView) rootView.findViewById(R.id.iv_option_b_color);
+            this.iv_option_c_color = (ImageView) rootView.findViewById(R.id.iv_option_c_color);
+            this.iv_option_d_color = (ImageView) rootView.findViewById(R.id.iv_option_d_color);
+            this.iv_option_e_color = (ImageView) rootView.findViewById(R.id.iv_option_e_color);
             this.pop_option_a_tv = (TextView) rootView.findViewById(R.id.pop_option_a_tv);
             this.pop_option_a_ll = (LinearLayout) rootView.findViewById(R.id.pop_option_a_ll);
             this.pop_option_b_tv = (TextView) rootView.findViewById(R.id.pop_option_b_tv);

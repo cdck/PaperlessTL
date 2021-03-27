@@ -76,14 +76,14 @@
 
         <Button
             android:id="@+id/btn_ensure"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_20"
             android:text="@string/ensure" />
 
         <Button
             android:id="@+id/btn_cancel"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
             android:text="@string/cancel" />

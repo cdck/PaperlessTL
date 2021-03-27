@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.PopupWindow;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -48,6 +49,7 @@ public class AdminCameraControlFragment extends BaseFragment implements AdminCam
     private Button btn_end_screen;
     private Button btn_start_pro;
     private Button btn_end_pro;
+    private CheckBox cb_enable_recording;
     private AdminCameraControlPresenter presenter;
     List<Integer> ids = new ArrayList<>();
     private int width, height;
@@ -120,7 +122,12 @@ public class AdminCameraControlFragment extends BaseFragment implements AdminCam
         this.btn_end_screen = (Button) rootView.findViewById(R.id.btn_end_screen);
         this.btn_start_pro = (Button) rootView.findViewById(R.id.btn_start_pro);
         this.btn_end_pro = (Button) rootView.findViewById(R.id.btn_end_pro);
-
+        this.cb_enable_recording = (CheckBox) rootView.findViewById(R.id.cb_enable_recording);
+        cb_enable_recording.setOnClickListener(v -> {
+            boolean checked = cb_enable_recording.isChecked();
+            cb_enable_recording.setChecked(checked);
+            jni.modifyContextProperties(InterfaceMacro.Pb_ContextPropertyID.Pb_MEETCONTEXT_PROPERTY_STREAMSAVE_VALUE, checked ? 1 : 0);
+        });
         custom_video_view.setViewClickListener(this);
         btn_watch_video.setOnClickListener(this);
         btn_stop_watch.setOnClickListener(this);
@@ -139,16 +146,7 @@ public class AdminCameraControlFragment extends BaseFragment implements AdminCam
                     if (videoDev != null) {
                         int selectResId = custom_video_view.getSelectResId();
                         if (selectResId != -1) {
-//                            List<Integer> resids = new ArrayList();
-//                            resids.add(selectResId);
-//                            presenter.stopResource(resids);
                             presenter.watch(videoDev, selectResId);
-//                            new Timer().schedule(new TimerTask() {
-//                                @Override
-//                                public void run() {
-//                                    presenter.watch(videoDev, selectResId);
-//                                }
-//                            }, 500);
                         } else {
                             ToastUtils.showShort(R.string.please_choose_view);
                         }
@@ -261,7 +259,7 @@ public class AdminCameraControlFragment extends BaseFragment implements AdminCam
 
     private void showScreenPop(boolean isStart, VideoDev videoDev) {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.wm_screen_view, null);
-        screenPop = PopupUtil.createHalfPop(inflate,   btn_start_screen);
+        screenPop = PopupUtil.createHalfPop(inflate, btn_start_screen);
         CustomBaseViewHolder.ScreenViewHolder holder = new CustomBaseViewHolder.ScreenViewHolder(inflate);
         screenHolderEvent(holder, isStart, videoDev);
     }

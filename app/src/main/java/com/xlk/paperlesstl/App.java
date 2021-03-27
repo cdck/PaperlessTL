@@ -13,6 +13,7 @@ import android.util.DisplayMetrics;
 import android.view.WindowManager;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.Utils;
 import com.tencent.smtt.sdk.QbSdk;
@@ -116,7 +117,7 @@ public class App extends Application {
             @Override
             public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
                 activities.add(activity);
-                LogUtils.d(TAG, "onActivityCreated " + activity + ",Activity数量=" + activities.size() + logAxt());
+                LogUtils.d("activityLife", "onActivityCreated " + activity + ",Activity数量=" + activities.size() + logAxt());
                 if (activity.getClass().getName().equals(MeetingActivity.class.getName())) {
                     openFabService(true);
                 }
@@ -129,39 +130,40 @@ public class App extends Application {
 
             @Override
             public void onActivityStarted(@NonNull Activity activity) {
-                LogUtils.i(TAG, "onActivityStarted " + activity);
+                LogUtils.i("activityLife", "onActivityStarted " + activity);
             }
 
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
-                LogUtils.i(TAG, "onActivityResumed " + activity);
+                LogUtils.i("activityLife", "onActivityResumed " + activity);
             }
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
-                LogUtils.i(TAG, "onActivityPaused " + activity);
+                LogUtils.i("activityLife", "onActivityPaused " + activity);
             }
 
             @Override
             public void onActivityStopped(@NonNull Activity activity) {
-                LogUtils.i(TAG, "onActivityStopped " + activity);
+                LogUtils.i("activityLife", "onActivityStopped " + activity);
             }
 
             @Override
             public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
-                LogUtils.i(TAG, "onActivitySaveInstanceState " + activity);
+                LogUtils.i("activityLife", "onActivitySaveInstanceState " + activity);
             }
 
             @Override
             public void onActivityDestroyed(@NonNull Activity activity) {
                 activities.remove(activity);
-                LogUtils.e(TAG, "onActivityDestroyed " + activity + ",Activity数量=" + activities.size() + logAxt());
+                LogUtils.e("activityLife", "onActivityDestroyed " + activity + ",Activity数量=" + activities.size() + logAxt());
                 if (activity.getClass().getName().equals(MeetingActivity.class.getName())) {
                     openFabService(false);
                 }
                 if (activities.isEmpty()) {
-                    openBackService(false);
-                    System.exit(0);
+                    AppUtils.exitApp();
+//                    openBackService(false);
+//                    System.exit(0);
                 }
             }
         });

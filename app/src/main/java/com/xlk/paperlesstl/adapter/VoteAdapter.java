@@ -1,6 +1,7 @@
 package com.xlk.paperlesstl.adapter;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -100,10 +101,16 @@ public class VoteAdapter extends BaseQuickAdapter<InterfaceVote.pbui_Item_MeetVo
                 ll_answer_e.setVisibility(View.VISIBLE);
             }
         }
-        holder.getView(R.id.btn_launch_vote).setVisibility(votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE
-                ? View.VISIBLE : View.INVISIBLE);
-        holder.getView(R.id.btn_stop_vote).setVisibility(votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_voteing_VALUE
-                ? View.VISIBLE : View.INVISIBLE);
+        boolean isVote = info.getMaintype() == InterfaceMacro.Pb_MeetVoteType.Pb_VOTE_MAINTYPE_vote_VALUE;
+        Button btn_launch_vote = holder.getView(R.id.btn_launch_vote);
+        Button btn_stop_vote = holder.getView(R.id.btn_stop_vote);
+        btn_launch_vote.setText(isVote ? getContext().getString(R.string.launch_vote) : getContext().getString(R.string.launch_election));
+        btn_stop_vote.setText(isVote ? getContext().getString(R.string.stop_vote) : getContext().getString(R.string.stop_election));
+        btn_launch_vote.setVisibility(
+                (votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE || votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_endvote_VALUE)
+                        ? View.VISIBLE : View.GONE);
+        btn_stop_vote.setVisibility(votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_voteing_VALUE
+                ? View.VISIBLE : View.GONE);
         boolean isSelected = selectedId == info.getVoteid();
         holder.getView(R.id.item_root_view).setBackgroundColor(isSelected ?
                 getContext().getColor(R.color.light_blue) : getContext().getColor(R.color.transparent));

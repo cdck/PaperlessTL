@@ -7,21 +7,52 @@
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/item_dir_iv"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_margin="5dp"
-        android:src="@drawable/icon_collect_status" />
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7"
+        android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/item_dir_tv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:lines="1"
-        android:singleLine="true"
-        android:textColor="@color/black"
-        tools:text="圣诞快乐放假临时冻结" />
+        <ImageView
+            android:id="@+id/item_dir_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/icon_collect_status" />
+
+        <TextView
+            android:id="@+id/item_dir_tv"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:lines="1"
+            android:singleLine="true"
+            android:textColor="@color/black"
+            tools:text="圣诞快乐放假临时冻结" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_delete_dir"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/iv_delete_dir"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@drawable/delete_s" />
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/temp_view"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2" />
 </LinearLayout>

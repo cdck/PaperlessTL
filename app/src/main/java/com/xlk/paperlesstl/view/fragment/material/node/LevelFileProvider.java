@@ -49,6 +49,8 @@ public class LevelFileProvider extends BaseNodeProvider {
         LevelFileNode fileNode = (LevelFileNode) node;
         ImageView item_file_iv = helper.getView(R.id.iv_file_type);
         String fileName = fileNode.getName();
+        long fileSize = fileNode.getSize();
+        String fileSizeStr = FileUtil.formatFileSize(fileSize);
 
         if (FileUtil.isPicture(fileName)) {
             item_file_iv.setImageResource(R.drawable.ic_file_type_picture);
@@ -64,7 +66,7 @@ public class LevelFileProvider extends BaseNodeProvider {
             item_file_iv.setImageResource(R.drawable.ic_file_type_other);
         }
         helper.setText(R.id.tv_file_name, fileName)
-                .setText(R.id.tv_file_size, FileUtil.formatFileSize(fileNode.getSize()));
+                .setText(R.id.tv_file_size, fileSizeStr);
 
         helper.getView(R.id.iv_preview).setOnClickListener(v -> {
             LogUtils.i(TAG, "onChildClick fileName=" + fileName);
@@ -85,20 +87,29 @@ public class LevelFileProvider extends BaseNodeProvider {
             View inflate = LayoutInflater.from(getContext()).inflate(R.layout.item_file_more_oper, null, false);
             int dp2px = ConvertUtils.dp2px(150);
             PopupWindow popupWindow = PopupUtil.createAs(inflate, iv_more, iv_more.getWidth(), -dp2px);
+            //推送文件
             inflate.findViewById(R.id.tv_push).setOnClickListener(v -> {
                 EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_PUSH_FILE).objects(fileNode.getMediaId()).build());
                 popupWindow.dismiss();
             });
+            //下载
             inflate.findViewById(R.id.tv_download).setOnClickListener(v -> {
                 FileUtils.createOrExistsDir(Constant.DOWNLOAD_DIR);
-                JniHelper.getInstance().creationFileDownload(Constant.DOWNLOAD_DIR + fileName, fileNode.getMediaId(),
+                String pathName = Constant.DOWNLOAD_DIR + fileName;
+//                File file = new File(fileName);
+//                if (file.exists()) {
+//                    //获取无后缀的文件名
+//                    String name = FileUtils.getFileNameNoExtension(pathName);
+//                    String suffix = FileUtils.getFileExtension(pathName);
+//                    pathName = Constant.DOWNLOAD_DIR + name + "(" + DateUtil.nowDate() + ")." + suffix;
+//                }
+                JniHelper.getInstance().creationFileDownload(pathName, fileNode.getMediaId(),
                         1, 0, Constant.DOWNLOAD_MEETING_FILE);
                 popupWindow.dismiss();
             });
+            //缓存
             inflate.findViewById(R.id.tv_cache).setOnClickListener(v -> {
-                FileUtils.createOrExistsDir(Constant.CACHE_DIR);
-                JniHelper.getInstance().creationFileDownload(Constant.CACHE_DIR + fileName, fileNode.getMediaId(),
-                        1, 0, Constant.CACHE_MEETING_FILE);
+                JniHelper.getInstance().createFileCache(fileNode.getDirId(),fileNode.getMediaId(),1,0,Constant.CACHE_MEETING_FILE);
                 popupWindow.dismiss();
             });
         });

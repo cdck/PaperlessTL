@@ -100,7 +100,7 @@
 
         <Button
             android:id="@+id/btn_next_time"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_margin="@dimen/dp_5"
             android:text="@string/next_time_upgrade"
@@ -109,7 +109,7 @@
 
         <Button
             android:id="@+id/btn_upgrade"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_margin="@dimen/dp_5"
             android:text="@string/upgrade_now"

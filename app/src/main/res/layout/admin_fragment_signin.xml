@@ -56,7 +56,7 @@
 
         <Button
             android:id="@+id/btn_delete"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
@@ -65,7 +65,7 @@
 
         <Button
             android:id="@+id/btn_export_pdf"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:layout_gravity="center"

@@ -119,15 +119,21 @@ public class AnnotatePresenter extends BasePresenter<AnnotateContract.View> impl
         InterfaceRoom.pbui_Type_MeetSeatDetailInfo object = jni.queryMeetRanking();
         seatMembers.clear();
         if (object != null) {
+            int localIndex = 0;
             List<InterfaceRoom.pbui_Item_MeetSeatDetailInfo> itemList = object.getItemList();
             for (int i = 0; i < itemList.size(); i++) {
                 InterfaceRoom.pbui_Item_MeetSeatDetailInfo item = itemList.get(i);
                 for (int j = 0; j < memberInfos.size(); j++) {
                     if (memberInfos.get(j).getPersonid() == item.getNameId()) {
+                        if (item.getSeatid() == GlobalValue.localDeviceId) {
+                            localIndex = seatMembers.size();
+                        }
                         seatMembers.add(new SeatMember(memberInfos.get(j), item));
                     }
                 }
             }
+            //将本机的参会人移动到第一个（remove后返回被删除的元素）
+            seatMembers.add(0, seatMembers.remove(localIndex));
         }
         mView.updateMember();
     }

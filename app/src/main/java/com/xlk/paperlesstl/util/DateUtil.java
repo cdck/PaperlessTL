@@ -12,11 +12,11 @@ public class DateUtil {
     /**
      * 将当前获取的时间戳转换成详细日期时间
      *
-     * @return 返回格式 2020-10-29 17:48:35
+     * @return 返回格式 2021年3月23日17时32分11秒
      */
     public static String nowDate() {
         Date tTime = new Date(System.currentTimeMillis());
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒");
         return format.format(tTime);
     }
 

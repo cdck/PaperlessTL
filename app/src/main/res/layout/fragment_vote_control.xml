@@ -167,7 +167,7 @@
 
         <Button
             android:id="@+id/btn_add"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1"
@@ -175,7 +175,7 @@
 
         <Button
             android:id="@+id/btn_modify"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1"
@@ -183,7 +183,7 @@
 
         <Button
             android:id="@+id/btn_delete"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1"
@@ -191,7 +191,7 @@
 
         <Button
             android:id="@+id/btn_export_excel"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1"
@@ -199,7 +199,7 @@
 
         <Button
             android:id="@+id/btn_import_excel"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1"
@@ -207,7 +207,7 @@
 
         <Button
             android:id="@+id/btn_see_details"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_marginEnd="@dimen/dp_5"
             android:layout_weight="1"
@@ -215,7 +215,7 @@
 
         <Button
             android:id="@+id/btn_see_chart"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:text="@string/see_chart" />

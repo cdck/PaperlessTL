@@ -216,7 +216,8 @@ public class JniHelper {
      */
     public void creationFileDownload(String pathName, int mediaId, int isNewFile, int onlyFinish, String userStr) {
         if (downloadingFiles.contains(mediaId)) {
-            ToastUtils.showShort(R.string.file_downloading);
+            LogUtils.e(TAG,"文件下载中...");
+//            ToastUtils.showShort(R.string.file_downloading);
             return;
         }
         InterfaceDownload.pbui_Type_DownloadStart build = InterfaceDownload.pbui_Type_DownloadStart.newBuilder()
@@ -1123,17 +1124,17 @@ public class JniHelper {
      * @param voteid    投票ID
      * @param seconds   单位秒
      */
-    public void launchVote(List<Integer> memberIds, int voteid, int seconds) {
+    public void launchVote(List<Integer> memberIds, int voteid, int seconds, int voteFlag) {
         InterfaceVote.pbui_ItemVoteStart.Builder b = InterfaceVote.pbui_ItemVoteStart.newBuilder();
         b.setVoteid(voteid);
-        b.setVoteflag(InterfaceMacro.Pb_VoteStartFlag.Pb_MEET_VOTING_FLAG_AUTOEXIT_VALUE);
+        b.setVoteflag(voteFlag);
         b.setTimeouts(seconds);
         b.addAllMemberid(memberIds);
         InterfaceVote.pbui_Type_MeetStartVoteInfo.Builder builder = InterfaceVote.pbui_Type_MeetStartVoteInfo.newBuilder();
         builder.addItem(b);
         InterfaceVote.pbui_Type_MeetStartVoteInfo build = builder.build();
         jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETONVOTING.getNumber(), InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_START.getNumber(), build.toByteArray());
-        LogUtils.e(TAG, "launchVote:  发起投票 --->>> ");
+        LogUtils.e(TAG, "launchVote:  发起投票 --->>> voteFlag=" + voteFlag);
     }
 
     /**
@@ -2052,8 +2053,8 @@ public class JniHelper {
      * 查询会议
      */
     public InterfaceMeet.pbui_Type_MeetMeetInfo queryAllMeeting() {
-        byte[] bytes = jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETINFO_VALUE,
-                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_QUERY_VALUE, null);
+        byte[] bytes = jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETINFO.getNumber(),
+                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_QUERY.getNumber(), null);
         if (bytes != null) {
             try {
                 InterfaceMeet.pbui_Type_MeetMeetInfo result = InterfaceMeet.pbui_Type_MeetMeetInfo.parseFrom(bytes);
@@ -2065,6 +2066,18 @@ public class JniHelper {
         }
         LogUtils.e(TAG, "queryAllMeeting 查询会议失败");
         return null;
+    }
+    /**
+     * 删除会议
+     *
+     * @param meetMeetInfo
+     */
+    public void deleteMeeting(InterfaceMeet.pbui_Item_MeetMeetInfo meetMeetInfo) {
+        InterfaceMeet.pbui_Type_MeetMeetInfo build = InterfaceMeet.pbui_Type_MeetMeetInfo.newBuilder()
+                .addItem(meetMeetInfo).build();
+        jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETINFO.getNumber(),
+                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_DEL.getNumber(),
+                build.toByteArray());
     }
 
     /**
@@ -3070,5 +3083,47 @@ public class JniHelper {
         }
         LogUtils.e(TAG, "querySubmitterByVoteId 查询指定投票的提交人失败 voteid=" + voteid);
         return null;
+    }
+
+    /**
+     * 判断是否连接服务器（在线）
+     * @return 是否在线
+     */
+    public boolean isOnline() {
+        boolean isonline = false;
+        byte[] bytes = queryDevicePropertiesById(InterfaceMacro.Pb_MeetDevicePropertyID.Pb_MEETDEVICE_PROPERTY_NETSTATUS_VALUE,
+                GlobalValue.localDeviceId);
+        if (bytes != null) {
+            InterfaceDevice.pbui_DeviceInt32uProperty pbui_deviceInt32uProperty = null;
+            try {
+                pbui_deviceInt32uProperty = InterfaceDevice.pbui_DeviceInt32uProperty.parseFrom(bytes);
+                int propertyval = pbui_deviceInt32uProperty.getPropertyval();
+                isonline = propertyval == 1;
+            } catch (InvalidProtocolBufferException e) {
+                e.printStackTrace();
+            }
+        }
+        return isonline;
+    }
+
+    /**
+     * 创建一个文件离线本地缓存
+     *
+     * @param dirid      目录ID
+     * @param mediaid    媒体ID
+     * @param newfile    =0不覆盖同名文件,=1重新下载
+     * @param onlyfinish =1表示只需要结束的通知
+     * @param userStr    自定义标识
+     */
+    public void createFileCache(int dirid, int mediaid, int newfile, int onlyfinish, String userStr) {
+        InterfaceDownload.pbui_Type_DownloadCache build = InterfaceDownload.pbui_Type_DownloadCache.newBuilder()
+                .setDirid(dirid)
+                .setMediaid(mediaid)
+                .setNewfile(newfile)
+                .setOnlyfinish(onlyfinish)
+                .setUserstr(s2b(userStr))
+                .build();
+        jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DOWNLOAD.getNumber(),
+                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_SAVE.getNumber(), build.toByteArray());
     }
 }

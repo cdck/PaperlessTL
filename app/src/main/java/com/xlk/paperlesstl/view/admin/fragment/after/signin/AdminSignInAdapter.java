@@ -42,7 +42,6 @@ public class AdminSignInAdapter extends BaseQuickAdapter<SignInBean, BaseViewHol
         return checks;
     }
 
-
     @Override
     protected void convert(BaseViewHolder helper, SignInBean item) {
         InterfaceSignin.pbui_Item_MeetSignInDetailInfo sign = item.getSign();
@@ -59,6 +58,7 @@ public class AdminSignInAdapter extends BaseQuickAdapter<SignInBean, BaseViewHol
         ;
         Button item_view_5 = helper.getView(R.id.item_view_5);
         item_view_5.setBackgroundColor(Color.WHITE);
+        item_view_5.setText("");
         item_view_5.setEnabled(false);
         if (isSignIn) {
             int signinType = sign.getSigninType();

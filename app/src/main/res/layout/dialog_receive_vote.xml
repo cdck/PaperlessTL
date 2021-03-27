@@ -31,54 +31,54 @@
             android:src="@drawable/login_close_n" />
     </RelativeLayout>
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="@color/white"
-        android:layout_weight="1">
+        android:orientation="vertical">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:background="@color/light_gray"
-            android:orientation="vertical">
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            tools:text="时间到了开发技术的控件" />
+
+        <LinearLayout
+            android:id="@+id/countdown_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="match_parent"
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                tools:text="时间到了开发技术的控件" />
+                android:text="@string/end_countdown"
+                android:textColor="@color/light_black"
+                android:textSize="14sp" />
 
-            <LinearLayout
-                android:id="@+id/countdown_view"
-                android:layout_width="match_parent"
+            <Chronometer
+                android:id="@+id/chronometer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal">
+                android:format="00"
+                android:gravity="center"
+                android:textSize="14sp" />
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="5dp"
-                    android:layout_marginTop="3dp"
-                    android:text="@string/end_countdown"
-                    android:textColor="@color/light_black"
-                    android:textSize="12sp" />
-
-                <Chronometer
-                    android:id="@+id/chronometer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:format="00"
-                    android:gravity="center"
-                    android:textSize="12sp" />
-            </LinearLayout>
+        <ScrollView
+            android:id="@+id/sv_election"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -129,17 +129,77 @@
                     android:background="@color/white"
                     tools:text="A.赞成" />
             </LinearLayout>
+
+        </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/ll_vote_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_favour"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/icon_vote_approve" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_against"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/icon_vote_against" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/iv_waiver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawablePadding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/icon_vote_abstain" />
+            </RelativeLayout>
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_ensure"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_margin="@dimen/dp_5">
 
         <Button
             android:id="@+id/btn_ensure"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="150dp"
             android:layout_height="30dp"
             android:layout_centerInParent="true"

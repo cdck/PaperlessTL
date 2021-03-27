@@ -446,28 +446,28 @@
 
         <Button
             android:id="@+id/btn_save_set"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/save_set" />
 
         <Button
             android:id="@+id/btn_default_location"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/default_location" />
 
         <Button
             android:id="@+id/btn_delete_bg"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="@string/delete_background" />
 
         <Button
             android:id="@+id/btn_delete_file"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/dp_10"
             android:layout_marginEnd="@dimen/dp_5"
@@ -475,14 +475,14 @@
 
         <Button
             android:id="@+id/btn_import_file"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/import_file" />
 
         <Button
             android:id="@+id/btn_save_tableCard"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:text="@string/save_tableCard" />
 

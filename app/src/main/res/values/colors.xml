@@ -21,6 +21,9 @@
     <color name="text_color_red">#E10000</color>
     <color name="video_time">#45F24C</color>
     <color name="video_pop_bg">#99000000</color>
+    <color name="vote_chart_color_green">#00FF00</color>
+    <color name="vote_chart_color_red">#FF0000</color>
+    <color name="vote_chart_color_yellow">#FDD835</color>
     <color name="option_a">#FF0000</color>
     <color name="option_b">#00FF00</color>
     <color name="option_c">#0000FF</color>
@@ -43,6 +46,7 @@
     <drawable name="text_color_white">#ffffff</drawable>
     <drawable name="text_color_gray">#4a4a4a</drawable>
     <drawable name="text_color_black">#000000</drawable>
+    <drawable name="text_color_blue">#1062BC</drawable>
     <color name="red">#ce081c</color>
     <color name="btn_choosed">#12e6fe</color>
     <color name="wm_view_bg">#FFFFFF</color>

@@ -25,14 +25,14 @@
 
         <Button
             android:id="@+id/btn_download"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="@string/download" />
 
         <Button
             android:id="@+id/btn_delete"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/dp_10"
             android:text="@string/delete" />

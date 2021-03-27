@@ -40,8 +40,11 @@ public class NoticeAdapter extends BaseQuickAdapter<InterfaceBullet.pbui_Item_Bu
 
     @Override
     protected void convert(@NotNull BaseViewHolder holder, InterfaceBullet.pbui_Item_BulletDetailInfo item) {
+        String title = item.getTitle().toStringUtf8();
+        String content = item.getContent().toStringUtf8();
+        String showStr = title.isEmpty() ? content : title;
         holder.setText(R.id.tv_number, String.valueOf(holder.getLayoutPosition() + 1))
-                .setText(R.id.tv_title, item.getTitle().toStringUtf8());
+                .setText(R.id.tv_title, showStr);
         boolean isSelected = selectedId == item.getBulletid();
         TextView tv_number = holder.getView(R.id.tv_number);
         TextView tv_title = holder.getView(R.id.tv_title);

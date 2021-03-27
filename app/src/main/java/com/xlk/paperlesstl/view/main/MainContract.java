@@ -116,6 +116,8 @@ public interface MainContract {
         void updateUI(InterfaceDevice.pbui_Type_DeviceFaceShowDetail devMeetInfo);
 
         void loginStatus(InterfaceAdmin.pbui_Type_AdminLogonStatus info);
+
+        void updateLoginStatus(int status);
     }
 
     interface Presenter extends IBasePresenter {

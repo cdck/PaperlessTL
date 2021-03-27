@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="btn_pressed_style">
-        <item name="android:background">@drawable/btn_pressed_bg</item>
+    <style name="btn_blue_gray_pressed_style">
+        <item name="android:background">@drawable/btn_blue_gray_pressed</item>
         <item name="android:textColor">@drawable/white_black_text_pressed</item>
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:layout_width">@dimen/dp_60</item>
         <item name="android:layout_height">@dimen/dp_30</item>
     </style>
 
-    <style name="btn_selected_style">
-        <item name="android:background">@drawable/btn_selected_bg</item>
+    <style name="btn_blue_gray_selected_style">
+        <item name="android:background">@drawable/btn_blue_gray_selected</item>
         <item name="android:textColor">@drawable/white_black_text_selected</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_width">@dimen/dp_60</item>
+        <item name="android:layout_height">@dimen/dp_30</item>
+    </style>
+
+    <style name="btn_gray_blue_selected_style">
+        <item name="android:background">@drawable/btn_gray_blue_selected</item>
+        <item name="android:textColor">@drawable/black_white_text_selected</item>
+        <item name="android:textSize">@dimen/sp_12</item>
+        <item name="android:layout_width">@dimen/dp_60</item>
+        <item name="android:layout_height">@dimen/dp_30</item>
+    </style>
+
+    <style name="btn_gray_blue_pressed_style">
+        <item name="android:background">@drawable/btn_gray_blue_pressed</item>
+        <item name="android:textColor">@drawable/black_white_text_pressed</item>
         <item name="android:textSize">@dimen/sp_12</item>
         <item name="android:layout_width">@dimen/dp_60</item>
         <item name="android:layout_height">@dimen/dp_30</item>
@@ -46,7 +62,7 @@
     </style>
 
     <style name="draw_tv_pressed">
-        <item name="android:textColor">@drawable/white_black_text_pressed</item>
+        <item name="android:textColor">@drawable/black_white_text_pressed</item>
         <item name="android:background">@drawable/shape_btn_pressed</item>
         <item name="android:clickable">true</item>
         <item name="android:drawablePadding">@dimen/dp_2</item>
@@ -62,7 +78,7 @@
     </style>
 
     <style name="draw_tv_selected">
-        <item name="android:textColor">@drawable/white_black_text_selected</item>
+        <item name="android:textColor">@drawable/black_white_text_selected</item>
         <item name="android:background">@drawable/shape_btn_selected</item>
         <item name="android:clickable">true</item>
         <item name="android:drawablePadding">@dimen/dp_2</item>

@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.FileUtils;
@@ -44,6 +45,9 @@ public class FileAdapter extends BaseQuickAdapter<InterfaceFile.pbui_Item_MeetDi
     @Override
     protected void convert(@NotNull BaseViewHolder helper, InterfaceFile.pbui_Item_MeetDirFileDetailInfo item) {
         ImageView item_file_iv = helper.getView(R.id.iv_file_type);
+        TextView tv_number = helper.getView(R.id.tv_number);
+        tv_number.setText(String.valueOf(helper.getLayoutPosition() + 1));
+        tv_number.setVisibility(need_uploader ? View.VISIBLE : View.INVISIBLE);
         String fileName = item.getName().toStringUtf8();
 
         if (FileUtil.isPicture(fileName)) {
@@ -94,9 +98,8 @@ public class FileAdapter extends BaseQuickAdapter<InterfaceFile.pbui_Item_MeetDi
                 popupWindow.dismiss();
             });
             inflate.findViewById(R.id.tv_cache).setOnClickListener(v -> {
-                FileUtils.createOrExistsDir(Constant.CACHE_DIR);
-                JniHelper.getInstance().creationFileDownload(Constant.CACHE_DIR + fileName, item.getMediaid(),
-                        1, 0, Constant.CACHE_MEETING_FILE);
+                int dirId = need_uploader ? Constant.SHARED_FILE_DIRECTORY_ID : Constant.ANNOTATION_FILE_DIRECTORY_ID;
+                JniHelper.getInstance().createFileCache(dirId, item.getMediaid(), 1, 0, Constant.CACHE_MEETING_FILE);
                 popupWindow.dismiss();
             });
         });

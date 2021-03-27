@@ -12,6 +12,7 @@ public class SharedPreferenceHelper {
     public static final String key_remember = "remember";
     public static final String key_user = "user";
     public static final String key_password = "password";
+    public static final String key_administrator_login = "administrator_login";
 
     /**
      * 邮箱账号

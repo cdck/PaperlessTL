@@ -238,7 +238,7 @@
 
                 <Button
                     android:id="@+id/btn_delete_file"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="@dimen/dp_5"
@@ -247,7 +247,7 @@
 
                 <Button
                     android:id="@+id/btn_add_file"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
@@ -264,7 +264,7 @@
 
             <Button
                 android:id="@+id/btn_send_email"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/dp_10"
                 android:text="@string/btn_send_email" />

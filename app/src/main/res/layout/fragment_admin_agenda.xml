@@ -18,7 +18,7 @@
 
     <Button
         android:id="@+id/btn_choose_file"
-        style="@style/btn_pressed_style"
+        style="@style/btn_gray_blue_pressed_style"
         android:layout_width="wrap_content"
         android:layout_marginStart="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_20"
@@ -55,7 +55,7 @@
 
     <Button
         android:id="@+id/btn_import_agenda"
-        style="@style/btn_pressed_style"
+        style="@style/btn_gray_blue_pressed_style"
         android:layout_width="wrap_content"
         android:text="@string/import_agenda"
         app:layout_constraintBottom_toBottomOf="@+id/cb_edit"
@@ -80,7 +80,7 @@
 
     <Button
         android:id="@+id/btn_save_agenda"
-        style="@style/btn_pressed_style"
+        style="@style/btn_gray_blue_pressed_style"
         android:layout_width="@dimen/dp_200"
         android:text="@string/save_agenda"
         app:layout_constraintEnd_toEndOf="@+id/edt_agenda_content"

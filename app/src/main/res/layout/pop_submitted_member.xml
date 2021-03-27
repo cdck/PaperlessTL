@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/dp_10"
-    android:background="@drawable/dialog_full_holo_light"
+    android:background="@drawable/dialog_bg"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp_5"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_5"
         android:layout_marginEnd="@dimen/dp_5"
         android:background="@color/devline"
         android:orientation="horizontal">
@@ -72,14 +71,14 @@
 
         <Button
             android:id="@+id/submit_member_back"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_20"
             android:text="@string/back" />
 
         <Button
             android:id="@+id/submit_member_export"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
             android:text="@string/export_result" />

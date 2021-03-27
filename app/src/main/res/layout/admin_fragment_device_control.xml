@@ -56,28 +56,28 @@
 
             <Button
                 android:id="@+id/btn_restart_app"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/app_restart" />
 
             <Button
                 android:id="@+id/btn_restart"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/terminal_restart" />
 
             <Button
                 android:id="@+id/btn_shutdown"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/terminal_shutdown" />
 
             <Button
                 android:id="@+id/btn_singin"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:text="@string/secondary_signin" />
         </LinearLayout>
@@ -97,21 +97,21 @@
 
             <Button
                 android:id="@+id/btn_rise"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/rise" />
 
             <Button
                 android:id="@+id/btn_stop"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/stop" />
 
             <Button
                 android:id="@+id/btn_decline"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:text="@string/decline" />
         </LinearLayout>
@@ -125,21 +125,21 @@
 
             <Button
                 android:id="@+id/btn_member_role"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/role" />
 
             <Button
                 android:id="@+id/btn_wake_online"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/wake_on_lan" />
 
             <Button
                 android:id="@+id/btn_document"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/open_document_externally" />

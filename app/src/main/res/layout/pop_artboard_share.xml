@@ -40,7 +40,7 @@
 
         <Button
             android:id="@+id/pop_artboard_launch"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:layout_marginEnd="@dimen/dp_20"
@@ -48,7 +48,7 @@
 
         <Button
             android:id="@+id/pop_artboard_cancel"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_height="@dimen/dp_30"
             android:layout_marginStart="@dimen/dp_20"

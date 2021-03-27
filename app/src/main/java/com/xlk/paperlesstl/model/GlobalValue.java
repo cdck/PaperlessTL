@@ -72,8 +72,9 @@ public class GlobalValue {
     public static int signinType;
     /**
      * 用来记录是否从后台打开文档文件时打开的WPS
+     * =0会议，=1后台管理，=2离线会议
      */
-    public static boolean isFromAdminOpenWps;
+    public static int PAGE_MODE = 0;
 
     /**
      * 截图时获取的bitmap对象

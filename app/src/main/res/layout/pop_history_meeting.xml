@@ -67,14 +67,14 @@
 
         <Button
             android:id="@+id/btn_confirm_import"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/confirm_import" />
 
         <Button
             android:id="@+id/btn_exit"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/dp_10"
             android:layout_toRightOf="@+id/btn_confirm_import"

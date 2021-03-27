@@ -91,7 +91,7 @@
 
                 <Button
                     android:id="@+id/btn_dir_increase"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -99,7 +99,7 @@
 
                 <Button
                     android:id="@+id/btn_dir_modify"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -107,7 +107,7 @@
 
                 <Button
                     android:id="@+id/btn_dir_del"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -115,7 +115,7 @@
 
                 <Button
                     android:id="@+id/btn_dir_permission"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -123,7 +123,7 @@
 
                 <Button
                     android:id="@+id/btn_dir_sort"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -174,7 +174,7 @@
 
                 <Button
                     android:id="@+id/btn_file_increase"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -182,7 +182,7 @@
 
                 <Button
                     android:id="@+id/btn_file_modify"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -190,7 +190,7 @@
 
                 <Button
                     android:id="@+id/btn_file_del"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -198,7 +198,7 @@
 
                 <Button
                     android:id="@+id/btn_file_sort"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"
@@ -206,7 +206,7 @@
 
                 <Button
                     android:id="@+id/btn_file_history"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="0dp"
                     android:layout_marginEnd="@dimen/dp_1"
                     android:layout_weight="1"

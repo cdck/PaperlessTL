@@ -134,24 +134,24 @@ public class FabPresenter extends BasePresenter<FabContract.View> implements Fab
                 break;
             }
             //公告通知
-            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETBULLET_VALUE: {
-                byte[] bulletin = (byte[]) msg.getObjects()[0];
-                if (msg.getMethod() == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_PUBLIST_VALUE) {
-                    LogUtils.i(TAG, "发布公告通知");
-                    InterfaceBullet.pbui_BulletDetailInfo detailInfo = InterfaceBullet.pbui_BulletDetailInfo.parseFrom(bulletin);
-                    List<InterfaceBullet.pbui_Item_BulletDetailInfo> itemList = detailInfo.getItemList();
-                    if (!itemList.isEmpty()) {
-                        InterfaceBullet.pbui_Item_BulletDetailInfo info = itemList.get(0);
-                        mView.showBulletWindow(info);
-                    }
-                } else if (msg.getMethod() == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_STOP_VALUE) {
-                    InterfaceBullet.pbui_Type_StopBulletMsg info = InterfaceBullet.pbui_Type_StopBulletMsg.parseFrom(bulletin);
-                    int bulletid = info.getBulletid();
-                    LogUtils.i(TAG, "停止公告通知 bulletid="+bulletid);
-                    mView.closeBulletWindow(bulletid);
-                }
-                break;
-            }
+//            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETBULLET_VALUE: {
+//                byte[] bulletin = (byte[]) msg.getObjects()[0];
+//                if (msg.getMethod() == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_PUBLIST_VALUE) {
+//                    LogUtils.i(TAG, "发布公告通知");
+//                    InterfaceBullet.pbui_BulletDetailInfo detailInfo = InterfaceBullet.pbui_BulletDetailInfo.parseFrom(bulletin);
+//                    List<InterfaceBullet.pbui_Item_BulletDetailInfo> itemList = detailInfo.getItemList();
+//                    if (!itemList.isEmpty()) {
+//                        InterfaceBullet.pbui_Item_BulletDetailInfo info = itemList.get(0);
+//                        mView.showBulletWindow(info);
+//                    }
+//                } else if (msg.getMethod() == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_STOP_VALUE) {
+//                    InterfaceBullet.pbui_Type_StopBulletMsg info = InterfaceBullet.pbui_Type_StopBulletMsg.parseFrom(bulletin);
+//                    int bulletid = info.getBulletid();
+//                    LogUtils.i(TAG, "停止公告通知 bulletid="+bulletid);
+//                    mView.closeBulletWindow(bulletid);
+//                }
+//                break;
+//            }
             //成功读取到txt文件中的笔记内容
             case EventType.BUS_EXPORT_NOTE_CONTENT: {
                 String content = (String) msg.getObjects()[0];

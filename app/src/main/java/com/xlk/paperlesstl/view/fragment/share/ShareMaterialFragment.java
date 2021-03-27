@@ -196,7 +196,7 @@ public class ShareMaterialFragment extends BaseFragment<ShareMaterialPresenter> 
                 return;
             }
             jni.uploadFile(InterfaceMacro.Pb_Upload_Flag.Pb_MEET_UPLOADFLAG_ONLYENDCALLBACK_VALUE,
-                    Constant.SHARED_FILE_DIRECTORY_ID, 0, fileName, file.getParentFile().getAbsolutePath() + "/" + fileName, 0, Constant.UPLOAD_CHOOSE_FILE);
+                    Constant.SHARED_FILE_DIRECTORY_ID, 0, fileName, file.getParentFile().getAbsolutePath() + "/" + file.getName(), 0, Constant.UPLOAD_CHOOSE_FILE);
             dialog.dismiss();
         });
         builder.setNegativeButton(R.string.cancel, (dialog, which) -> dialog.dismiss());

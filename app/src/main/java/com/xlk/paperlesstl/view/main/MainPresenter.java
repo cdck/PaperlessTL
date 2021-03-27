@@ -54,7 +54,7 @@ class MainPresenter extends BasePresenter<MainContract.View> implements MainCont
     protected void busEvent(EventMessage msg) throws InvalidProtocolBufferException {
         switch (msg.getType()) {
             //平台登陆验证返回
-            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DEVICEVALIDATE_VALUE: {
+            /*case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DEVICEVALIDATE_VALUE: {
                 byte[] s = (byte[]) msg.getObjects()[0];
                 InterfaceBase.pbui_Type_DeviceValidate deviceValidate = InterfaceBase.pbui_Type_DeviceValidate.parseFrom(s);
                 int valflag = deviceValidate.getValflag();
@@ -108,6 +108,27 @@ class MainPresenter extends BasePresenter<MainContract.View> implements MainCont
                         }
                     }
                 }
+                break;
+            }*/
+            //平台初始化结果
+            /*case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_READY_VALUE: {
+                int method = msg.getMethod();
+                byte[] bytes = (byte[]) msg.getObjects()[0];
+                if (method == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_NOTIFY_VALUE) {
+                    InterfaceBase.pbui_Ready error = InterfaceBase.pbui_Ready.parseFrom(bytes);
+                    int areaid = error.getAreaid();
+                    LogUtils.i(TAG, "BusEvent -->" + "平台初始化完毕 连接上的区域服务器ID=" + areaid);
+                    initial();
+                } else if (method == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_LOGON_VALUE) {
+                    InterfaceBase.pbui_Type_LogonError error = InterfaceBase.pbui_Type_LogonError.parseFrom(bytes);
+                    int errcode = error.getErrcode();
+                    LogUtils.i(TAG, "BusEvent -->" + "平台初登陆失败通知 errcode=" + errcode);
+                }
+                break;
+            }*/
+            //平台初始化完成
+            case EventType.BUS_INITIALIZED: {
+                initial();
                 break;
             }
             //时间回调
@@ -175,6 +196,22 @@ class MainPresenter extends BasePresenter<MainContract.View> implements MainCont
                 LogUtils.d(TAG, "BusEvent -->" + "会议排位变更通知 id=" + inform.getId() + ",operMethod=" + inform.getOpermethod());
                 if (inform.getId() != 0 && inform.getId() == GlobalValue.localDeviceId) {
                     queryLocalRole();
+                }
+                break;
+            }
+            //数据后台回复的错误信息
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DBSERVERERROR_VALUE: {
+                byte[] bytes = (byte[]) msg.getObjects()[0];
+                InterfaceBase.pbui_Type_MeetDBServerOperError info = InterfaceBase.pbui_Type_MeetDBServerOperError.parseFrom(bytes);
+                if (info != null) {
+                    int type = info.getType();
+                    int method = info.getMethod();
+                    int status = info.getStatus();
+                    LogUtils.e(TAG, "数据后台回复的错误信息 type=" + type + ",method=" + method + ",status=" + status);
+                    if (type == 8 && method == 10) {
+                        //管理员登录
+                        mView.updateLoginStatus(status);
+                    }
                 }
                 break;
             }
@@ -473,7 +510,6 @@ class MainPresenter extends BasePresenter<MainContract.View> implements MainCont
             GlobalValue.localMemberName = devMeetInfo.getMembername().toStringUtf8();
             GlobalValue.localRoomId = devMeetInfo.getRoomid();
             GlobalValue.signinType = devMeetInfo.getSigninType();
-
             cacheData();
             mView.updateUI(devMeetInfo);
             if (GlobalValue.localMeetingId != 0) {

@@ -74,21 +74,11 @@ public class MeetFunctionAdapter extends BaseQuickAdapter<MeetFunctionBean, Base
                 iv.setBackground(getContext().getDrawable(R.drawable.menu_web_s));
                 break;
             }
-            //投票结果
-//            case InterfaceMacro.Pb_Meet_FunctionCode.Pb_MEET_FUNCODE_VOTERESULT_VALUE:{
-//                iv.setBackground(getContext().getDrawable(R.drawable.checkin_s));
-//                break;
-//            }
             //签到信息
             case InterfaceMacro.Pb_Meet_FunctionCode.Pb_MEET_FUNCODE_SIGNINRESULT_VALUE: {
                 iv.setBackground(getContext().getDrawable(R.drawable.menu_checkin_s));
                 break;
             }
-            //外部文档
-//            case InterfaceMacro.Pb_Meet_FunctionCode.Pb_MEET_FUNCODE_DOCUMENT_VALUE:{
-//                iv.setBackground(getContext().getDrawable(R.drawable.menu_checkin_s));
-//                break;
-//            }
             //其它功能模块
             case Constant.FUN_CODE: {
                 iv.setBackground(getContext().getDrawable(R.drawable.menu_other_s));

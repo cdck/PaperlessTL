@@ -138,42 +138,42 @@
 
             <Button
                 android:id="@+id/btn_create_reserve"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/create_reserve" />
 
             <Button
                 android:id="@+id/btn_modify_reserve"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/modify_reserve" />
 
             <Button
                 android:id="@+id/btn_delete_reserve"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/delete_reserve" />
 
             <Button
                 android:id="@+id/btn_inform_start"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/inform_start" />
 
             <Button
                 android:id="@+id/btn_inform_extension"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:text="@string/inform_extension" />
 
             <Button
                 android:id="@+id/btn_inform_cancel"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:text="@string/inform_cancel" />
         </LinearLayout>

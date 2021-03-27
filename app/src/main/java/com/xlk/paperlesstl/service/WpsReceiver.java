@@ -13,6 +13,7 @@ import com.xlk.paperlesstl.model.data.EventMessage;
 import com.xlk.paperlesstl.model.data.EventType;
 import com.xlk.paperlesstl.view.admin.activity.AdminActivity;
 import com.xlk.paperlesstl.view.meet.MeetingActivity;
+import com.xlk.paperlesstl.view.offline.OfflineActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -52,8 +53,13 @@ public class WpsReceiver extends BroadcastReceiver {
                 String savePath = intent.getStringExtra(WpsModel.ReciverExtra.SAVEPATH);
                 LogUtils.e(TAG, "onReceive :  保存键广播 --> openfile： " + openFile + "\n thirdPackage：" + thirdPackage + "\n savePath：" + savePath);
                 File file = new File(savePath);
-                String fileName = file.getName();
-                JniHelper.getInstance().uploadFile(0, Constant.ANNOTATION_FILE_DIRECTORY_ID, 0, fileName, savePath, 0, Constant.UPLOAD_WPS_FILE);
+                String newName = file.getName();
+//                String name = FileUtils.getFileNameNoExtension(file);
+//                String suffix = FileUtils.getFileExtension(file);
+//                if (file.exists()) {
+//                    newName = name + "-" + DateUtil.nowDate() + "." + suffix;
+//                }
+                JniHelper.getInstance().uploadFile(0, Constant.ANNOTATION_FILE_DIRECTORY_ID, 0, newName, savePath, 0, Constant.UPLOAD_WPS_FILE);
                 break;
             default:
                 break;
@@ -62,8 +68,12 @@ public class WpsReceiver extends BroadcastReceiver {
 
 
     private void jump2meet(Context context) {
-        if (GlobalValue.isFromAdminOpenWps) {
+        if (GlobalValue.PAGE_MODE == 1) {
             Intent intent = new Intent(context, AdminActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } else if (GlobalValue.PAGE_MODE == 2) {
+            Intent intent = new Intent(context, OfflineActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
         } else {

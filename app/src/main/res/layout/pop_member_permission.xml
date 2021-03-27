@@ -24,42 +24,42 @@
 
         <Button
             android:id="@+id/btn_add_screen"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/add_screen_permission" />
 
         <Button
             android:id="@+id/btn_add_projection"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/add_projection_permission" />
 
         <Button
             android:id="@+id/btn_add_upload"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/add_upload_permission" />
 
         <Button
             android:id="@+id/btn_add_download"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/add_download_permission" />
 
         <Button
             android:id="@+id/btn_add_vote"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/add_vote_permission" />
 
         <Button
             android:id="@+id/btn_save"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/save" />
@@ -76,42 +76,42 @@
 
         <Button
             android:id="@+id/btn_del_screen"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/del_screen_permission" />
 
         <Button
             android:id="@+id/btn_del_projection"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/del_projection_permission" />
 
         <Button
             android:id="@+id/btn_del_upload"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/del_upload_permission" />
 
         <Button
             android:id="@+id/btn_del_download"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/del_download_permission" />
 
         <Button
             android:id="@+id/btn_del_vote"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/del_vote_permission" />
 
         <Button
             android:id="@+id/btn_back"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/back" />

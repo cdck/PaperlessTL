@@ -204,7 +204,7 @@ public class MeetingPresenter extends BasePresenter<MeetingContract.View> implem
                     if (Constant.isThisDevType(InterfaceMacro.Pb_DeviceIDType.Pb_DeviceIDType_MeetProjective_VALUE, devcieid)) {
                         onlineProjectors.add(dev);
                     }
-                    if (facestate == 1 && devcieid != GlobalValue.localDeviceId) {
+                    if (facestate == 1 ) {
                         for (int j = 0; j < memberDetailInfos.size(); j++) {
                             InterfaceMember.pbui_Item_MemberDetailInfo member = memberDetailInfos.get(j);
                             if (member.getPersonid() == memberid) {

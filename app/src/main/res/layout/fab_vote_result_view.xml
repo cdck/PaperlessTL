@@ -23,7 +23,7 @@
 
             <Button
                 android:id="@+id/btn_vote"
-                style="@style/btn_selected_style"
+                style="@style/btn_gray_blue_selected_style"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_30"
                 android:layout_marginEnd="@dimen/dp_5"
@@ -32,7 +32,7 @@
 
             <Button
                 android:id="@+id/btn_election"
-                style="@style/btn_selected_style"
+                style="@style/btn_gray_blue_selected_style"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_30"
                 android:layout_marginStart="@dimen/dp_5"
@@ -116,6 +116,7 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="ID"
+                    android:visibility="gone"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     android:textStyle="bold" />

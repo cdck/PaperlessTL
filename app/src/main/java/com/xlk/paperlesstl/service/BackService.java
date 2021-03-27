@@ -3,14 +3,19 @@ package com.xlk.paperlesstl.service;
 import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.os.IBinder;
 
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.mogujie.tt.protobuf.InterfaceBase;
+import com.mogujie.tt.protobuf.InterfaceBullet;
+import com.mogujie.tt.protobuf.InterfaceDevice;
 import com.mogujie.tt.protobuf.InterfaceDownload;
 import com.mogujie.tt.protobuf.InterfaceMacro;
 import com.mogujie.tt.protobuf.InterfaceMember;
@@ -26,6 +31,7 @@ import com.xlk.paperlesstl.model.WpsModel;
 import com.xlk.paperlesstl.model.data.EventMessage;
 import com.xlk.paperlesstl.model.data.EventType;
 import com.xlk.paperlesstl.util.FileUtil;
+import com.xlk.paperlesstl.view.bulletin.BulletinActivity;
 import com.xlk.paperlesstl.view.video.VideoActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -33,14 +39,17 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.List;
 
 import androidx.annotation.Nullable;
+
+import static com.xlk.paperlesstl.App.appContext;
 
 /**
  * @author Created by xlk on 2021/3/1.
  * @desc
  */
-public class BackService extends Service {
+public class BackService extends Service implements NetworkUtils.OnNetworkStatusChangedListener {
     private final String TAG = "BackService-->";
     private WpsReceiver receiver;
     private JniHelper jni = JniHelper.getInstance();
@@ -55,26 +64,118 @@ public class BackService extends Service {
     public void onCreate() {
         super.onCreate();
         EventBus.getDefault().register(this);
+        NetworkUtils.registerNetworkStatusChangedListener(this);
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+        NetworkUtils.unregisterNetworkStatusChangedListener(this);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onBusEvent(EventMessage msg) throws InvalidProtocolBufferException {
         switch (msg.getType()) {
+            //平台登陆验证返回
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DEVICEVALIDATE_VALUE: {
+                byte[] s = (byte[]) msg.getObjects()[0];
+                InterfaceBase.pbui_Type_DeviceValidate deviceValidate = InterfaceBase.pbui_Type_DeviceValidate.parseFrom(s);
+                int valflag = deviceValidate.getValflag();
+                List<Integer> valList = deviceValidate.getValList();
+                List<Long> user64BitdefList = deviceValidate.getUser64BitdefList();
+                String binaryString = Integer.toBinaryString(valflag);
+                LogUtils.i("initFailed valflag=" + valflag + "，二进制：" + binaryString + ", valList=" + valList.toString() + ", user64List=" + user64BitdefList.toString());
+                int count = 0, index;
+                //  1 1101 1111
+                char[] chars = binaryString.toCharArray();
+                for (int i = 0; i < chars.length; i++) {
+                    if ((chars[chars.length - 1 - i]) == '1') {
+                        //有效位个数+1
+                        count++;
+                        //有效位当前位于valList的索引（跟i是无关的）
+                        index = count - 1;
+                        int code = valList.get(index);
+                        LogUtils.d("initFailed 有效位：" + i + ",当前有效位的个数：" + count);
+                        switch (i) {
+                            case 0:
+                                LogUtils.e("initFailed 区域服务器ID：" + code);
+                                break;
+                            case 1:
+                                LogUtils.e("initFailed 设备ID：" + code);
+                                GlobalValue.localDeviceId = code;
+                                break;
+                            case 2:
+                                LogUtils.e("initFailed 状态码：" + code);
+                                initializationResult(code);
+                                break;
+                            case 3:
+                                LogUtils.e("initFailed 到期时间：" + code);
+                                break;
+                            case 4:
+                                LogUtils.e("initFailed 企业ID：" + code);
+                                break;
+                            case 5:
+                                LogUtils.e("initFailed 协议版本：" + code);
+                                break;
+                            case 6:
+                                LogUtils.e("initFailed 注册时自定义的32位整数值：" + code);
+                                break;
+                            case 7:
+                                LogUtils.e("initFailed 当前在线设备数：" + code);
+                                break;
+                            case 8:
+                                LogUtils.e("initFailed 最大在线设备数：" + code);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                break;
+            }
+            //平台初始化结果
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_READY_VALUE: {
+                int method = msg.getMethod();
+                byte[] bytes = (byte[]) msg.getObjects()[0];
+                if (method == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_NOTIFY_VALUE) {
+                    InterfaceBase.pbui_Ready error = InterfaceBase.pbui_Ready.parseFrom(bytes);
+                    int areaid = error.getAreaid();
+                    LogUtils.i(TAG, "BusEvent -->" + "平台初始化结果 连接上的区域服务器ID=" + areaid);
+                    GlobalValue.initializationIsOver = true;
+                    EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_INITIALIZED).build());
+                    EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_CLOSE_SERVER_DISCONNECTED_DIALOG).build());
+                } else if (method == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_LOGON_VALUE) {
+                    InterfaceBase.pbui_Type_LogonError error = InterfaceBase.pbui_Type_LogonError.parseFrom(bytes);
+                    //Pb_WalletSystem_ErrorCode
+                    int errcode = error.getErrcode();
+                    LogUtils.i(TAG, "BusEvent -->" + "平台初始化结果 errcode=" + errcode);
+                }
+                break;
+            }
+            //设备寄存器变更通知
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DEVICEINFO_VALUE: {
+                byte[] bytes = (byte[]) msg.getObjects()[0];
+                InterfaceDevice.pbui_Type_MeetDeviceBaseInfo info = InterfaceDevice.pbui_Type_MeetDeviceBaseInfo.parseFrom(bytes);
+                int deviceid = info.getDeviceid();
+                //寄存器id 0:net status  50:res status  63:base info
+                int attribid = info.getAttribid();
+                LogUtils.i(TAG, "busEvent 设备寄存器变更通知 attribid=" + attribid + ",deviceid=" + deviceid);
+                if (attribid == 0 && deviceid == GlobalValue.localDeviceId) {
+                    EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).build());
+                }
+                break;
+            }
             //平台下载
             case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DOWNLOAD_VALUE: {
                 downloadInform(msg);
                 break;
             }
             //上传进度通知
-            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_UPLOAD_VALUE:
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_UPLOAD_VALUE: {
                 uploadInform(msg);
                 break;
+            }
             //处理WPS广播监听
             case EventType.BUS_WPS_RECEIVER: {
                 boolean isopen = (boolean) msg.getObjects()[0];
@@ -86,26 +187,39 @@ public class BackService extends Service {
                 break;
             }
             //媒体播放通知
-            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEDIAPLAY_VALUE:
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEDIAPLAY_VALUE: {
                 LogUtils.i(TAG, "onBusEvent 媒体播放通知");
                 mediaPlayInform(msg);
                 break;
+            }
             //流播放通知
-            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_STREAMPLAY_VALUE:
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_STREAMPLAY_VALUE: {
                 LogUtils.i(TAG, "onBusEvent 流播放通知");
                 streamPlayInform(msg);
                 break;
-            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_WHITEBOARD_VALUE:
-                //添加图片通知
+            }
+            //添加图片通知
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_WHITEBOARD_VALUE: {
                 if (msg.getMethod() == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_ADDPICTURE_VALUE) {
                     byte[] o1 = (byte[]) msg.getObjects()[0];
                     addPicInform(o1);
                 }
                 break;
+            }
             //参会人员权限变更通知    pbui_MeetNotifyMsg
             case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEMBERPERMISSION_VALUE: {
                 LogUtils.i(TAG, "busEvent 参会人员权限变更通知");
                 queryPermission();
+                break;
+            }
+            //设备控制
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DEVICECONTROL_VALUE: {
+                deviceControlInform(msg);
+                break;
+            }
+            //公告通知
+            case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETBULLET_VALUE: {
+                bulletinInform(msg);
                 break;
             }
             default:
@@ -113,8 +227,118 @@ public class BackService extends Service {
         }
     }
 
+
+    private void initializationResult(int code) {
+        String msg;
+        switch (code) {
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_NONE_VALUE:
+                msg = appContext.getString(R.string.error_0);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_EXPIRATION_VALUE:
+                msg = appContext.getString(R.string.error_1);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_OPER_VALUE:
+                msg = appContext.getString(R.string.error_2);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_ENTERPRISE_VALUE:
+                msg = appContext.getString(R.string.error_3);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_NODEVICEID_VALUE:
+                msg = appContext.getString(R.string.error_4);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_NOALLOWIN_VALUE:
+                msg = appContext.getString(R.string.error_5);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_FILEERROR_VALUE:
+                msg = appContext.getString(R.string.error_6);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_INVALID_VALUE:
+                msg = appContext.getString(R.string.error_7);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_IDOCCUPY_VALUE:
+                msg = appContext.getString(R.string.error_8);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_NOTBEING_VALUE:
+                msg = appContext.getString(R.string.error_9);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_ONLYDEVICEID_VALUE:
+                msg = appContext.getString(R.string.error_10);
+                break;
+            case InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_DEVICETYPENOMATCH_VALUE:
+                msg = appContext.getString(R.string.error_11);
+                break;
+            default:
+                msg = "";
+                break;
+        }
+        if (!msg.isEmpty()) {
+            ToastUtils.showShort(msg);
+        }
+        //平台初始化成功
+//        if (code == InterfaceMacro.Pb_ValidateErrorCode.Pb_PARSER_ERROR_NONE_VALUE) {
+//            GlobalValue.initializationIsOver = true;
+//            EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_INITIALIZED).build());
+//            EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_CLOSE_SERVER_DISCONNECTED_DIALOG).build());
+//        }
+    }
+
+    private void bulletinInform(EventMessage msg) throws InvalidProtocolBufferException {
+        byte[] bulletin = (byte[]) msg.getObjects()[0];
+        if (msg.getMethod() == InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_PUBLIST_VALUE) {
+            LogUtils.i(TAG, "发布公告通知");
+            InterfaceBullet.pbui_BulletDetailInfo detailInfo = InterfaceBullet.pbui_BulletDetailInfo.parseFrom(bulletin);
+            List<InterfaceBullet.pbui_Item_BulletDetailInfo> itemList = detailInfo.getItemList();
+            if (!itemList.isEmpty()) {
+                InterfaceBullet.pbui_Item_BulletDetailInfo info = itemList.get(0);
+                Bundle bundle = new Bundle();
+                bundle.putInt(BulletinActivity.EXTRA_BULLETIN_ID, info.getBulletid());
+                bundle.putString(BulletinActivity.EXTRA_BULLETIN_TITLE, info.getTitle().toStringUtf8());
+                bundle.putString(BulletinActivity.EXTRA_BULLETIN_CONTENT, info.getContent().toStringUtf8());
+                bundle.putInt(BulletinActivity.EXTRA_BULLETIN_TYPE, info.getType());
+                bundle.putInt(BulletinActivity.EXTRA_BULLETIN_START_TIME, info.getStarttime());
+                bundle.putInt(BulletinActivity.EXTRA_BULLETIN_TIMEOUTS, info.getTimeouts());
+                BulletinActivity.jump(bundle, this);
+            }
+        }
+    }
+
+    private void deviceControlInform(EventMessage msg) throws InvalidProtocolBufferException {
+        byte[] o = (byte[]) msg.getObjects()[0];
+        InterfaceDevice.pbui_Type_DeviceControl object = InterfaceDevice.pbui_Type_DeviceControl.parseFrom(o);
+        int oper = object.getOper();//enum Pb_DeviceControlFlag
+        int operval1 = object.getOperval1();//操作对应的参数 如更换主界面的媒体ID
+        int operval2 = object.getOperval2();//操作对应的参数
+        if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_MODIFYLOGO.getNumber()) {
+            LogUtils.i(TAG, "deviceControl: 更换Logo通知");
+            //本地没有才下载
+//            FileUtil.createDir(Constant.configuration_picture_dir);
+//            jni.creationFileDownload(Constant.configuration_picture_dir + Constant.MAIN_LOGO_PNG_TAG + ".png", operval1, 1, 0, Constant.MAIN_LOGO_PNG_TAG);
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_SHUTDOWN.getNumber()) {//关机
+            LogUtils.i(TAG, "deviceControl: 关机");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_REBOOT.getNumber()) {//重启
+            LogUtils.i(TAG, "deviceControl: 重启");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_PROGRAMRESTART.getNumber()) {//重启软件
+            LogUtils.i(TAG, "deviceControl: 重启软件");
+            AppUtils.relaunchApp(true);
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_LIFTUP.getNumber()) {//升
+            LogUtils.i(TAG, "deviceControl: 升");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_LIFTDOWN.getNumber()) {//降
+            LogUtils.i(TAG, "deviceControl: 降");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_LIFTSTOP.getNumber()) {//停止升（降）
+            LogUtils.i(TAG, "deviceControl: 停止升(降)");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_MODIFYMAINBG.getNumber()) {//更换主界面
+            LogUtils.i(TAG, "deviceControl: 更换主界面");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_MODIFYPROJECTBG.getNumber()) {//更换投影界面
+            LogUtils.i(TAG, "deviceControl: 更换投影界面");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_MODIFYSUBBG.getNumber()) {//更换子界面
+            LogUtils.i(TAG, "deviceControl: 更换子界面");
+        } else if (oper == InterfaceMacro.Pb_DeviceControlFlag.Pb_DEVICECONTORL_MODIFYFONTCOLOR.getNumber()) {//更换字体颜色
+            LogUtils.i(TAG, "deviceControl: 更换字体颜色");
+        }
+    }
+
     private void queryPermission() {
-        LogUtils.i(TAG,"queryPermission");
+        LogUtils.i(TAG, "queryPermission");
         InterfaceMember.pbui_Type_MemberPermission memberPermission = jni.queryAttendPeoplePermissions();
         if (memberPermission == null) return;
         GlobalValue.allPermissions = memberPermission.getItemList();
@@ -361,7 +585,7 @@ public class BackService extends Service {
                     case Constant.DOWNLOAD_AGENDA_FILE:
                         EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_AGENDA_FILE).objects(filepath, mediaid).build());
                         break;
-                        //下载完成后需要打开的文件
+                    //下载完成后需要打开的文件
                     case Constant.DOWNLOAD_SHOULD_OPEN_FILE:
                         EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_MATERIAL_FILE).objects(filepath, mediaid).build());
                         FileUtil.openFile(this, file);
@@ -387,5 +611,17 @@ public class BackService extends Service {
         } else {
             LogUtils.i(TAG, "downloadInform 下载状态：" + nstate + ", 下载错误码：" + err + ", 文件名：" + fileName);
         }
+    }
+
+    @Override
+    public void onDisconnected() {
+        LogUtils.i(TAG, "网络变更 onDisconnected");
+        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).build());
+    }
+
+    @Override
+    public void onConnected(NetworkUtils.NetworkType networkType) {
+        LogUtils.i(TAG, "网络变更 onConnected networkType=" + networkType.toString());
+        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).objects(networkType).build());
     }
 }

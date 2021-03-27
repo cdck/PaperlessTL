@@ -172,19 +172,7 @@ public class AdminPresenter extends BasePresenter<AdminContract.View> implements
     }
 
     void queryOnline() {
-        try {
-            byte[] bytes = jni.queryDevicePropertiesById(InterfaceMacro.Pb_MeetDevicePropertyID.Pb_MEETDEVICE_PROPERTY_NETSTATUS_VALUE,
-                    0);
-            if (bytes == null) {
-                mView.updateOnlineStatus(false);
-                return;
-            }
-            InterfaceDevice.pbui_DeviceInt32uProperty pbui_deviceInt32uProperty = InterfaceDevice.pbui_DeviceInt32uProperty.parseFrom(bytes);
-            int propertyval = pbui_deviceInt32uProperty.getPropertyval();
-            mView.updateOnlineStatus(propertyval == 1);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        mView.updateOnlineStatus(jni.isOnline());
     }
 
     void initVideoRes() {

@@ -50,49 +50,49 @@
 
         <Button
             android:id="@+id/btn_member_role"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/member_role" />
 
         <Button
             android:id="@+id/btn_bind"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/bind" />
 
         <Button
             android:id="@+id/btn_unbind"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/unbind" />
 
         <Button
             android:id="@+id/btn_random_bind"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/random_bind" />
 
         <Button
             android:id="@+id/btn_dismiss"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/all_dismiss" />
 
         <Button
             android:id="@+id/btn_import"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/import_" />
 
         <Button
             android:id="@+id/btn_export"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:text="@string/export" />
     </LinearLayout>

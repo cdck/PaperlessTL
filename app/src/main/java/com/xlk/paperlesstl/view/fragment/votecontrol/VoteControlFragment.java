@@ -1,6 +1,7 @@
 package com.xlk.paperlesstl.view.fragment.votecontrol;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -17,6 +18,7 @@ import android.widget.PopupWindow;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.ConvertUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.blankj.utilcode.util.UriUtils;
@@ -31,6 +33,7 @@ import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.adapter.VoteAdapter;
 import com.xlk.paperlesstl.model.Constant;
 import com.xlk.paperlesstl.util.DateUtil;
+import com.xlk.paperlesstl.util.DialogUtil;
 import com.xlk.paperlesstl.util.JxlUtil;
 import com.xlk.paperlesstl.util.PopupUtil;
 import com.xlk.paperlesstl.view.admin.adapter.SubmitMemberAdapter;
@@ -162,7 +165,36 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
                 public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                     InterfaceVote.pbui_Item_MeetVoteDetailInfo vote = presenter.voteInfos.get(position);
                     if (view.getId() == R.id.btn_launch_vote) {
-                        showMemberPop(vote);
+                        for (int i = 0; i < presenter.voteInfos.size(); i++) {
+                            if (presenter.voteInfos.get(i).getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_voteing_VALUE) {
+                                ToastUtils.showShort(R.string.please_stop_vote_first);
+                                return;
+                            }
+                        }
+                        if (vote.getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_endvote_VALUE) {
+                            String string = (vote.getMaintype() == InterfaceMacro.Pb_MeetVoteType.Pb_VOTE_MAINTYPE_vote_VALUE)
+                                    ? getString(R.string.end_vote_tip) : getString(R.string.end_election_tip);
+                            DialogUtil.createTipDialog(getContext(), string, getString(R.string.ensure), getString(R.string.cancel),
+                                    new DialogUtil.onDialogClickListener() {
+                                        @Override
+                                        public void positive(DialogInterface dialog) {
+                                            dialog.dismiss();
+                                            showMemberPop(vote, InterfaceMacro.Pb_VoteStartFlag.Pb_MEET_VOTING_FLAG_REVOTE_VALUE);
+                                        }
+
+                                        @Override
+                                        public void negative(DialogInterface dialog) {
+                                            dialog.dismiss();
+                                        }
+
+                                        @Override
+                                        public void dismiss(DialogInterface dialog) {
+
+                                        }
+                                    });
+                        } else {
+                            showMemberPop(vote, InterfaceMacro.Pb_VoteStartFlag.Pb_MEET_VOTING_FLAG_AUTOEXIT_VALUE);
+                        }
                     } else if (view.getId() == R.id.btn_stop_vote) {
                         jni.stopVote(vote.getVoteid());
                     }
@@ -203,7 +235,7 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
         }
     }
 
-    private void showMemberPop(InterfaceVote.pbui_Item_MeetVoteDetailInfo vote) {
+    private void showMemberPop(InterfaceVote.pbui_Item_MeetVoteDetailInfo vote, int voteFlag) {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.pop_vote_member, null);
         memberPop = PopupUtil.createHalfPop(inflate, rvVote);
         CheckBox pop_vote_all = inflate.findViewById(R.id.pop_vote_all);
@@ -226,13 +258,13 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
                 ToastUtils.showShort(R.string.please_choose_member);
                 return;
             }
-            if (vote.getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE) {
-                int voteid = vote.getVoteid();
-                int timeouts = getTimeouts();
-                jni.launchVote(memberIds, voteid, timeouts);
-            } else {
-                ToastUtils.showShort(R.string.vote_changed);
-            }
+//            if (vote.getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE) {
+            int voteid = vote.getVoteid();
+            int timeouts = getTimeouts();
+            jni.launchVote(memberIds, voteid, timeouts, voteFlag);
+//            } else {
+//                ToastUtils.showShort(R.string.vote_changed);
+//            }
             memberPop.dismiss();
         });
         inflate.findViewById(R.id.pop_vote_cancel).setOnClickListener(v -> {
@@ -342,8 +374,22 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
 
     @Override
     public void showChartPop(InterfaceVote.pbui_Item_MeetVoteDetailInfo vote) {
+        View fl_meet = getActivity().findViewById(R.id.fl_meet);
+        int width = fl_meet.getWidth();
+        int height = fl_meet.getHeight();
+        int dp_10 = ConvertUtils.dp2px(10);
+        int dp_20 = ConvertUtils.dp2px(20);
+        LogUtils.e(TAG, "showSubmittedPop width=" + width + ",height=" + height + ",10dp=" + dp_10 + "px");
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.pop_chart, null);
-        chartPop = PopupUtil.createHalfPop(inflate, rvVote);
+        chartPop = new PopupWindow(inflate, width, height);
+        chartPop.setBackgroundDrawable(new BitmapDrawable());
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        chartPop.setTouchable(true);
+        // true:设置触摸外面时消失
+        chartPop.setOutsideTouchable(true);
+        chartPop.setFocusable(true);
+        //添加20dp的原因是pading值
+        chartPop.showAtLocation(rvVote, Gravity.END | Gravity.BOTTOM, dp_10, dp_20);
         VoteResultFragment.ChartViewHolder chartViewHolder = new VoteResultFragment.ChartViewHolder(inflate);
         chartViewHolderEvent(chartViewHolder, vote);
     }
@@ -366,6 +412,8 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
         String[] strings = presenter.queryYd(vote);
         String type = Constant.getVoteType(getContext(), vote.getType());
         String state = Constant.getVoteState(getContext(), vote.getVotestate());
+        int maintype = vote.getMaintype();
+        boolean isVote = maintype == InterfaceMacro.Pb_MeetVoteType.Pb_VOTE_MAINTYPE_vote_VALUE;
         String mode = vote.getMode() == 0 ? getString(R.string.mode_anonymous) : getString(R.string.mode_register);
         holder.pop_chart_type.setText("（" + type + " " + mode + " " + state + "）" + strings[0] + strings[1] + strings[2] + strings[3]);
         holder.pop_chart_title.setText(vote.getContent().toStringUtf8());
@@ -379,15 +427,21 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
                 if (i == 0) {
                     holder.pop_option_a_ll.setVisibility(View.VISIBLE);
                     holder.pop_option_a_tv.setText(getString(R.string.vote_count, text, selcnt + ""));
-                    setChartData(count, selcnt, Color.parseColor("#000000"), ContextCompat.getColor(getContext(), R.color.option_a));
+                    int color = isVote ? ContextCompat.getColor(getContext(), R.color.vote_chart_color_green) : ContextCompat.getColor(getContext(), R.color.option_a);
+                    holder.iv_option_a_color.setBackgroundColor(color);
+                    setChartData(count, selcnt, Color.parseColor("#000000"), color);
                 } else if (i == 1) {
                     holder.pop_option_b_ll.setVisibility(View.VISIBLE);
                     holder.pop_option_b_tv.setText(getString(R.string.vote_count, text, selcnt + ""));
-                    setChartData(count, selcnt, Color.parseColor("#000000"), ContextCompat.getColor(getContext(), R.color.option_b));
+                    int color = isVote ? ContextCompat.getColor(getContext(), R.color.vote_chart_color_red) : ContextCompat.getColor(getContext(), R.color.option_b);
+                    holder.iv_option_b_color.setBackgroundColor(color);
+                    setChartData(count, selcnt, Color.parseColor("#000000"), color);
                 } else if (i == 2) {
                     holder.pop_option_c_ll.setVisibility(View.VISIBLE);
                     holder.pop_option_c_tv.setText(getString(R.string.vote_count, text, selcnt + ""));
-                    setChartData(count, selcnt, Color.parseColor("#000000"), ContextCompat.getColor(getContext(), R.color.option_c));
+                    int color = isVote ? ContextCompat.getColor(getContext(), R.color.vote_chart_color_yellow) : ContextCompat.getColor(getContext(), R.color.option_c);
+                    holder.iv_option_c_color.setBackgroundColor(color);
+                    setChartData(count, selcnt, Color.parseColor("#000000"), color);
                 } else if (i == 3) {
                     holder.pop_option_d_ll.setVisibility(View.VISIBLE);
                     holder.pop_option_d_tv.setText(getString(R.string.vote_count, text, selcnt + ""));
@@ -438,8 +492,24 @@ public class VoteControlFragment extends BaseFragment<VoteControlPresenter> impl
 
     @Override
     public void showSubmittedPop(InterfaceVote.pbui_Item_MeetVoteDetailInfo vote) {
+        View fl_meet = getActivity().findViewById(R.id.fl_meet);
+        int width = fl_meet.getWidth();
+        int height = fl_meet.getHeight();
+        int dp_10 = ConvertUtils.dp2px(10);
+        int dp_20 = ConvertUtils.dp2px(20);
+        LogUtils.e(TAG, "showSubmittedPop width=" + width + ",height=" + height + ",10dp=" + dp_10 + "px");
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.pop_submitted_member, null);
-        PopupWindow popupWindow = PopupUtil.createHalfPop(inflate, rvVote);
+        PopupWindow popupWindow = new PopupWindow(inflate, width, height);
+        popupWindow.setBackgroundDrawable(new BitmapDrawable());
+        // 设置popWindow弹出窗体可点击，这句话必须添加，并且是true
+        popupWindow.setTouchable(true);
+        // true:设置触摸外面时消失
+        popupWindow.setOutsideTouchable(true);
+        popupWindow.setFocusable(true);
+        //添加20dp的原因是pading值
+        popupWindow.showAtLocation(rvVote, Gravity.END | Gravity.BOTTOM, dp_10, dp_20);
+
+//        PopupWindow popupWindow = PopupUtil.createHalfPop(inflate, rvVote);
         SubmitMemberAdapter adapter = new SubmitMemberAdapter(R.layout.item_submit_member, presenter.submitMembers);
         RecyclerView submit_member_rv = inflate.findViewById(R.id.submit_member_rv);
         submit_member_rv.setLayoutManager(new LinearLayoutManager(getContext()));

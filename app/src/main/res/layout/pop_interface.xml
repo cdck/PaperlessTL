@@ -251,13 +251,13 @@
 
                 <Button
                     android:id="@+id/btn_bg"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="match_parent"
                     android:text="@string/background_img" />
 
                 <Button
                     android:id="@+id/btn_logo"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="match_parent"
                     android:layout_marginTop="@dimen/dp_5"
                     android:layout_marginBottom="@dimen/dp_5"
@@ -265,7 +265,7 @@
 
                 <Button
                     android:id="@+id/btn_cancel_logo"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="match_parent"
                     android:text="@string/cancel_logo" />
             </LinearLayout>
@@ -289,7 +289,7 @@
 
             <Button
                 android:id="@+id/btn_save"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
                 android:layout_marginBottom="@dimen/dp_5"
@@ -297,7 +297,7 @@
 
             <Button
                 android:id="@+id/btn_reset"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginTop="@dimen/dp_5"
                 android:text="@string/reset" />

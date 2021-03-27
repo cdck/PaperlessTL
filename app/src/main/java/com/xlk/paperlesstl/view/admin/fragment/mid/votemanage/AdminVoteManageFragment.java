@@ -30,6 +30,7 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 /**
  * @author Created by xlk on 2020/10/24.
  * @desc
@@ -95,10 +96,6 @@ public class AdminVoteManageFragment extends BaseFragment implements AdminVoteMa
         switch (v.getId()) {
             case R.id.btn_launch_vote: {
                 if (voteManageAdapter != null && voteManageAdapter.getSelectedVote() != null) {
-                    if (voteManageAdapter.getSelectedVote().getVotestate() != InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE) {
-                        ToastUtils.showShort(R.string.please_choose_not_vote);
-                        return;
-                    }
                     for (int i = 0; i < presenter.getVoteInfo().size(); i++) {
                         InterfaceVote.pbui_Item_MeetVoteDetailInfo info = presenter.getVoteInfo().get(i);
                         if (info.getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_voteing_VALUE) {
@@ -106,8 +103,16 @@ public class AdminVoteManageFragment extends BaseFragment implements AdminVoteMa
                             return;
                         }
                     }
+                    int votestate = voteManageAdapter.getSelectedVote().getVotestate();
+                    if (votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_voteing_VALUE) {
+                        ToastUtils.showShort(R.string.can_not_choose_voteing);
+                        return;
+                    }
                     presenter.queryMember();
-                    showMemberPop(presenter.getMemberInfos());
+                    int voteFlag = votestate == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE
+                            ? InterfaceMacro.Pb_VoteStartFlag.Pb_MEET_VOTING_FLAG_AUTOEXIT_VALUE
+                            : InterfaceMacro.Pb_VoteStartFlag.Pb_MEET_VOTING_FLAG_REVOTE_VALUE;
+                    showMemberPop(presenter.getMemberInfos(), voteFlag);
                 }
                 break;
             }
@@ -141,7 +146,7 @@ public class AdminVoteManageFragment extends BaseFragment implements AdminVoteMa
         }
     }
 
-    private void showMemberPop(List<InterfaceMember.pbui_Item_MeetMemberDetailInfo> memberInfo) {
+    private void showMemberPop(List<InterfaceMember.pbui_Item_MeetMemberDetailInfo> memberInfo, int voteFlag) {
         View inflate = LayoutInflater.from(getContext()).inflate(R.layout.pop_vote_member, null);
         View admin_fl = getActivity().findViewById(R.id.admin_fl);
         int width = admin_fl.getWidth();
@@ -178,13 +183,13 @@ public class AdminVoteManageFragment extends BaseFragment implements AdminVoteMa
                 return;
             }
             InterfaceVote.pbui_Item_MeetVoteDetailInfo selectedVote = voteManageAdapter.getSelectedVote();
-            if (selectedVote != null && selectedVote.getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE) {
-                int voteid = selectedVote.getVoteid();
-                int timeouts = getTimeouts();
-                presenter.launchVote(memberIds, voteid, timeouts);
-            } else {
-                ToastUtils.showShort(R.string.vote_changed);
-            }
+//            if (selectedVote != null && selectedVote.getVotestate() == InterfaceMacro.Pb_MeetVoteStatus.Pb_vote_notvote_VALUE) {
+            int voteid = selectedVote.getVoteid();
+            int timeouts = getTimeouts();
+            jni.launchVote(memberIds, voteid, timeouts, voteFlag);
+//            } else {
+//                ToastUtils.showShort(R.string.vote_changed);
+//            }
             memberPop.dismiss();
         });
         inflate.findViewById(R.id.pop_vote_cancel).setOnClickListener(v -> {

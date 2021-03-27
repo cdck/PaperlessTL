@@ -60,25 +60,25 @@
 
             <Button
                 android:id="@+id/btn_export_note"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
                 android:text="@string/export_note" />
 
             <Button
                 android:id="@+id/btn_save_local"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_marginEnd="5dp"
                 android:text="@string/save_local" />
 
             <Button
                 android:id="@+id/btn_back"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_marginEnd="5dp"
                 android:text="@string/back" />
             <Button
                 android:id="@+id/btn_cache"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:text="@string/offline_cache" />
         </LinearLayout>
     </LinearLayout>

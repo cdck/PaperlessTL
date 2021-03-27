@@ -55,6 +55,12 @@
             android:layout_weight="1"
             android:background="@color/white" />
 
+        <CheckBox
+            android:id="@+id/cb_enable_recording"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enable_recording" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,7 +68,7 @@
 
             <Button
                 android:id="@+id/btn_watch_video"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:layout_weight="1"
@@ -70,7 +76,7 @@
 
             <Button
                 android:id="@+id/btn_stop_watch"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/stop_watch" />
@@ -85,7 +91,7 @@
 
             <Button
                 android:id="@+id/btn_start_screen"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:layout_weight="1"
@@ -93,7 +99,7 @@
 
             <Button
                 android:id="@+id/btn_end_screen"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/End_screen" />
@@ -106,7 +112,7 @@
 
             <Button
                 android:id="@+id/btn_start_pro"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_marginEnd="@dimen/dp_5"
                 android:layout_weight="1"
@@ -114,7 +120,7 @@
 
             <Button
                 android:id="@+id/btn_end_pro"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/End_projection" />

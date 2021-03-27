@@ -1,6 +1,5 @@
 package com.xlk.paperlesstl.util;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
@@ -15,6 +14,7 @@ import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.model.GlobalValue;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 
 /**
  * @author Created by xlk on 2021/3/9.
@@ -23,12 +23,11 @@ import androidx.annotation.NonNull;
 public class DialogUtil {
 
 
-
     /**
      * 设置dialog在窗口的最上层
      * 即使dialog的上下文对象不是activity
      */
-    private static void setParamsType(Window window) {
+    public static void setParamsType(Window window) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {//8.0新特性
             window.setType(WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -47,7 +46,18 @@ public class DialogUtil {
 
     }
 
-    public static AlertDialog createDialog(Context cxt, String message, String positive, String negative, @NonNull onDialogClickListener listener) {
+
+    /**
+     * 展示提示弹框
+     *
+     * @param cxt      上下文
+     * @param message  提示内容
+     * @param positive 确定按钮文本
+     * @param negative 取消按钮文本
+     * @param listener 弹框操作回调
+     * @return AlertDialog
+     */
+    public static AlertDialog createTipDialog(Context cxt, String message, String positive, String negative, @NonNull onDialogClickListener listener) {
         AlertDialog.Builder builder = new AlertDialog.Builder(cxt);
         View inflate = LayoutInflater.from(cxt).inflate(R.layout.dialog_operation_tip_view, null);
         TextView tv_message = inflate.findViewById(R.id.tv_message);
@@ -70,8 +80,8 @@ public class DialogUtil {
         dialog.show();//这行代码要在设置宽高的前面，宽高才有用
         //宽高必须要在show之后设置
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
-        attributes.width = GlobalValue.screen_width / 3;
-        attributes.height = GlobalValue.screen_height / 3;
+        attributes.width = GlobalValue.screen_width / 2;
+        attributes.height = GlobalValue.screen_height / 2;
         dialog.getWindow().setAttributes(attributes);
         inflate.findViewById(R.id.btn_ensure).setOnClickListener(v -> listener.positive(dialog));
         inflate.findViewById(R.id.btn_cancel).setOnClickListener(v -> listener.negative(dialog));
@@ -80,18 +90,19 @@ public class DialogUtil {
 
 
     /**
-     * 创建一个宽高为屏幕一半dialog
+     * 创建一个宽高为屏幕一半且居中的dialog
      *
      * @param context  上下文对象
      * @param layoutId 布局id
      * @param outside  点击外部是否隐藏窗口
      * @return AlertDialog对象
      */
-    public static AlertDialog createDialog(Context context, int layoutId, boolean outside) {
-        return createDialog(context, layoutId, outside, GlobalValue.half_width, GlobalValue.half_height);
+    public static AlertDialog createTipDialog(Context context, int layoutId, boolean outside) {
+        return createTipDialog(context, layoutId, outside, GlobalValue.half_width, GlobalValue.half_height);
     }
 
     /**
+     * 创建一个指定大小且居中的dialog
      * @param context  上下文对象
      * @param layoutId xml布局
      * @param outside  是否点击外部隐藏dialog
@@ -99,7 +110,7 @@ public class DialogUtil {
      * @param height   高
      * @return AlertDialog，用于查找控件
      */
-    public static AlertDialog createDialog(Context context, int layoutId, boolean outside, int width, int height) {
+    public static AlertDialog createTipDialog(Context context, int layoutId, boolean outside, int width, int height) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         View inflate = LayoutInflater.from(context).inflate(layoutId, null);
         builder.setView(inflate);

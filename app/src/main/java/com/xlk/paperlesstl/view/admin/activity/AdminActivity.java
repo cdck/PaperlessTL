@@ -132,7 +132,7 @@ public class AdminActivity extends BaseActivity<AdminPresenter> implements Admin
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        GlobalValue.isFromAdminOpenWps = true;
+        GlobalValue.PAGE_MODE = 1;
         ScreenFragment.isAdminPage = true;
         initView();
         adminName = getIntent().getStringExtra(Constant.EXTRA_ADMIN_NAME);
@@ -603,7 +603,7 @@ public class AdminActivity extends BaseActivity<AdminPresenter> implements Admin
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        GlobalValue.isFromAdminOpenWps = false;
+        GlobalValue.PAGE_MODE = 0;
         ScreenFragment.isAdminPage = false;
     }
 }

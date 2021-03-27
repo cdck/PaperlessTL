@@ -229,7 +229,7 @@ public class MeetingActivity extends BaseActivity<MeetingPresenter> implements M
         devMemberAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                devMemberAdapter.choose(presenter.onlineMembers.get(position).getMemberDetailInfo().getPersonid());
+                devMemberAdapter.choose(presenter.onlineMembers.get(position).getDeviceDetailInfo().getDevcieid());
                 cb_member.setChecked(devMemberAdapter.isChooseAll());
             }
         });
@@ -239,8 +239,8 @@ public class MeetingActivity extends BaseActivity<MeetingPresenter> implements M
             devMemberAdapter.setChooseAll(checked);
         });
         inflate.findViewById(R.id.btn_push).setOnClickListener(v -> {
-            List<Integer> selectedIds = devMemberAdapter.getSelectedIds();
-            selectedIds.addAll(projectionAdapter.getSelectedIds());
+            List<Integer> selectedIds = devMemberAdapter.getDeviceIds();
+            selectedIds.addAll(projectionAdapter.getDeviceIds());
             if (selectedIds.isEmpty()) {
                 ToastUtils.showShort(R.string.please_choose_push_target);
                 return;
@@ -251,8 +251,8 @@ public class MeetingActivity extends BaseActivity<MeetingPresenter> implements M
         });
 
         inflate.findViewById(R.id.btn_stop_push).setOnClickListener(v -> {
-            List<Integer> selectedIds = devMemberAdapter.getSelectedIds();
-            selectedIds.addAll(projectionAdapter.getSelectedIds());
+            List<Integer> selectedIds = devMemberAdapter.getDeviceIds();
+            selectedIds.addAll(projectionAdapter.getDeviceIds());
             if (selectedIds.isEmpty()) {
                 ToastUtils.showShort(R.string.please_choose_stop_target);
                 return;
@@ -262,7 +262,9 @@ public class MeetingActivity extends BaseActivity<MeetingPresenter> implements M
             temps.add(0);
             jni.stopResourceOperate(temps, selectedIds);
         });
-
+        //默认全选
+        cb_member.performClick();
+        cb_projector.performClick();
         inflate.findViewById(R.id.btn_cancel).setOnClickListener(v -> {
             pushFilePop.dismiss();
         });
@@ -272,17 +274,16 @@ public class MeetingActivity extends BaseActivity<MeetingPresenter> implements M
     public void updateMeetFunction() {
         if (functionAdapter == null) {
             functionAdapter = new MeetFunctionAdapter(presenter.meetFunctions);
-            rvMenu.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-            rvMenu.setAdapter(functionAdapter);
-            functionAdapter.setOnItemClickListener((adapter, view, position) -> {
-                int funcode = presenter.meetFunctions.get(position).getFuncode();
-                functionAdapter.choose(funcode);
-                LogUtils.d(TAG, "选中的功能ID=" + funcode);
-                showFragment(funcode);
-            });
-        } else {
-            functionAdapter.notifyDataSetChanged();
         }
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(presenter.meetFunctions.size() <= 5 ? 1 : 2, StaggeredGridLayoutManager.VERTICAL);
+        rvMenu.setLayoutManager(layoutManager);
+        rvMenu.setAdapter(functionAdapter);
+        functionAdapter.setOnItemClickListener((adapter, view, position) -> {
+            int funcode = presenter.meetFunctions.get(position).getFuncode();
+            functionAdapter.choose(funcode);
+            LogUtils.d(TAG, "选中的功能ID=" + funcode);
+            showFragment(funcode);
+        });
         defaultMenu();
     }
 
@@ -578,8 +579,10 @@ public class MeetingActivity extends BaseActivity<MeetingPresenter> implements M
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_min: {
+                LogUtils.e(TAG, "点击最小化图标");
                 Intent intent = new Intent(Intent.ACTION_MAIN);
                 intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 break;
             }

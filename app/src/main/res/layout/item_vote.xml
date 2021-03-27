@@ -10,7 +10,9 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="1"
+        android:gravity="center_vertical"
         android:orientation="vertical">
 
         <TextView
@@ -169,27 +171,37 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
+        android:layout_marginStart="@dimen/dp_5"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tv_vote_status"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_weight="1"
+            android:textSize="@dimen/sp_12"
             tools:text="未发起" />
 
         <Button
             android:id="@+id/btn_launch_vote"
-            style="@style/btn_pressed_style"
-            android:layout_width="wrap_content"
+            style="@style/btn_gray_blue_pressed_style"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_25"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_5"
-            android:text="@string/launch_vote" />
+            android:text="@string/launch_vote"
+            android:textSize="@dimen/sp_10" />
 
         <Button
             android:id="@+id/btn_stop_vote"
-            style="@style/btn_pressed_style"
-            android:layout_width="wrap_content"
-            android:text="@string/stop_vote" />
+            style="@style/btn_gray_blue_pressed_style"
+            android:layout_width="@dimen/dp_50"
+            android:layout_height="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginBottom="@dimen/dp_5"
+            android:text="@string/stop_vote"
+            android:textSize="@dimen/sp_10" />
     </LinearLayout>
 </LinearLayout>

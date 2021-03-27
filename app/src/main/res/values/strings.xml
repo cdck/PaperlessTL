@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PaperlessTL</string>
+    <string name="app_name">会议席位端</string>
     <string name="database_dev">会议数据库</string>
     <string name="tea_dev">会议茶水设备</string>
     <string name="pro_dev">会议投影设备</string>
@@ -26,8 +26,8 @@
     <string name="anonymous">匿名</string>
     <string name="notation">记名</string>
     <string name="vote_state_not_initiated">未发起</string>
-    <string name="vote_state_ongoing">已发起</string>
-    <string name="vote_state_has_ended">已完成</string>
+    <string name="vote_state_ongoing">正在进行</string>
+    <string name="vote_state_has_ended">已经结束</string>
     <string name="file_downloading">文件下载中</string>
 
     <string name="error_0">平台初始化成功</string>
@@ -755,4 +755,15 @@
     <string name="can_join_screen">可加入的同屏</string>
     <string name="please_choose_join_screen_targeten">请选择要加入的同屏</string>
     <string name="thickness_">笔迹粗细：%1$d</string>
+    <string name="end_vote_tip">投票已经结束，是否重新开始？</string>
+    <string name="end_election_tip">选举已经结束，是否重新开始？</string>
+    <string name="can_not_choose_voteing">不能发起正在进行的投票</string>
+    <string name="sure_you_want_to_submit">确定要提交吗？</string>
+    <string name="enable_recording">启用录制</string>
+    <string name="network_disconnected_tip">网络断开，是否前往开启？</string>
+    <string name="server_disconnected_tip">无法连接服务器，请检查您的网络设置</string>
+    <string name="please_enter_title_or_content">请先输入标题或内容</string>
+    <string name="login_fail_tip">登录失败，请检查账号和密码</string>
+    <string name="offline_meeting">离线会议</string>
+    <string name="delete_dir">删除目录</string>
 </resources>

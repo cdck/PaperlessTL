@@ -677,7 +677,7 @@
 
             <Button
                 android:id="@+id/btn_cancel"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/dp_5"
@@ -686,7 +686,7 @@
 
             <Button
                 android:id="@+id/btn_modify"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_centerVertical="true"
                 android:layout_toStartOf="@+id/btn_cancel"
                 android:text="@string/modify" />

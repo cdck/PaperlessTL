@@ -51,28 +51,28 @@
 
         <Button
             android:id="@+id/btn_move_up"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="@string/move_up" />
 
         <Button
             android:id="@+id/btn_move_down"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="@string/move_down" />
 
         <Button
             android:id="@+id/btn_save"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="@string/save" />
 
         <Button
             android:id="@+id/btn_exit"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_10"
             android:text="@string/exit" />

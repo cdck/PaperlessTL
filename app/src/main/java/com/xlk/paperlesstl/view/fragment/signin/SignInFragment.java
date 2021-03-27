@@ -88,12 +88,14 @@ public class SignInFragment extends BaseFragment<SignInPresenter> implements Sig
 
     @Override
     public void updateView(List<InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo> seatDetailInfos, int allMemberCount, int checkedMemberCount) {
-        tv_sign_in_status.setText(getString(R.string.sign_in_status, allMemberCount, checkedMemberCount, allMemberCount - checkedMemberCount));
-        seat_absolute.removeAllViews();
-        for (InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo info : seatDetailInfos) {
-            LogUtils.d(TAG, "updateView -->左上角坐标：（" + info.getX() + "," + info.getY() + "）, 设备= " + info.getDevname().toStringUtf8());
-            addSeat(info);
-        }
+        getActivity().runOnUiThread(() -> {
+            tv_sign_in_status.setText(getString(R.string.sign_in_status, allMemberCount, checkedMemberCount, allMemberCount - checkedMemberCount));
+            seat_absolute.removeAllViews();
+            for (InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo info : seatDetailInfos) {
+                LogUtils.d(TAG, "updateView -->左上角坐标：（" + info.getX() + "," + info.getY() + "）, 设备= " + info.getDevname().toStringUtf8());
+                addSeat(info);
+            }
+        });
     }
 
     private void addSeat(InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo item) {

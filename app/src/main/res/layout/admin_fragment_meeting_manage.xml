@@ -14,28 +14,28 @@
 
         <Button
             android:id="@+id/btn_filter_current"
-            style="@style/btn_selected_style"
+            style="@style/btn_gray_blue_selected_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/current_meeting" />
 
         <Button
             android:id="@+id/btn_filter_history"
-            style="@style/btn_selected_style"
+            style="@style/btn_gray_blue_selected_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/history_meeting" />
 
         <Button
             android:id="@+id/btn_filter_template"
-            style="@style/btn_selected_style"
+            style="@style/btn_gray_blue_selected_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_5"
             android:text="@string/template_meeting" />
 
         <Button
             android:id="@+id/btn_filter_all"
-            style="@style/btn_selected_style"
+            style="@style/btn_gray_blue_selected_style"
             android:layout_width="wrap_content"
             android:text="@string/all_meeting" />
     </LinearLayout>
@@ -73,7 +73,7 @@
 
         <Button
             android:id="@+id/btn_switch_meeting"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/dp_5"
@@ -82,7 +82,7 @@
 
         <Button
             android:id="@+id/btn_copy_meeting"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
@@ -266,21 +266,21 @@
 
                 <Button
                     android:id="@+id/btn_increase"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_2"
                     android:text="@string/increase" />
 
                 <Button
                     android:id="@+id/btn_modify"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_2"
                     android:text="@string/modify" />
 
                 <Button
                     android:id="@+id/btn_delete"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:text="@string/delete" />
 
@@ -297,28 +297,28 @@
 
                 <Button
                     android:id="@+id/btn_start_meet"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_2"
                     android:text="@string/start_meet" />
 
                 <Button
                     android:id="@+id/btn_end_meet"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_2"
                     android:text="@string/end_meet" />
 
                 <Button
                     android:id="@+id/btn_pause_meet"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_2"
                     android:text="@string/pause_meet" />
 
                 <Button
                     android:id="@+id/btn_keep_template"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:text="@string/collection_template" />
             </LinearLayout>

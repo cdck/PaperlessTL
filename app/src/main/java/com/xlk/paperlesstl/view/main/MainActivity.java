@@ -16,7 +16,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.hardware.Camera;
 import android.media.MediaCodec;
@@ -70,6 +69,7 @@ import com.xlk.paperlesstl.view.admin.activity.AdminActivity;
 import com.xlk.paperlesstl.view.admin.fragment.system.device.LocalFileAdapter;
 import com.xlk.paperlesstl.view.base.BaseActivity;
 import com.xlk.paperlesstl.view.meet.MeetingActivity;
+import com.xlk.paperlesstl.view.offline.OfflineActivity;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -115,6 +115,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     private PopupWindow configPop;
     private PopupWindow cacheDirPop;
     private PopupWindow signInPop;
+    private TextView tvLoginStatus;
+    private boolean isLogin2Offline;
 
     @Override
     protected int getLayoutId() {
@@ -298,7 +300,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         }
         for (int i = 0; i < param.getSupportedPreviewSizes().size(); i++) {
             int w = param.getSupportedPreviewSizes().get(i).width, h = param.getSupportedPreviewSizes().get(i).height;
-            LogUtils.d(TAG, "initCameraSize: w=" + w + " h=" + h);
+//            LogUtils.d(TAG, "initCameraSize: w=" + w + " h=" + h);
             supportW.add(w);
             supportH.add(h);
         }
@@ -325,11 +327,11 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 }
             }
         }
-        LogUtils.d(TAG, "initCameraSize -->" + "前置像素：" + camera_width + " X " + camera_height);
         if (camera_width * camera_height > 1280 * 720) {
             camera_width = 1280;
             camera_height = 720;
         }
+        LogUtils.d(TAG, "initCameraSize -->" + "前置像素：" + camera_width + " X " + camera_height);
     }
 
     private void applyReadFrameBufferPermission() {
@@ -542,7 +544,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     public void updateLogo(Drawable drawable) {
-        LogUtils.i(TAG,"updateLogo");
+        LogUtils.i(TAG, "updateLogo");
         logoIvMain.setImageDrawable(drawable);
     }
 
@@ -973,13 +975,46 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
 
     @Override
     protected void onDestroy() {
+        dismissPopupWindow(unbindMemberPop);
+        dismissPopupWindow(createMemberPop);
+        dismissPopupWindow(mainLoginPop);
+        dismissPopupWindow(configPop);
+        dismissPopupWindow(cacheDirPop);
+        dismissPopupWindow(signInPop);
+        FileUtils.deleteAllInDir(Constant.FILE_DIR);
         super.onDestroy();
-        if (unbindMemberPop != null && unbindMemberPop.isShowing()) unbindMemberPop.dismiss();
-        if (createMemberPop != null && createMemberPop.isShowing()) createMemberPop.dismiss();
-        if (mainLoginPop != null && mainLoginPop.isShowing()) mainLoginPop.dismiss();
-        if (configPop != null && configPop.isShowing()) configPop.dismiss();
-        if (cacheDirPop != null && cacheDirPop.isShowing()) cacheDirPop.dismiss();
-        if (signInPop != null && signInPop.isShowing()) signInPop.dismiss();
+    }
+
+    @Override
+    public void updateLoginStatus(int status) {
+        LogUtils.e(TAG, "updateLoginStatus status=" + status);
+        if (mainLoginPop != null && mainLoginPop.isShowing()) {
+            switch (status) {
+                case InterfaceMacro.Pb_DB_StatusCode.Pb_STATUS_DONE_VALUE: {
+                    break;
+                }
+                case InterfaceMacro.Pb_DB_StatusCode.Pb_STATUS_FAIL_VALUE: {
+                    tvLoginStatus.setText(getString(R.string.login_fail_tip));
+                    break;
+                }
+                case InterfaceMacro.Pb_DB_StatusCode.Pb_STATUS_EXCPT_DB_VALUE: {
+                    tvLoginStatus.setText(getString(R.string.database_exception));
+                    break;
+                }
+                case InterfaceMacro.Pb_DB_StatusCode.Pb_STATUS_EXCPT_SV_VALUE: {
+                    tvLoginStatus.setText(getString(R.string.server_exception));
+                    break;
+                }
+                case InterfaceMacro.Pb_DB_StatusCode.Pb_STATUS_PSWFAILED_VALUE: {
+                    tvLoginStatus.setText(getString(R.string.wrong_password));
+                    break;
+                }
+                case InterfaceMacro.Pb_DB_StatusCode.Pb_STATUS_ACCESSDENIED_VALUE: {
+                    tvLoginStatus.setText(getString(R.string.no_permission));
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -993,11 +1028,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         switch (err) {
             //登陆成功
             case InterfaceMacro.Pb_AdminLogonStatus.Pb_ADMINLOGON_ERR_NONE_VALUE:
-                ToastUtils.showShort(R.string.login_successful);
-                Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                tvLoginStatus.setText(getString(R.string.login_successful));
+                Intent intent;
+                if (isLogin2Offline) {
+                    intent = new Intent(MainActivity.this, OfflineActivity.class);
+                } else {
+                    intent = new Intent(MainActivity.this, AdminActivity.class);
+                }
                 intent.putExtra(EXTRA_ADMIN_ID, adminid);
                 intent.putExtra(EXTRA_ADMIN_NAME, adminname);
-//                intent.putExtra(EXTRA_ADMIN_PASSWORD, loginPwd);
                 if (GlobalValue.localMeetingId != 0) {
                     jni.modifyContextProperties(InterfaceMacro.Pb_ContextPropertyID.Pb_MEETCONTEXT_PROPERTY_CURMEETINGID_VALUE
                             , GlobalValue.localMeetingId);
@@ -1008,15 +1047,15 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 break;
             //密码错误
             case InterfaceMacro.Pb_AdminLogonStatus.Pb_ADMINLOGON_ERR_PSW_VALUE:
-                ToastUtils.showShort(R.string.wrong_password);
+                tvLoginStatus.setText(getString(R.string.wrong_password));
                 break;
             //服务器异常
             case InterfaceMacro.Pb_AdminLogonStatus.Pb_ADMINLOGON_ERR_EXCPT_SV_VALUE:
-                ToastUtils.showShort(R.string.server_exception);
+                tvLoginStatus.setText(getString(R.string.server_exception));
                 break;
             //数据库异常
             case InterfaceMacro.Pb_AdminLogonStatus.Pb_ADMINLOGON_ERR_EXCPT_DB_VALUE:
-                ToastUtils.showShort(R.string.database_exception);
+                tvLoginStatus.setText(getString(R.string.database_exception));
                 break;
             default:
                 break;
@@ -1030,6 +1069,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      */
     public void openSet(View view) {
         boolean spIsRemember = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_remember, false);
+        boolean isAdministratorLogin = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_administrator_login, false);
         String spUser = (String) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_user, "");
         String spPwd = (String) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_password, "");
         View inflate = LayoutInflater.from(this).inflate(R.layout.pop_main_set, null, false);
@@ -1039,7 +1079,10 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         CheckBox cb_manage_mode = inflate.findViewById(R.id.cb_manage_mode);
         CheckBox cb_offline_mode = inflate.findViewById(R.id.cb_offline_mode);
         CheckBox cb_remember_pwd = inflate.findViewById(R.id.cb_remember_pwd);
+        tvLoginStatus = inflate.findViewById(R.id.tv_login_status);
         cb_remember_pwd.setChecked(spIsRemember);
+        cb_manage_mode.setChecked(isAdministratorLogin);
+        cb_offline_mode.setChecked(!isAdministratorLogin);
         edt_user_name.setText(spUser);
         if (spIsRemember) {
             edt_user_pwd.setText(spPwd);
@@ -1065,12 +1108,13 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 return;
             }
             SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_remember, cb_remember_pwd.isChecked());
+            SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_administrator_login, cb_manage_mode.isChecked());
             if (cb_remember_pwd.isChecked()) {
                 SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_user, userName);
                 SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_password, userPwd);
             }
-            int loginMode = cb_manage_mode.isChecked() ? 0 : 2;
-            jni.login(userName, userPwd, 1, loginMode);
+            isLogin2Offline = cb_offline_mode.isChecked();
+            jni.login(userName, userPwd, 1, isLogin2Offline ? 2 : 0);
         });
         inflate.findViewById(R.id.btn_system_settings).setOnClickListener(v -> {
             showConfigPop();
@@ -1211,6 +1255,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * @param view
      */
     public void exitApp(View view) {
-        AppUtils.exitApp();
+        finish();
+//        AppUtils.exitApp();
     }
 }

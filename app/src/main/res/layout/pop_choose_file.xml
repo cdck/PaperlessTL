@@ -25,35 +25,35 @@
 
         <Button
             android:id="@+id/btn_increase"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_2"
             android:text="@string/increase" />
 
         <Button
             android:id="@+id/btn_delete"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_2"
             android:text="@string/delete" />
 
         <Button
             android:id="@+id/btn_determine"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_2"
             android:text="@string/ensure" />
 
         <Button
             android:id="@+id/btn_cancel"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginEnd="@dimen/dp_2"
             android:text="@string/cancel" />
 
         <Button
             android:id="@+id/btn_cancel_release"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:text="@string/cancel_release_file" />
     </LinearLayout>

@@ -8,31 +8,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:visibility="gone">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/operation_tips"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <ImageView
-            android:id="@+id/iv_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_margin="5dp"
-            android:src="@drawable/icon_close_t"
-            android:visibility="gone" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
@@ -43,7 +18,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
             tools:text="速度快放假了快速点击积累基的临时开发交流快速点击弗兰克" />
     </RelativeLayout>
 

@@ -150,14 +150,14 @@
 
         <Button
             android:id="@+id/btn_start_archive"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/start_archive" />
 
         <Button
             android:id="@+id/btn_cancel_archive"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"

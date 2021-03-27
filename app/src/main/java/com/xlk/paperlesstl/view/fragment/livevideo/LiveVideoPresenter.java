@@ -167,17 +167,19 @@ public class LiveVideoPresenter extends BasePresenter<LiveVideoContract.View> im
     @Override
     public void queryFile() {
         InterfaceFile.pbui_Type_MeetDirDetailInfo object = jni.queryMeetDir();
-        List<InterfaceFile.pbui_Item_MeetDirDetailInfo> itemList = object.getItemList();
         saveCurrentExpandStatus();
         allData.clear();
-        for (int i = 0; i < itemList.size(); i++) {
-            InterfaceFile.pbui_Item_MeetDirDetailInfo item = itemList.get(i);
-            if (item.getParentid() != 0) continue;
-            int dirId = item.getId();
-            LevelDirNode levelDirNode = new LevelDirNode(new ArrayList<>(), dirId, item.getName().toStringUtf8());
-            levelDirNode.setExpanded(beforeIsExpanded(dirId));
-            allData.add(levelDirNode);
-            queryMeetDirFile(dirId);
+        if (object != null) {
+            List<InterfaceFile.pbui_Item_MeetDirDetailInfo> itemList = object.getItemList();
+            for (int i = 0; i < itemList.size(); i++) {
+                InterfaceFile.pbui_Item_MeetDirDetailInfo item = itemList.get(i);
+                if (item.getParentid() != 0) continue;
+                int dirId = item.getId();
+                LevelDirNode levelDirNode = new LevelDirNode(new ArrayList<>(), dirId, item.getName().toStringUtf8());
+                levelDirNode.setExpanded(beforeIsExpanded(dirId));
+                allData.add(levelDirNode);
+                queryMeetDirFile(dirId);
+            }
         }
         mView.updateFiles();
     }

@@ -1,7 +1,6 @@
 package com.xlk.paperlesstl.service;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,6 +26,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
@@ -74,6 +74,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -847,7 +848,7 @@ public class FabService extends Service implements FabContract.View {
             return;
         }
         //有进行询问
-        DialogUtil.createDialog(context, getString(R.string.deviceIntercom_Inform_title, presenter.getMemberNameByDeviceId(operdeviceid)),
+        DialogUtil.createTipDialog(context, getString(R.string.deviceIntercom_Inform_title, presenter.getMemberNameByDeviceId(operdeviceid)),
                 getString(R.string.agree), getString(R.string.reject), new DialogUtil.onDialogClickListener() {
                     @Override
                     public void positive(DialogInterface dialog) {
@@ -915,7 +916,7 @@ public class FabService extends Service implements FabContract.View {
     }
 
     private void whetherOpen(final int srcmemid, final long srcwbidd, String medianame, final int opermemberid) {
-        DialogUtil.createDialog(context, context.getString(R.string.title_whether_agree_join, medianame),
+        DialogUtil.createTipDialog(context, context.getString(R.string.title_whether_agree_join, medianame),
                 context.getString(R.string.agree), context.getString(R.string.reject), new DialogUtil.onDialogClickListener() {
                     @Override
                     public void positive(DialogInterface dialog) {
@@ -974,7 +975,7 @@ public class FabService extends Service implements FabContract.View {
             return;
         }
         currentVoteId = info.getVoteid();
-        voteDialog = DialogUtil.createDialog(context, R.layout.dialog_receive_vote, false);
+        voteDialog = DialogUtil.createTipDialog(context, R.layout.dialog_receive_vote, false, GlobalValue.screen_width, GlobalValue.screen_height);
         VoteViewHolder voteViewHolder = new VoteViewHolder(voteDialog);
         voteViewHolderEvent(voteViewHolder, info);
         voteDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -996,6 +997,49 @@ public class FabService extends Service implements FabContract.View {
         jni.submitVoteResult(1, currentVoteId, selectItem);
         LogUtils.d(TAG, "当前倒计时 -->" + voteTimeouts);
         boolean isVote = maintype == InterfaceMacro.Pb_MeetVoteType.Pb_VOTE_MAINTYPE_vote_VALUE;
+        int selectcount = info.getSelectcount();
+        if (isVote) {
+            holder.sv_election.setVisibility(View.GONE);
+            holder.rl_ensure.setVisibility(View.GONE);
+            holder.ll_vote_view.setVisibility(View.VISIBLE);
+            //赞成
+            holder.iv_favour.setOnClickListener(v -> {
+                submitVote(selectcount, 1);
+            });
+            //反对
+            holder.iv_against.setOnClickListener(v -> {
+                submitVote(selectcount, 2);
+            });
+            //弃权
+            holder.iv_waiver.setOnClickListener(v -> {
+                submitVote(selectcount, 4);
+            });
+        } else {
+            holder.sv_election.setVisibility(View.VISIBLE);
+            holder.rl_ensure.setVisibility(View.VISIBLE);
+            holder.ll_vote_view.setVisibility(View.GONE);
+            initCheckBox(holder, info);
+            chooseEvent(holder.cb_a);
+            chooseEvent(holder.cb_b);
+            chooseEvent(holder.cb_c);
+            chooseEvent(holder.cb_d);
+            chooseEvent(holder.cb_e);
+            holder.btn_ensure.setOnClickListener(v -> {
+                int answer = 0;
+                if (holder.cb_a.isChecked()) answer += 1;
+                if (holder.cb_b.isChecked()) answer += 2;
+                if (holder.cb_c.isChecked()) answer += 4;
+                if (holder.cb_d.isChecked()) answer += 8;
+                if (holder.cb_e.isChecked()) answer += 16;
+                if (answer != 0) {
+                    jni.submitVoteResult(info.getSelectcount(), currentVoteId, answer);
+                    closeVoteView();
+                } else {
+                    ToastUtils.showShort(R.string.please_choose_answer_first);
+                }
+            });
+        }
+        holder.iv_close.setOnClickListener(v -> closeVoteView());
         if (voteTimeouts <= 0) {
             holder.countdown_view.setVisibility(View.INVISIBLE);
         } else {
@@ -1017,25 +1061,25 @@ public class FabService extends Service implements FabContract.View {
                 }
             });
         }
-        initCheckBox(holder, info);
-        chooseEvent(holder.cb_a);
-        chooseEvent(holder.cb_b);
-        chooseEvent(holder.cb_c);
-        chooseEvent(holder.cb_d);
-        chooseEvent(holder.cb_e);
-        holder.iv_close.setOnClickListener(v -> closeVoteView());
-        holder.btn_ensure.setOnClickListener(v -> {
-            int answer = 0;
-            if (holder.cb_a.isChecked()) answer += 1;
-            if (holder.cb_b.isChecked()) answer += 2;
-            if (holder.cb_c.isChecked()) answer += 4;
-            if (holder.cb_d.isChecked()) answer += 8;
-            if (holder.cb_e.isChecked()) answer += 16;
-            if (answer != 0) {
-                jni.submitVoteResult(info.getSelectcount(), currentVoteId, answer);
+    }
+
+    private void submitVote(int selectcount, int answer) {
+        DialogUtil.createTipDialog(this, getString(R.string.sure_you_want_to_submit), getString(R.string.ensure), getString(R.string.cancel), new DialogUtil.onDialogClickListener() {
+            @Override
+            public void positive(DialogInterface dialog) {
+                dialog.dismiss();
+                jni.submitVoteResult(selectcount, currentVoteId, answer);
                 closeVoteView();
-            } else {
-                ToastUtils.showShort(R.string.please_choose_answer_first);
+            }
+
+            @Override
+            public void negative(DialogInterface dialog) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void dismiss(DialogInterface dialog) {
+
             }
         });
     }
@@ -1145,27 +1189,39 @@ public class FabService extends Service implements FabContract.View {
         public TextView tv_title;
         public TextView tv_time;
         public Chronometer chronometer;
+        public ScrollView sv_election;
         public LinearLayout countdown_view;
         public CheckBox cb_a;
         public CheckBox cb_b;
         public CheckBox cb_c;
         public CheckBox cb_d;
         public CheckBox cb_e;
+        public RelativeLayout rl_ensure;
         public Button btn_ensure;
+        public LinearLayout ll_vote_view;
+        public ImageView iv_favour;
+        public ImageView iv_against;
+        public ImageView iv_waiver;
 
         public VoteViewHolder(AlertDialog rootView) {
-            this.iv_close = (ImageView) rootView.findViewById(R.id.iv_close);
             this.top_layout = (RelativeLayout) rootView.findViewById(R.id.top_layout);
+            this.iv_close = (ImageView) rootView.findViewById(R.id.iv_close);
             this.tv_title = (TextView) rootView.findViewById(R.id.tv_title);
+            this.countdown_view = (LinearLayout) rootView.findViewById(R.id.countdown_view);
             this.tv_time = (TextView) rootView.findViewById(R.id.tv_time);
             this.chronometer = (Chronometer) rootView.findViewById(R.id.chronometer);
-            this.countdown_view = (LinearLayout) rootView.findViewById(R.id.countdown_view);
+            this.sv_election = (ScrollView) rootView.findViewById(R.id.sv_election);
             this.cb_a = (CheckBox) rootView.findViewById(R.id.cb_a);
             this.cb_b = (CheckBox) rootView.findViewById(R.id.cb_b);
             this.cb_c = (CheckBox) rootView.findViewById(R.id.cb_c);
             this.cb_d = (CheckBox) rootView.findViewById(R.id.cb_d);
             this.cb_e = (CheckBox) rootView.findViewById(R.id.cb_e);
+            this.rl_ensure = (RelativeLayout) rootView.findViewById(R.id.rl_ensure);
             this.btn_ensure = (Button) rootView.findViewById(R.id.btn_ensure);
+            this.ll_vote_view = (LinearLayout) rootView.findViewById(R.id.ll_vote_view);
+            this.iv_favour = (ImageView) rootView.findViewById(R.id.iv_favour);
+            this.iv_against = (ImageView) rootView.findViewById(R.id.iv_against);
+            this.iv_waiver = (ImageView) rootView.findViewById(R.id.iv_waiver);
         }
     }
 
@@ -1191,12 +1247,13 @@ public class FabService extends Service implements FabContract.View {
     @Override
     public void showBulletWindow(InterfaceBullet.pbui_Item_BulletDetailInfo bullet) {
         if (bulletDialog != null && bulletDialog.isShowing()) {
+            currentBulletId = bullet.getBulletid();
             bullet_title.setText(bullet.getTitle().toStringUtf8());
             bullet_content.setText(bullet.getContent().toStringUtf8());
             return;
         }
         currentBulletId = bullet.getBulletid();
-        bulletDialog = DialogUtil.createDialog(context, R.layout.pop_receive_bullet, false);
+        bulletDialog = DialogUtil.createTipDialog(context, R.layout.pop_receive_bullet, false, GlobalValue.screen_width, GlobalValue.screen_height);
         bullet_title = bulletDialog.findViewById(R.id.bullet_title);
         bullet_content = bulletDialog.findViewById(R.id.bullet_content);
         bullet_title.setText(bullet.getTitle().toStringUtf8());

@@ -68,28 +68,28 @@
 
             <Button
                 android:id="@+id/pwd_draw_revoke"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/draw_revoke" />
 
             <Button
                 android:id="@+id/pwd_draw_clear"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/draw_clear" />
 
             <Button
                 android:id="@+id/pwd_draw_determine"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/ensure" />
 
             <Button
                 android:id="@+id/pwd_draw_cancel"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/cancel" />
@@ -128,14 +128,14 @@
 
             <Button
                 android:id="@+id/btn_ensure"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/ensure" />
 
             <Button
                 android:id="@+id/btn_cancel"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="@string/cancel" />

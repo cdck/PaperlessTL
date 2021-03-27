@@ -124,21 +124,21 @@
 
             <Button
                 android:id="@+id/btn_modify"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/modify" />
 
             <Button
                 android:id="@+id/btn_delete"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/delete" />
 
             <Button
                 android:id="@+id/btn_visitors"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_marginEnd="@dimen/dp_10"
@@ -146,7 +146,7 @@
 
             <Button
                 android:id="@+id/btn_deploy"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:layout_marginEnd="@dimen/dp_10"
                 android:text="@string/parameter_deploy" />

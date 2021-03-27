@@ -64,7 +64,7 @@
 
             <Button
                 android:id="@+id/btn_auto_sort"
-                style="@style/btn_pressed_style"
+                style="@style/btn_gray_blue_pressed_style"
                 android:layout_width="wrap_content"
                 android:text="@string/auto_sort" />
         </LinearLayout>
@@ -88,28 +88,28 @@
 
                 <Button
                     android:id="@+id/btn_up"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/up" />
 
                 <Button
                     android:id="@+id/btn_down"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/down" />
 
                 <Button
                     android:id="@+id/btn_left"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/left" />
 
                 <Button
                     android:id="@+id/btn_right"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:text="@string/right" />
 
@@ -129,35 +129,35 @@
 
                 <Button
                     android:id="@+id/btn_preview"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/preview_room_picture" />
 
                 <Button
                     android:id="@+id/btn_save_picture"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/save_room_picture" />
 
                 <Button
                     android:id="@+id/btn_align_left"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/align_left" />
 
                 <Button
                     android:id="@+id/btn_align_bottom"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:layout_marginEnd="@dimen/dp_5"
                     android:text="@string/align_bottom" />
 
                 <Button
                     android:id="@+id/btn_save_position"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="wrap_content"
                     android:text="@string/save_dev_position" />
             </LinearLayout>

@@ -30,13 +30,13 @@
 
         <Button
             android:id="@+id/btn_url_submit"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:text="@string/set" />
 
         <Button
             android:id="@+id/btn_update"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:layout_marginStart="@dimen/dp_20"
             android:text="@string/device_update" />
@@ -68,7 +68,7 @@
 
         <Button
             android:id="@+id/btn_company"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:text="@string/submit" />
 
@@ -100,7 +100,7 @@
 
         <Button
             android:id="@+id/btn_file_modify"
-            style="@style/btn_pressed_style"
+            style="@style/btn_gray_blue_pressed_style"
             android:layout_width="wrap_content"
             android:text="@string/modify" />
 
@@ -215,7 +215,7 @@
 
                 <Button
                     android:id="@+id/btn_submit_modify"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="@dimen/dp_150"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:text="@string/submit_modify" />
@@ -250,7 +250,7 @@
 
                 <Button
                     android:id="@+id/btn_change_home"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="@dimen/dp_150"
                     android:layout_marginTop="@dimen/dp_20"
                     android:layout_marginBottom="@dimen/dp_20"
@@ -258,14 +258,14 @@
 
                 <Button
                     android:id="@+id/btn_change_pro"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="@dimen/dp_150"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:text="@string/change_pro_interface" />
 
                 <Button
                     android:id="@+id/btn_change_bulletin"
-                    style="@style/btn_pressed_style"
+                    style="@style/btn_gray_blue_pressed_style"
                     android:layout_width="@dimen/dp_150"
                     android:layout_marginBottom="@dimen/dp_20"
                     android:text="@string/change_bulletin_interface" />

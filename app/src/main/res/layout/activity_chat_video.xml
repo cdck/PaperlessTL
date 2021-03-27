@@ -77,7 +77,7 @@
 
     <Button
         android:id="@+id/pop_video_chat_launch"
-        style="@style/btn_pressed_style"
+        style="@style/btn_gray_blue_pressed_style"
         android:layout_marginBottom="8dp"
         android:text="@string/launch"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -86,7 +86,7 @@
 
     <Button
         android:id="@+id/pop_video_chat_stop"
-        style="@style/btn_pressed_style"
+        style="@style/btn_gray_blue_pressed_style"
         android:text="@string/stop"
         app:layout_constraintBaseline_toBaselineOf="@+id/pop_video_chat_launch"
         app:layout_constraintBottom_toBottomOf="parent"
