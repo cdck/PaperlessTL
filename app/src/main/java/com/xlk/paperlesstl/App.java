@@ -23,6 +23,7 @@ import com.xlk.paperlesstl.helper.CrashHandler;
 import com.xlk.paperlesstl.helper.MyRejectedExecutionHandler;
 import com.xlk.paperlesstl.helper.NamingThreadFactory;
 import com.xlk.paperlesstl.helper.ScreenRecorder;
+import com.xlk.paperlesstl.helper.SharedPreferenceHelper;
 import com.xlk.paperlesstl.model.Constant;
 import com.xlk.paperlesstl.model.GlobalValue;
 import com.xlk.paperlesstl.model.data.EventMessage;
@@ -44,6 +45,14 @@ import java.util.concurrent.TimeUnit;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import skin.support.SkinCompatManager;
+import skin.support.app.SkinAppCompatViewInflater;
+import skin.support.app.SkinCardViewInflater;
+import skin.support.constraint.app.SkinConstraintViewInflater;
+import skin.support.design.app.SkinMaterialViewInflater;
+
+import static com.xlk.paperlesstl.model.Constant.THEME_TYPE_DEFAULT;
+import static com.xlk.paperlesstl.model.Constant.THEME_TYPE_RED;
 
 /**
  * @author Created by xlk on 2021/3/1.
@@ -167,6 +176,28 @@ public class App extends Application {
                 }
             }
         });
+        initSkin();
+    }
+
+    private void initSkin() {
+        //Android-skin-support:https://www.jianshu.com/p/6c4b7fd66223
+        SkinCompatManager.withoutActivity(this)
+                .addInflater(new SkinAppCompatViewInflater())           // 基础控件换肤初始化
+                .addInflater(new SkinMaterialViewInflater())            // material design 控件换肤初始化[可选]
+                .addInflater(new SkinConstraintViewInflater())          // ConstraintLayout 控件换肤初始化[可选]
+                .addInflater(new SkinCardViewInflater())                // CardView v7 控件换肤初始化[可选]
+//                .setSkinStatusBarColorEnable(false)                     // 关闭状态栏换肤，默认打开[可选]
+//                .setSkinWindowBackgroundEnable(false)                   // 关闭windowBackground换肤，默认打开[可选]
+                .loadSkin();
+        GlobalValue.theme_type = (int) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_theme_type, 0);
+        LogUtils.i("initSkin 当前主题类型=" + GlobalValue.theme_type);
+        if (GlobalValue.theme_type == Constant.THEME_TYPE_DEFAULT) {
+            SkinCompatManager.getInstance().restoreDefaultTheme();
+        } else if (GlobalValue.theme_type == Constant.THEME_TYPE_RED) {
+            SkinCompatManager.getInstance().loadSkin("red", SkinCompatManager.SKIN_LOADER_STRATEGY_PREFIX_BUILD_IN); // 前缀加载
+        } else if (GlobalValue.theme_type == Constant.THEME_TYPE_YELLOW) {
+            SkinCompatManager.getInstance().loadSkin("yellow", SkinCompatManager.SKIN_LOADER_STRATEGY_PREFIX_BUILD_IN); // 前缀加载
+        }
     }
 
 

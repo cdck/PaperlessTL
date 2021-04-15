@@ -13,6 +13,7 @@ public class SharedPreferenceHelper {
     public static final String key_user = "user";
     public static final String key_password = "password";
     public static final String key_administrator_login = "administrator_login";
+    public static final String key_theme_type = "key_theme_type";
 
     /**
      * 邮箱账号

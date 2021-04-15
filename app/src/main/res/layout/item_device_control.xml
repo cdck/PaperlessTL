@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/item_root_view"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_30"
+    android:layout_height="30dp"
     android:gravity="center"
     android:orientation="horizontal">
 
@@ -71,7 +71,7 @@
         android:lines="1"
         android:singleLine="true"
         android:text="@string/out_open"
-        android:textSize="12sp" />
+        android:textSize="@dimen/text_size_level2" />
 
     <TextView
         android:id="@+id/item_view_7"

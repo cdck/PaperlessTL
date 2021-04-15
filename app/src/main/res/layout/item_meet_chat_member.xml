@@ -12,7 +12,7 @@
         android:clickable="false"
         android:layout_gravity="center"
         android:lines="2"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_level2"
         android:gravity="center"
         android:layout_weight="1"
         tools:text="张三" />
@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:lines="2"
         android:layout_height="match_parent"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_level2"
         android:layout_weight="1"
         android:gravity="center"
         tools:text="21" />

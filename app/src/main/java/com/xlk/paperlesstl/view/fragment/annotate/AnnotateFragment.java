@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * @author Created by xlk on 2021/3/9.
- * @desc
+ * @desc 查看批注
  */
 public class AnnotateFragment extends BaseFragment<AnnotatePresenter> implements AnnotateContract.View {
 
@@ -30,7 +30,10 @@ public class AnnotateFragment extends BaseFragment<AnnotatePresenter> implements
     private FileAdapter fileAdapter;
     public List<InterfaceFile.pbui_Item_MeetDirFileDetailInfo> currentFiles = new ArrayList<>();
     private int currentDeviceId;
-    private int currentMemberId;
+    /**
+     * 如果 currentMemberId=0 则会显示出管理员
+     */
+    private int currentMemberId = -1;
 
     @Override
     protected int getLayoutId() {
@@ -66,20 +69,16 @@ public class AnnotateFragment extends BaseFragment<AnnotatePresenter> implements
             rv_member.addItemDecoration(new RvItemDecoration(getContext()));
             rv_member.setLayoutManager(new LinearLayoutManager(getContext()));
             rv_member.setAdapter(seatMemberAdapter);
-            seatMemberAdapter.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
-                    currentDeviceId = presenter.seatMembers.get(position).getSeatDetailInfo().getSeatid();
-                    currentMemberId = presenter.seatMembers.get(position).getMemberDetailInfo().getPersonid();
-                    seatMemberAdapter.setSelectedId(currentDeviceId);
-                    if (presenter.hasPermission(currentDeviceId)) {
-                        updateFiles();
-                    } else {
-                        cleanFile();
-                        jni.applyPermission(currentDeviceId,
-                                InterfaceMacro.Pb_MemberPermissionPropertyID.Pb_memperm_postilview_VALUE);
-                    }
+            seatMemberAdapter.setOnItemClickListener((adapter, view, position) -> {
+                currentDeviceId = presenter.seatMembers.get(position).getSeatDetailInfo().getSeatid();
+                currentMemberId = presenter.seatMembers.get(position).getMemberDetailInfo().getPersonid();
+                seatMemberAdapter.setSelectedId(currentDeviceId);
+                if (presenter.hasPermission(currentDeviceId)) {
+                    updateFiles();
+                } else {
+                    cleanFile();
+                    jni.applyPermission(currentDeviceId,
+                            InterfaceMacro.Pb_MemberPermissionPropertyID.Pb_memperm_postilview_VALUE);
                 }
             });
         } else {
@@ -105,7 +104,7 @@ public class AnnotateFragment extends BaseFragment<AnnotatePresenter> implements
             }
         }
         if (fileAdapter == null) {
-            fileAdapter = new FileAdapter(false,currentFiles);
+            fileAdapter = new FileAdapter(false, currentFiles);
             rv_file.setLayoutManager(new LinearLayoutManager(getContext()));
             rv_file.setAdapter(fileAdapter);
         } else {

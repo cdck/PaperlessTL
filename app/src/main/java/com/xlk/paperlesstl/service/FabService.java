@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.media.ImageReader;
 import android.os.Build;
 import android.os.IBinder;
@@ -30,6 +31,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
@@ -44,6 +46,7 @@ import com.mogujie.tt.protobuf.InterfaceFilescorevote;
 import com.mogujie.tt.protobuf.InterfaceMacro;
 import com.mogujie.tt.protobuf.InterfaceVote;
 import com.mogujie.tt.protobuf.InterfaceWhiteboard;
+import com.xlk.paperlesstl.App;
 import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.adapter.CanJoinMemberAdapter;
 import com.xlk.paperlesstl.adapter.CanJoinProjectorAdapter;
@@ -52,6 +55,7 @@ import com.xlk.paperlesstl.adapter.VoteTitleAdapter;
 import com.xlk.paperlesstl.adapter.WmMemberAdapter;
 import com.xlk.paperlesstl.adapter.WmProjectorAdapter;
 import com.xlk.paperlesstl.helper.CustomBaseViewHolder;
+import com.xlk.paperlesstl.helper.SharedPreferenceHelper;
 import com.xlk.paperlesstl.jni.JniHelper;
 import com.xlk.paperlesstl.model.Constant;
 import com.xlk.paperlesstl.model.GlobalValue;
@@ -70,15 +74,19 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import cc.shinichi.library.tool.file.FileUtil;
+import skin.support.SkinCompatManager;
+import skin.support.widget.SkinCompatImageView;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.xlk.paperlesstl.model.Constant.RESOURCE_ID_0;
@@ -110,7 +118,7 @@ public class FabService extends Service implements FabContract.View {
     private int windowWidth, windowHeight;
     private int mScreenDensity;
     private ImageReader mImageReader;
-    private ImageView hoverButton;
+    private SkinCompatImageView hoverButton;
     private boolean hoverButtonIsShowing;
     private View menuView, projectionView, screenView, noteView, voteResultView, canJoinView;
     private boolean menuViewIsShowing, projectionViewIsShowing, screenViewIsShowing, noteViewIsShowing, voteResultViewIsShowing, canJoinViewIsShowing;
@@ -139,6 +147,8 @@ public class FabService extends Service implements FabContract.View {
     private CanJoinProjectorAdapter canJoinProjectorAdapter;
     private int currentBulletId;
 
+    public static String saveNoteContent = "";
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -148,9 +158,20 @@ public class FabService extends Service implements FabContract.View {
     @Override
     public void onCreate() {
         super.onCreate();
+        initTheme();
         context = getApplicationContext();
         presenter = new FabPresenter(context, this);
         initial();
+    }
+
+    private void initTheme() {
+//        if (GlobalValue.theme_type == 0) {
+//            SkinCompatManager.getInstance().restoreDefaultTheme();
+//        } else if (GlobalValue.theme_type == 1) {
+//            SkinCompatManager.getInstance().loadSkin("red", SkinCompatManager.SKIN_LOADER_STRATEGY_PREFIX_BUILD_IN); // 前缀加载
+//        } else if (GlobalValue.theme_type == 2) {
+//            SkinCompatManager.getInstance().loadSkin("yellow", SkinCompatManager.SKIN_LOADER_STRATEGY_PREFIX_BUILD_IN); // 前缀加载
+//        }
     }
 
     @SuppressLint({"ClickableViewAccessibility", "WrongConstant"})
@@ -163,8 +184,11 @@ public class FabService extends Service implements FabContract.View {
         mScreenDensity = metrics.densityDpi;
         mImageReader = ImageReader.newInstance(GlobalValue.screen_width, GlobalValue.screen_height, 0x1, 2);
         initAdapter();
-        hoverButton = new ImageView(context);
+        hoverButton = new SkinCompatImageView(ActivityUtils.getTopActivity());
+//        hoverButton = new ImageView(ActivityUtils.getTopActivity());
         hoverButton.setTag("hoverButton");
+//        Drawable drawable = context.getResources().getDrawable(R.drawable.sided);
+//        hoverButton.setImageDrawable(drawable);
         hoverButton.setImageResource(R.drawable.sided);
         hoverButton.setOnTouchListener((v, event) -> {
             switch (event.getAction()) {
@@ -198,6 +222,12 @@ public class FabService extends Service implements FabContract.View {
         initParams();
         hoverButtonIsShowing = true;
         wm.addView(hoverButton, mParams);
+
+        File file = new File(Constant.meeting_note_file_path);
+        if (FileUtils.isFileExists(file)) {
+            saveNoteContent = FileIOUtils.readFile2String(file);
+            LogUtils.e("之前保存的会议笔记=" + saveNoteContent);
+        }
         presenter.queryMember();
         presenter.queryVote();
     }
@@ -221,7 +251,7 @@ public class FabService extends Service implements FabContract.View {
      * 展示主菜单
      */
     private void showMenuView() {
-        menuView = LayoutInflater.from(this).inflate(R.layout.fab_menu_test, null);
+        menuView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_menu_test, null);
         menuView.setFocusable(true);
         menuView.setFocusableInTouchMode(true);
         menuView.setTag("menuView");
@@ -288,79 +318,6 @@ public class FabService extends Service implements FabContract.View {
         menuView.findViewById(R.id.iv_view9).setOnClickListener(v -> {
             showPop(menuView, hoverButton, mParams);
         });
-//        CircularMenu circularMenu = menuView.findViewById(R.id.custom_menu);
-//        circularMenu.setListener(index -> {
-//            LogUtils.d(TAG, "点击的索引=" + index);
-//            switch (index) {
-//                //结束投影
-//                case 0: {
-//                    if (Constant.hasPermission(permission_code_projection)) {
-//                        presenter.queryMember();
-//                        showProjectionWindow(2);
-//                    } else {
-//                        ToastUtils.showShort(R.string.err_NoPermission);
-//                    }
-//                    break;
-//                }
-//                //退出软件
-//                case 1: {
-//                    AppUtils.relaunchApp(true);
-//                    break;
-//                }
-//                //加入同屏
-//                case 2: {
-//                    break;
-//                }
-//                //结束同屏
-//                case 3: {
-//                    if (Constant.hasPermission(permission_code_screen)) {
-//                        presenter.queryMember();
-//                        showScreenWindow(2);
-//                    } else {
-//                        ToastUtils.showShort(R.string.err_NoPermission);
-//                    }
-//                    break;
-//                }
-//                //发起同屏
-//                case 4: {
-//                    if (Constant.hasPermission(permission_code_screen)) {
-//                        presenter.queryMember();
-//                        showScreenWindow(1);
-//                    } else {
-//                        ToastUtils.showShort(R.string.err_NoPermission);
-//                    }
-//                    break;
-//                }
-//                //会议笔记
-//                case 5: {
-//                    showNoteWindow(menuView, saveNoteContent);
-//                    break;
-//                }
-//                //投票结果
-//                case 6: {
-//                    presenter.queryVote();
-//                    showVoteResultsWindow();
-//                    break;
-//                }
-//                //发起投影
-//                case 7: {
-//                    if (Constant.hasPermission(permission_code_projection)) {
-//                        presenter.queryMember();
-//                        showProjectionWindow(1);
-//                    } else {
-//                        ToastUtils.showShort(R.string.err_NoPermission);
-//                    }
-//                    break;
-//                }
-//                //返回
-//                case 8: {
-//                    showPop(menuView, hoverButton, mParams);
-//                    break;
-//                }
-//                default:
-//                    break;
-//            }
-//        });
         showPop(hoverButton, menuView, wrapParams);
     }
 
@@ -379,7 +336,7 @@ public class FabService extends Service implements FabContract.View {
      * 展示可加入的同屏
      */
     private void showCanJoinWindow() {
-        canJoinView = LayoutInflater.from(context).inflate(R.layout.fab_join_screen, null);
+        canJoinView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_join_screen, null);
         canJoinView.setTag("canJoinView");
         canJoinViewEvent(canJoinView);
         showPop(menuView, canJoinView);
@@ -441,7 +398,7 @@ public class FabService extends Service implements FabContract.View {
      * 展示投票结果窗口
      */
     private void showVoteResultsWindow() {
-        voteResultView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.fab_vote_result_view, null);
+        voteResultView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_vote_result_view, null);
         voteResultView.setTag("voteResultView");
         CustomBaseViewHolder.VoteResultViewHolder holder = new CustomBaseViewHolder.VoteResultViewHolder(voteResultView);
         voteResultHolderEvent(holder);
@@ -684,7 +641,7 @@ public class FabService extends Service implements FabContract.View {
      * @param type =1发起，=2结束
      */
     private void showScreenWindow(int type) {
-        screenView = LayoutInflater.from(this).inflate(R.layout.fab_screen_view, null);
+        screenView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_screen_view, null);
         screenView.setTag("screenView");
         CustomBaseViewHolder.WmScreenViewHolder holder = new CustomBaseViewHolder.WmScreenViewHolder(screenView);
         ScreenViewHolderEvent(holder, type);
@@ -743,7 +700,7 @@ public class FabService extends Service implements FabContract.View {
      * @param type =1发起，=2结束
      */
     private void showProjectionWindow(int type) {
-        projectionView = LayoutInflater.from(this).inflate(R.layout.fab_projection_view, null);
+        projectionView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_projection_view, null);
         projectionView.setTag("projectionView");
         CustomBaseViewHolder.WmProViewHolder holder = new CustomBaseViewHolder.WmProViewHolder(projectionView);
         proViewHolderEvent(holder, type);
@@ -1234,9 +1191,42 @@ public class FabService extends Service implements FabContract.View {
         }
     }
 
+    boolean dialogIsShowing = false;
+    private LinkedList<InterfaceDevice.pbui_Type_MeetRequestPrivilegeNotify> permissionsRequests = new LinkedList<>();//存放收到的申请权限信息
+
     @Override
     public void applyPermissionsInform(InterfaceDevice.pbui_Type_MeetRequestPrivilegeNotify info) {
+        if (dialogIsShowing) {
+            permissionsRequests.addLast(info);
+            return;
+        }
+        dialogIsShowing = true;
+        DialogUtil.createTipDialog(ActivityUtils.getTopActivity(), getString(R.string.apply_permissions, presenter.getMemberNameByDeviceId(info.getDeviceid())),
+                getString(R.string.agree), getString(R.string.reject), new DialogUtil.onDialogClickListener() {
+                    @Override
+                    public void positive(DialogInterface dialog) {
+                        jni.revertAttendPermissionsRequest(info.getDeviceid(), 1);
+                        dialog.dismiss();
+                    }
 
+                    @Override
+                    public void negative(DialogInterface dialog) {
+                        jni.revertAttendPermissionsRequest(info.getDeviceid(), 0);
+                        dialog.dismiss();
+                    }
+
+                    @Override
+                    public void dismiss(DialogInterface dialog) {
+                        dialogIsShowing = false;
+                        if (!permissionsRequests.isEmpty()) {
+                            InterfaceDevice.pbui_Type_MeetRequestPrivilegeNotify item = permissionsRequests.removeFirst();
+                            if (item != null) {
+                                LogUtils.d(TAG, "dismiss -->" + "处理了一个还有下一个申请要处理");
+                                applyPermissionsInform(item);
+                            }
+                        }
+                    }
+                });
     }
 
     /**
@@ -1288,8 +1278,6 @@ public class FabService extends Service implements FabContract.View {
         showNoteWindow(hoverButton, content);
     }
 
-    private String saveNoteContent = "";
-
     /**
      * 会议笔记窗口
      *
@@ -1298,7 +1286,7 @@ public class FabService extends Service implements FabContract.View {
      */
     public void showNoteWindow(View removeView, String content) {
         saveNoteContent = content;
-        noteView = LayoutInflater.from(this).inflate(R.layout.fab_note_view, null);
+        noteView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_note_view, null);
         noteView.setTag("noteView");
         CustomBaseViewHolder.NoteViewHolder holder = new CustomBaseViewHolder.NoteViewHolder(noteView);
         noteViewHolderEvent(holder);
@@ -1323,20 +1311,18 @@ public class FabService extends Service implements FabContract.View {
         });
         holder.btn_save_local.setOnClickListener(v -> {
             String content = holder.edt_note.getText().toString();
-            String filePath = Constant.FILE_DIR + "会议笔记.txt";
-            File file = new File(filePath);
+            File file = new File(Constant.meeting_note_file_path);
             FileUtils.createOrExistsFile(file);
             if (FileUtil.writeFileFromString(file, content)) {
-                ToastUtils.showShort(R.string.save_successful);
+                ToastUtils.showLong(R.string.save_note_at, file.getAbsolutePath());
             }
         });
         holder.btn_cache.setOnClickListener(v -> {
             String content = holder.edt_note.getText().toString();
-            String filePath = Constant.CACHE_DIR + "会议笔记.txt";
-            File file = new File(filePath);
+            File file = new File(Constant.meeting_note_file_path);
             FileUtils.createOrExistsFile(file);
             if (FileUtil.writeFileFromString(file, content)) {
-                ToastUtils.showShort(R.string.save_successful);
+                ToastUtils.showLong(R.string.save_note_at, file.getAbsolutePath());
             }
         });
     }

@@ -22,7 +22,7 @@
             android:layout_centerInParent="true"
             android:text="@string/offline_meeting"
             android:textColor="@color/black"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_size_level5"
             android:textStyle="bold" />
 
         <ImageView
@@ -74,7 +74,7 @@
         android:id="@+id/ll_bottom_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -84,14 +84,14 @@
 
         <Button
             android:id="@+id/btn_switch_meeting"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="150dp"
             android:layout_marginEnd="10dp"
             android:text="@string/switch_meeting" />
 
         <Button
             android:id="@+id/btn_delete_meeting"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="150dp"
             android:layout_marginStart="10dp"
             android:text="@string/delete" />

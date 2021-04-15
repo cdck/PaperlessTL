@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--  按钮正常样式  -->
+    <style name="yellow_btn_style_normal">
+        <item name="android:background">@drawable/yellow_btn_style_bg</item>
+        <item name="android:textColor">@drawable/yellow_btn_style_text_color</item>
+        <item name="android:textSize">@dimen/yellow_text_size_level2</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+
+    <style name="yellow_btn_file_type_style">
+        <item name="android:background">@drawable/yellow_share_file_type_s</item>
+        <item name="android:textColor">@drawable/yellow_share_file_type_text_selected</item>
+        <item name="android:textSize">@dimen/yellow_text_size_level5</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">30dp</item>
+    </style>
+</resources>

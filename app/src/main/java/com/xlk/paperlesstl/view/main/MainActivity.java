@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import skin.support.SkinCompatManager;
 
 import android.Manifest;
 import android.app.Activity;
@@ -21,8 +22,10 @@ import android.hardware.Camera;
 import android.media.MediaCodec;
 import android.media.MediaFormat;
 import android.media.projection.MediaProjectionManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -34,6 +37,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -83,6 +88,9 @@ import java.util.List;
 
 import static com.xlk.paperlesstl.model.Constant.EXTRA_ADMIN_ID;
 import static com.xlk.paperlesstl.model.Constant.EXTRA_ADMIN_NAME;
+import static com.xlk.paperlesstl.model.Constant.THEME_TYPE_DEFAULT;
+import static com.xlk.paperlesstl.model.Constant.THEME_TYPE_RED;
+import static com.xlk.paperlesstl.model.Constant.THEME_TYPE_YELLOW;
 import static com.xlk.paperlesstl.model.GlobalValue.camera_height;
 import static com.xlk.paperlesstl.model.GlobalValue.camera_width;
 import static com.xlk.paperlesstl.util.ConvertUtil.s2b;
@@ -1070,6 +1078,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     public void openSet(View view) {
         boolean spIsRemember = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_remember, false);
         boolean isAdministratorLogin = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_administrator_login, false);
+        int themeType = (int) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_theme_type, 0);
         String spUser = (String) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_user, "");
         String spPwd = (String) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_password, "");
         View inflate = LayoutInflater.from(this).inflate(R.layout.pop_main_set, null, false);
@@ -1080,6 +1089,40 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         CheckBox cb_offline_mode = inflate.findViewById(R.id.cb_offline_mode);
         CheckBox cb_remember_pwd = inflate.findViewById(R.id.cb_remember_pwd);
         tvLoginStatus = inflate.findViewById(R.id.tv_login_status);
+
+        RadioGroup rg_theme = inflate.findViewById(R.id.rg_theme);
+        RadioButton rb_theme_blue = inflate.findViewById(R.id.rb_theme_blue);
+        RadioButton rb_theme_red = inflate.findViewById(R.id.rb_theme_red);
+        RadioButton rb_theme_yellow = inflate.findViewById(R.id.rb_theme_yellow);
+        rb_theme_blue.setChecked(themeType == THEME_TYPE_DEFAULT);
+        rb_theme_red.setChecked(themeType == THEME_TYPE_RED);
+        rb_theme_yellow.setChecked(themeType == THEME_TYPE_YELLOW);
+        rg_theme.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_theme_blue:
+                        ToastUtils.showShort(R.string.theme_blue);
+                        SkinCompatManager.getInstance().restoreDefaultTheme();
+                        SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_theme_type, THEME_TYPE_DEFAULT);
+                        GlobalValue.theme_type = THEME_TYPE_DEFAULT;
+                        break;
+                    case R.id.rb_theme_red:
+                        ToastUtils.showShort(R.string.theme_red);
+                        SkinCompatManager.getInstance().loadSkin("red", SkinCompatManager.SKIN_LOADER_STRATEGY_PREFIX_BUILD_IN); // 前缀加载
+                        SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_theme_type, THEME_TYPE_RED);
+                        GlobalValue.theme_type = THEME_TYPE_RED;
+                        break;
+                    case R.id.rb_theme_yellow:
+                        ToastUtils.showShort(R.string.theme_yellow);
+                        SkinCompatManager.getInstance().loadSkin("yellow", SkinCompatManager.SKIN_LOADER_STRATEGY_PREFIX_BUILD_IN); // 前缀加载
+                        SharedPreferenceHelper.setData(MainActivity.this, SharedPreferenceHelper.key_theme_type, THEME_TYPE_YELLOW);
+                        GlobalValue.theme_type = THEME_TYPE_YELLOW;
+                        break;
+                }
+            }
+        });
+
         cb_remember_pwd.setChecked(spIsRemember);
         cb_manage_mode.setChecked(isAdministratorLogin);
         cb_offline_mode.setChecked(!isAdministratorLogin);

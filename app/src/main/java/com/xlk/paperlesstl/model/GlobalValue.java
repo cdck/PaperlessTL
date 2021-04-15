@@ -80,4 +80,6 @@ public class GlobalValue {
      * 截图时获取的bitmap对象
      */
     public static Bitmap screenShotBitmap = null;
+
+    public static int theme_type = 0;
 }

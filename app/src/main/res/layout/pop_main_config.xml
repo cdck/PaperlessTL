@@ -2,14 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dialog_full_holo_light"
+    android:background="@drawable/dialog_bg"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_top_corner_blue"
-        android:padding="@dimen/dp_5">
+        android:padding="5dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -17,7 +16,7 @@
             android:layout_centerInParent="true"
             android:text="@string/system_settings"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_level4"
             android:textStyle="bold" />
 
     </RelativeLayout>
@@ -26,11 +25,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="@dimen/dp_5"
-        android:layout_weight="1"
-        android:background="@color/white">
+        android:layout_marginBottom="5dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -205,27 +203,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
 
         <Button
             android:id="@+id/btn_save"
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="25dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:background="@drawable/btn_n_p"
+            style="@style/btn_style_normal"
+            android:layout_width="120dp"
+            android:layout_marginEnd="10dp"
             android:text="@string/save"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_level2" />
 
         <Button
             android:id="@+id/btn_cancel"
-            android:layout_width="@dimen/dp_100"
-            android:layout_height="25dp"
-            android:background="@drawable/btn_n_p"
+            style="@style/btn_style_normal"
+            android:layout_width="120dp"
+            android:layout_marginStart="10dp"
             android:text="@string/cancel"
-            android:textSize="12sp" />
+            android:textSize="@dimen/text_size_level2" />
     </LinearLayout>
 </LinearLayout>

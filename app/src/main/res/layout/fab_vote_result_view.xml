@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_margin="10dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -23,20 +23,24 @@
 
             <Button
                 android:id="@+id/btn_vote"
-                style="@style/btn_gray_blue_selected_style"
+                style="@style/btn_style_normal"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
-                android:layout_marginEnd="@dimen/dp_5"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="5dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/vote" />
 
             <Button
                 android:id="@+id/btn_election"
-                style="@style/btn_gray_blue_selected_style"
+                style="@style/btn_style_normal"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_30"
-                android:layout_marginStart="@dimen/dp_5"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
                 android:layout_weight="1"
+                android:gravity="center"
                 android:text="@string/election" />
         </LinearLayout>
 
@@ -60,9 +64,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -89,7 +93,7 @@
                     android:maxLines="1"
                     android:text="@string/number"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_level4"
                     android:textStyle="bold" />
 
                 <TextView
@@ -103,7 +107,7 @@
                     android:maxLines="1"
                     android:text="@string/title"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:textSize="@dimen/text_size_level4"
                     android:textStyle="bold" />
 
                 <TextView
@@ -116,10 +120,10 @@
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="ID"
-                    android:visibility="gone"
                     android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:textSize="@dimen/text_size_level4"
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
@@ -157,7 +161,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_size_level5"
                         tools:text="（单选 记名 正在进行）" />
 
                     <TextView
@@ -166,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:textColor="@color/white"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_size_level5"
                         tools:text="应到：9人 实到：9人 已投：9人 未投：0人" />
                 </LinearLayout>
 
@@ -182,7 +186,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
                         android:textColor="@color/white"
-                        android:textSize="20sp"
+                        android:textSize="@dimen/text_size_level6"
                         tools:text="投票标题" />
 
                     <LinearLayout
@@ -377,7 +381,7 @@
                         android:maxLines="1"
                         android:text="@string/number"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_level3"
                         android:textStyle="bold" />
 
                     <TextView
@@ -391,7 +395,7 @@
                         android:maxLines="1"
                         android:text="@string/submit_name"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_level3"
                         android:textStyle="bold" />
 
                     <TextView
@@ -405,7 +409,7 @@
                         android:maxLines="1"
                         android:text="@string/choose_option"
                         android:textColor="@color/black"
-                        android:textSize="14sp"
+                        android:textSize="@dimen/text_size_level3"
                         android:textStyle="bold" />
                 </LinearLayout>
 

@@ -8,6 +8,6 @@
 
     <com.xlk.paperlesstl.ui.CircularMenu
         android:id="@+id/custom_menu"
-        android:layout_width="@dimen/dp_350"
-        android:layout_height="@dimen/dp_350" />
+        android:layout_width="350dp"
+        android:layout_height="350dp" />
 </RelativeLayout>

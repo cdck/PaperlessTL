@@ -4,7 +4,7 @@
     android:id="@+id/item_root_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dp_5"
+    android:layout_margin="5dp"
     android:orientation="horizontal">
 
     <LinearLayout
@@ -33,7 +33,7 @@
                 android:id="@+id/ll_answer_a"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -60,7 +60,7 @@
                 android:id="@+id/ll_answer_b"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -87,7 +87,7 @@
                 android:id="@+id/ll_answer_c"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -114,7 +114,7 @@
                 android:id="@+id/ll_answer_d"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -141,7 +141,7 @@
                 android:id="@+id/ll_answer_e"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -171,7 +171,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginStart="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -181,27 +181,27 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_weight="1"
-            android:textSize="@dimen/sp_12"
+            android:textSize="@dimen/text_size_level2"
             tools:text="未发起" />
 
         <Button
             android:id="@+id/btn_launch_vote"
-            style="@style/btn_gray_blue_pressed_style"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginBottom="@dimen/dp_5"
+            style="@style/btn_style_normal"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/launch_vote"
-            android:textSize="@dimen/sp_10" />
+            android:textSize="@dimen/text_size_level1" />
 
         <Button
             android:id="@+id/btn_stop_vote"
-            style="@style/btn_gray_blue_pressed_style"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginBottom="@dimen/dp_5"
+            style="@style/btn_style_normal"
+            android:layout_width="50dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:text="@string/stop_vote"
-            android:textSize="@dimen/sp_10" />
+            android:textSize="@dimen/text_size_level1" />
     </LinearLayout>
 </LinearLayout>

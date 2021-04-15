@@ -93,19 +93,15 @@ public class EventType {
     public static final int BUS_SIGN_IN_DETAILS = BUS_BASE + 35;
     public static final int BUS_SIGN_IN = BUS_BASE + 36;
     /**
-     * 网络断开
-     */
-    public static final int BUS_NETWORK_DISCONNECTED = BUS_BASE + 37;
-    /**
      * 网络连接
      */
-    public static final int BUS_NETWORK_CONNECTED = BUS_BASE + 38;
+    public static final int BUS_NETWORK_CONNECTED = BUS_BASE + 37;
     /**
      * 平台初始化完成
      */
-    public static final int BUS_INITIALIZED = BUS_BASE + 39;
+    public static final int BUS_INITIALIZED = BUS_BASE + 38;
     /**
      * 通知关闭服务器未连接的提示窗口
      */
-    public static final int BUS_CLOSE_SERVER_DISCONNECTED_DIALOG = BUS_BASE + 40;
+    public static final int BUS_CLOSE_SERVER_DISCONNECTED_DIALOG = BUS_BASE + 39;
 }

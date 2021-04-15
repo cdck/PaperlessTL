@@ -15,14 +15,20 @@ public class Constant {
     public static final String ROOT_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PaperlessTL/";
 
     public static final String LOGCAT_DIR = ROOT_DIR + "myLog";
-    public static final String FILE_DIR = ROOT_DIR + "文件/";
-    public static final String DIR_PICTURE = FILE_DIR + "图片/";
-    public static final String DOWNLOAD_DIR = FILE_DIR + "下载文件/";
-    public static final String EXPORT_DIR = FILE_DIR + "导出文件/";
-    public static final String DIR_ARCHIVE_TEMP = FILE_DIR + "会议归档缓存目录/";
-    public static final String DIR_ARCHIVE_ZIP = FILE_DIR + "会议归档/";
-    //会议缓存文件
-    public static final String CACHE_DIR = FILE_DIR + "缓存文件/";
+    public static final String FILE_DIR = ROOT_DIR + "File/";
+    public static final String DIR_PICTURE = FILE_DIR + "Picture/";
+    public static final String DOWNLOAD_DIR = FILE_DIR + "Download File/";
+    public static final String EXPORT_DIR = FILE_DIR + "Export File/";
+    public static final String DIR_ARCHIVE_TEMP = FILE_DIR + "Conference archive cache directory/";
+    public static final String DIR_ARCHIVE_ZIP = FILE_DIR + "Conference archive/";
+
+    public static final String meeting_note_file_path = ROOT_DIR + "会议笔记.txt";
+
+    //主题类型type值
+
+    public static final int THEME_TYPE_DEFAULT = 0;
+    public static final int THEME_TYPE_RED = 1;
+    public static final int THEME_TYPE_YELLOW = 2;
 
     //request_code
 
@@ -126,7 +132,6 @@ public class Constant {
      * 归档会议资料下载标识
      */
     public static final String ARCHIVE_MEET_DATA_FILE = "archive_meet_data_file";
-
 
 
     //固定的会议目录ID
@@ -373,6 +378,7 @@ public class Constant {
         }
         return (GlobalValue.localPermission & code) == code;
     }
+
     /**
      * 判断权限码是否有某一权限
      *
@@ -470,10 +476,10 @@ public class Constant {
         }
     }
 
-    public static String getVoteMode(Context context,int mode){
-        if(mode==InterfaceMacro.Pb_MeetVoteMode.Pb_VOTEMODE_agonymous_VALUE){
+    public static String getVoteMode(Context context, int mode) {
+        if (mode == InterfaceMacro.Pb_MeetVoteMode.Pb_VOTEMODE_agonymous_VALUE) {
             return context.getString(R.string.anonymous);
-        }else {
+        } else {
             return context.getString(R.string.notation);
         }
     }
@@ -514,7 +520,7 @@ public class Constant {
      */
     public static final String MIME_VIDEO_VP9 = "video/x-vnd.on2.vp9";
     /**
-     *  H.263 video
+     * H.263 video
      */
     public static final String MIME_VIDEO_3GPP = "video/3gpp";
     /**

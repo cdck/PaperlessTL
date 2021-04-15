@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/dp_100"
-    android:layout_height="@dimen/dp_150"
+    android:layout_width="100dp"
+    android:layout_height="150dp"
     android:layout_gravity="center"
     android:background="@drawable/more_func_bg"
     android:gravity="center"
@@ -19,7 +19,7 @@
         android:gravity="center"
         android:paddingStart="10dp"
         android:text="@string/push"
-        android:textSize="20sp" />
+        android:textSize="@dimen/text_size_level6" />
 
     <TextView
         android:id="@+id/tv_download"
@@ -33,7 +33,7 @@
         android:drawableLeft="@drawable/download"
         android:gravity="center"
         android:text="@string/download"
-        android:textSize="20sp" />
+        android:textSize="@dimen/text_size_level6" />
 
     <TextView
         android:id="@+id/tv_cache"
@@ -47,5 +47,5 @@
         android:drawableLeft="@drawable/cache"
         android:gravity="center"
         android:text="@string/cache"
-        android:textSize="20sp" />
+        android:textSize="@dimen/text_size_level6" />
 </LinearLayout>

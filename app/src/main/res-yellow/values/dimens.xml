@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- Your custom size defind by references, can be writted in anywhere, any module, any values/*.xml, for example: -->
+    <!--下两行属于ZBar二维码扫描库所需的属性-->
+<!--    <dimen name="activity_horizontal_margin">16dp</dimen>-->
+<!--    <dimen name="activity_vertical_margin">16dp</dimen>-->
+    <!-- dp and sp values, must be defind in this file! -->
+
+    <!-- font size,you can add if there is no one -->
+    <dimen name="yellow_text_size_level7">24sp</dimen>
+    <dimen name="yellow_text_size_level6">20sp</dimen>
+    <dimen name="yellow_text_size_level5">18sp</dimen>
+    <dimen name="yellow_text_size_level4">16sp</dimen>
+    <dimen name="yellow_text_size_level3">14sp</dimen>
+    <dimen name="yellow_text_size_level2">12sp</dimen>
+    <dimen name="yellow_text_size_level1">10sp</dimen>
+
+</resources>

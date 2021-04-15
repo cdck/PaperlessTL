@@ -9,10 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_marginEnd="@dimen/dp_20"
-        android:layout_marginBottom="@dimen/dp_5"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center">
 
         <CheckBox
@@ -41,17 +41,17 @@
         android:id="@+id/rv_projector"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_weight="1"
         android:background="@color/white" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_5"
-        android:layout_marginEnd="@dimen/dp_20"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
         android:orientation="horizontal">
 
         <CheckBox
@@ -94,25 +94,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_10"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_launch_pro"
-            style="@style/btn_gray_blue_pressed_style"
-            android:layout_width="@dimen/dp_150"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginEnd="@dimen/dp_30"
+            style="@style/btn_style_normal"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="30dp"
             android:text="@string/launch_pro" />
 
         <Button
             android:id="@+id/btn_cancel"
-            style="@style/btn_gray_blue_pressed_style"
-            android:layout_width="@dimen/dp_150"
-            android:layout_height="@dimen/dp_30"
-            android:layout_marginStart="@dimen/dp_30"
+            style="@style/btn_style_normal"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="30dp"
             android:text="@string/cancel" />
     </LinearLayout>
 </LinearLayout>

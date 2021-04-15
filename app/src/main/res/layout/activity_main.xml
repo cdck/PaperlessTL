@@ -5,7 +5,7 @@
     android:id="@+id/main_root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_bg"
+    android:background="@drawable/root_view_bg"
     tools:context=".view.main.MainActivity">
 
     <TextView
@@ -180,7 +180,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 tools:text="12月20日"
-                tools:textSize="12sp" />
+                tools:textSize="@dimen/text_size_level2" />
 
             <TextView
                 android:id="@+id/week_tv_main"
@@ -188,7 +188,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 tools:text="星期一"
-                tools:textSize="12sp" />
+                tools:textSize="@dimen/text_size_level2" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -196,7 +196,7 @@
         android:id="@+id/icon_ll_main"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_5"
+        android:layout_margin="5dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -206,7 +206,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="5dp"
-            android:clickable="true"
             android:onClick="openSet"
             android:src="@drawable/icon_win_n" />
 
@@ -214,7 +213,6 @@
             android:id="@+id/iv_close_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:onClick="exitApp"
             android:src="@drawable/icon_close_n" />
     </LinearLayout>

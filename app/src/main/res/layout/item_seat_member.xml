@@ -22,7 +22,7 @@
         android:id="@+id/item_tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="12sp"
+        android:textSize="@dimen/text_size_level2"
         android:textColor="@drawable/black_white_text_selected"
         tools:text="参会人" />
 

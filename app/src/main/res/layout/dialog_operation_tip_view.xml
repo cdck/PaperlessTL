@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_size_level3"
             tools:text="速度快放假了快速点击积累基的临时开发交流快速点击弗兰克" />
     </RelativeLayout>
 
@@ -34,8 +34,8 @@
             android:id="@+id/btn_ensure"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="@dimen/dp_30"
-            android:textSize="16sp"
+            android:layout_height="30dp"
+            android:textSize="@dimen/text_size_level4"
             android:textColor="@drawable/blue_black_text_color_s"
             android:background="@color/transparent"
             android:text="@string/ensure" />
@@ -49,8 +49,8 @@
             android:id="@+id/btn_cancel"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="@dimen/dp_30"
-            android:textSize="16sp"
+            android:layout_height="30dp"
+            android:textSize="@dimen/text_size_level4"
             android:textColor="@drawable/blue_black_text_color_s"
             android:background="@color/transparent"
             android:text="@string/cancel" />

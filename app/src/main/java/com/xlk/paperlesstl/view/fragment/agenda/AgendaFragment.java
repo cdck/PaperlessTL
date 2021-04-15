@@ -9,6 +9,7 @@ import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.tencent.smtt.sdk.TbsDownloader;
@@ -102,7 +103,8 @@ public class AgendaFragment extends BaseFragment<AgendaPresenter> implements Age
         }
         /* **** **  加载完成，并且加载的是X5内核  ** **** */
         progress_bar.setVisibility(View.GONE);
-        String tempPath = Environment.getExternalStorageDirectory().getPath();
+        String tempPath = Environment.getExternalStorageDirectory().getPath() + "/TbsReaderTemp";
+        FileUtils.createOrExistsDir(tempPath);
         tbsReaderView = new TbsReaderView(Objects.requireNonNull(getContext()), this);
         agenda_root.addView(tbsReaderView, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));

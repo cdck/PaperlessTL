@@ -1,44 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="btn_blue_gray_pressed_style">
-        <item name="android:background">@drawable/btn_blue_gray_pressed</item>
-        <item name="android:textColor">@drawable/white_black_text_pressed</item>
-        <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:layout_width">@dimen/dp_60</item>
-        <item name="android:layout_height">@dimen/dp_30</item>
-    </style>
-
-    <style name="btn_blue_gray_selected_style">
-        <item name="android:background">@drawable/btn_blue_gray_selected</item>
-        <item name="android:textColor">@drawable/white_black_text_selected</item>
-        <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:layout_width">@dimen/dp_60</item>
-        <item name="android:layout_height">@dimen/dp_30</item>
-    </style>
-
-    <style name="btn_gray_blue_selected_style">
-        <item name="android:background">@drawable/btn_gray_blue_selected</item>
-        <item name="android:textColor">@drawable/black_white_text_selected</item>
-        <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:layout_width">@dimen/dp_60</item>
-        <item name="android:layout_height">@dimen/dp_30</item>
-    </style>
-
-    <style name="btn_gray_blue_pressed_style">
-        <item name="android:background">@drawable/btn_gray_blue_pressed</item>
-        <item name="android:textColor">@drawable/black_white_text_pressed</item>
-        <item name="android:textSize">@dimen/sp_12</item>
-        <item name="android:layout_width">@dimen/dp_60</item>
-        <item name="android:layout_height">@dimen/dp_30</item>
+    <!--  按钮正常样式  -->
+    <style name="btn_style_normal">
+        <item name="android:background">@drawable/btn_style_bg</item>
+        <item name="android:textColor">@drawable/btn_style_text_color</item>
+        <item name="android:textSize">@dimen/text_size_level2</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">30dp</item>
     </style>
 
     <style name="btn_file_type_style">
         <item name="android:background">@drawable/share_file_type_s</item>
         <item name="android:textColor">@drawable/share_file_type_text_selected</item>
-        <item name="android:textSize">@dimen/sp_18</item>
-        <item name="android:layout_width">@dimen/dp_60</item>
-        <item name="android:layout_height">@dimen/dp_30</item>
+        <item name="android:textSize">@dimen/text_size_level5</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">30dp</item>
     </style>
 
     <style name="TableTitleStyle">
@@ -57,7 +34,7 @@
     <style name="EditTextStyle">
         <item name="android:textSize">@dimen/sp_14</item>
         <item name="android:singleLine">true</item>
-        <item name="android:padding">@dimen/dp_2</item>
+        <item name="android:padding">2dp</item>
         <item name="android:lines">1</item>
     </style>
 
@@ -65,14 +42,11 @@
         <item name="android:textColor">@drawable/black_white_text_pressed</item>
         <item name="android:background">@drawable/shape_btn_pressed</item>
         <item name="android:clickable">true</item>
-        <item name="android:drawablePadding">@dimen/dp_2</item>
-        <item name="android:layout_margin">@dimen/dp_2</item>
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:layout_margin">2dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">@dimen/dp_2</item>
+        <item name="android:padding">2dp</item>
         <item name="android:layout_centerInParent">true</item>
-        <!--<item name="android:textSize">@dimen/sp_12</item>-->
-        <!--<item name="android:layout_width">@dimen/dp_50</item>-->
-        <!--<item name="android:layout_height">@dimen/dp_20</item>-->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
@@ -81,14 +55,11 @@
         <item name="android:textColor">@drawable/black_white_text_selected</item>
         <item name="android:background">@drawable/shape_btn_selected</item>
         <item name="android:clickable">true</item>
-        <item name="android:drawablePadding">@dimen/dp_2</item>
-        <item name="android:layout_margin">@dimen/dp_2</item>
-        <!--<item name="android:textSize">@dimen/sp_12</item>-->
+        <item name="android:drawablePadding">2dp</item>
+        <item name="android:layout_margin">2dp</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">@dimen/dp_2</item>
+        <item name="android:padding">2dp</item>
         <item name="android:layout_centerInParent">true</item>
-        <!--<item name="android:layout_width">@dimen/dp_50</item>-->
-        <!--<item name="android:layout_height">@dimen/dp_20</item>-->
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
     </style>

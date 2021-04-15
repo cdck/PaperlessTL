@@ -10,7 +10,7 @@ android {
         applicationId "com.xlk.paperlesstl"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 1
+        versionCode 4
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -26,6 +26,11 @@ android {
         main {
             jniLibs.srcDirs = ['src/main/jniLibs']     //设置目标的so存放路径
             jni.srcDirs = [] //禁用自动调用ndk-build
+            res.srcDirs = [
+                    'src/main/res',
+                    'src/main/res-red',
+                    'src/main/res-yellow'
+            ]
         }
     }
     externalNativeBuild {
@@ -109,4 +114,14 @@ dependencies {
 
     //饺子视频播放器：https://github.com/Jzvd/JZVideo
     implementation 'cn.jzvd:jiaozivideoplayer:7.6.0'
+
+    //https://github.com/ximsfei/Android-skin-support
+    implementation 'skin.support:skin-support:4.0.5'                   // skin-support
+    implementation 'skin.support:skin-support-appcompat:4.0.5'         // skin-support 基础控件支持
+    implementation 'skin.support:skin-support-design:4.0.5'
+    // skin-support-design material design 控件支持[可选]
+    implementation 'skin.support:skin-support-cardview:4.0.5'
+    // skin-support-cardview CardView 控件支持[可选]
+    implementation 'skin.support:skin-support-constraint-layout:4.0.5'
+    // skin-support-constraint-layout ConstraintLayout 控件支持[可选]
 }

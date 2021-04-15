@@ -160,7 +160,7 @@ public class BackService extends Service implements NetworkUtils.OnNetworkStatus
                 int deviceid = info.getDeviceid();
                 //寄存器id 0:net status  50:res status  63:base info
                 int attribid = info.getAttribid();
-                LogUtils.i(TAG, "busEvent 设备寄存器变更通知 attribid=" + attribid + ",deviceid=" + deviceid);
+                LogUtils.i(TAG, "busEvent 设备寄存器变更通知 attribid=" + attribid + ",deviceid=" + deviceid+",本机设备ID="+GlobalValue.localDeviceId);
                 if (attribid == 0 && deviceid == GlobalValue.localDeviceId) {
                     EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).build());
                 }
@@ -616,12 +616,12 @@ public class BackService extends Service implements NetworkUtils.OnNetworkStatus
     @Override
     public void onDisconnected() {
         LogUtils.i(TAG, "网络变更 onDisconnected");
-        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).build());
+//        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).build());
     }
 
     @Override
     public void onConnected(NetworkUtils.NetworkType networkType) {
         LogUtils.i(TAG, "网络变更 onConnected networkType=" + networkType.toString());
-        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).objects(networkType).build());
+//        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).objects(networkType).build());
     }
 }

@@ -5,7 +5,7 @@
     android:background="#FF1414"
     android:layout_gravity="center"
     android:gravity="center"
-    android:padding="@dimen/dp_5"
+    android:padding="5dp"
     android:orientation="horizontal">
 
     <ImageView
@@ -18,6 +18,6 @@
         android:layout_height="wrap_content"
         android:text="@string/server_disconnected_tip"
         android:textColor="@color/white"
-        android:layout_marginStart="@dimen/dp_5"
-        android:textSize="20sp" />
+        android:layout_marginStart="5dp"
+        android:textSize="@dimen/text_size_level6" />
 </LinearLayout>

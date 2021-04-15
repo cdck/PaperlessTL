@@ -31,9 +31,12 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.SkinAppCompatDelegateImpl;
 
 /**
  * @author Created by xlk on 2021/3/1.
@@ -48,6 +51,11 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     private AlertDialog tipDialog;
     private AlertDialog disconnectedDialog;
 
+    @NonNull
+    @Override
+    public AppCompatDelegate getDelegate() {
+        return SkinAppCompatDelegateImpl.get(this, this);
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,10 +78,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 startActivityForResult(intent, REQUEST_CODE_EXPORT_NOTE);
                 break;
             }
-//            case EventType.BUS_NETWORK_DISCONNECTED: {
-//                showNetWorkTipPop();
-//                break;
-//            }
             case EventType.BUS_NETWORK_CONNECTED: {
 //                NetworkUtils.NetworkType networkType = (NetworkUtils.NetworkType) msg.getObjects()[0];
                 if (!jni.isOnline()) {

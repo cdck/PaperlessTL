@@ -22,7 +22,7 @@
             android:maxLines="1"
             android:text="@string/number"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_level4"
             android:textStyle="bold" />
 
         <TextView
@@ -37,7 +37,7 @@
             android:maxLines="1"
             android:text="@string/title"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_level4"
             android:textStyle="bold" />
 
         <TextView
@@ -53,7 +53,7 @@
             android:maxLines="1"
             android:text="ID"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_level4"
             android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>

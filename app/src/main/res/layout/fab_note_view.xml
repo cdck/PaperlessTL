@@ -17,7 +17,7 @@
             android:layout_centerInParent="true"
             android:text="@string/meeting_note"
             android:textColor="@color/black"
-            android:textSize="16sp"
+            android:textSize="@dimen/text_size_level4"
             android:textStyle="bold" />
 
         <ImageView
@@ -55,30 +55,30 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dp_10"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_export_note"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="5dp"
                 android:text="@string/export_note" />
 
             <Button
                 android:id="@+id/btn_save_local"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_marginEnd="5dp"
                 android:text="@string/save_local" />
 
             <Button
                 android:id="@+id/btn_back"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_marginEnd="5dp"
                 android:text="@string/back" />
             <Button
                 android:id="@+id/btn_cache"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:text="@string/offline_cache" />
         </LinearLayout>
     </LinearLayout>

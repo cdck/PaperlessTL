@@ -31,6 +31,7 @@ public class AgendaPresenter extends BasePresenter<AgendaContract.View> implemen
             //议程文件下载完成
             case EventType.BUS_AGENDA_FILE:
                 String path = (String) msg.getObjects()[0];
+                LogUtils.e("议程文件下载完成 path=" + path);
                 mView.displayFile(path);
                 break;
             case EventType.BUS_X5_INSTALL://腾讯X5内核加载完成
@@ -54,24 +55,24 @@ public class AgendaPresenter extends BasePresenter<AgendaContract.View> implemen
             } else if (agendatype == InterfaceMacro.Pb_AgendaType.Pb_MEET_AGENDA_TYPE_FILE_VALUE) {
                 int mediaid = meetAgenda.getMediaid();
                 byte[] bytes = jni.queryFileProperty(InterfaceMacro.Pb_MeetFilePropertyID.Pb_MEETFILE_PROPERTY_NAME.getNumber(), mediaid);
-                InterfaceBase.pbui_CommonTextProperty textProperty = null;
                 try {
-                    textProperty = InterfaceBase.pbui_CommonTextProperty.parseFrom(bytes);
+                    InterfaceBase.pbui_CommonTextProperty textProperty = InterfaceBase.pbui_CommonTextProperty.parseFrom(bytes);
+                    String fileName = textProperty.getPropertyval().toStringUtf8();
+                    LogUtils.i(TAG, "fun_queryAgenda 获取到文件议程 -->" + mediaid + ", 文件名：" + fileName);
+                    FileUtils.createOrExistsDir(Constant.DOWNLOAD_DIR);
+                    File file = new File(Constant.DOWNLOAD_DIR + fileName);
+                    if (file.exists()) {
+                        if (GlobalValue.downloadingFiles.contains(mediaid)) {
+                            LogUtils.e("queryAgenda 文件下载中=" + fileName);
+                            ToastUtils.showShort(R.string.file_downloading);
+                        } else {
+                            mView.displayFile(file.getAbsolutePath());
+                        }
+                    } else {
+                        jni.creationFileDownload(Constant.DOWNLOAD_DIR + fileName, mediaid, 1, 0, Constant.DOWNLOAD_AGENDA_FILE);
+                    }
                 } catch (InvalidProtocolBufferException e) {
                     e.printStackTrace();
-                }
-                String fileName = textProperty.getPropertyval().toStringUtf8();
-                LogUtils.i(TAG, "fun_queryAgenda 获取到文件议程 -->" + mediaid + ", 文件名：" + fileName);
-                FileUtils.createOrExistsDir(Constant.DOWNLOAD_DIR);
-                File file = new File(Constant.DOWNLOAD_DIR + fileName);
-                if (file.exists()) {
-                    if (GlobalValue.downloadingFiles.contains(mediaid)) {
-                        ToastUtils.showShort(R.string.file_downloading);
-                    } else {
-                        mView.displayFile(file.getAbsolutePath());
-                    }
-                } else {
-                    jni.creationFileDownload(Constant.DOWNLOAD_DIR + fileName, mediaid, 1, 0, Constant.DOWNLOAD_AGENDA_FILE);
                 }
             } else if (agendatype == InterfaceMacro.Pb_AgendaType.Pb_MEET_AGENDA_TYPE_TIME_VALUE) {
 

@@ -9,7 +9,7 @@
     <CheckBox
         android:id="@+id/item_view_1"
         android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="30dp"
         android:layout_gravity="center_vertical"
         android:clickable="false"
         android:gravity="center_vertical" />
@@ -19,6 +19,6 @@
         android:layout_width="match_parent"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:layout_height="@dimen/dp_30"
+        android:layout_height="30dp"
         tools:text="是肯定金风科技" />
 </LinearLayout>

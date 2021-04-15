@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <drawable name="red_text_color_white">#ffffff</drawable>
+    <drawable name="red_text_color_gray">#4a4a4a</drawable>
+    <drawable name="red_text_color_black">#000000</drawable>
+    <drawable name="red_text_color_blue">#1062BC</drawable>
+    <drawable name="red_transparent">#00FFFFFF</drawable>
+    <drawable name="red_file_type_text_p">#FA800A</drawable>
+    <drawable name="red_file_type_text_n">#000000</drawable>
+    <color name="red_login_user_name_color">#E9D4B6</color>
+    <color name="red_other_menu_bg_p">#F6E46A</color>
+    <color name="red_other_menu_bg_n">#00000000</color>
+    <color name="red_device_control_right_bg">#1A000000</color>
+</resources>

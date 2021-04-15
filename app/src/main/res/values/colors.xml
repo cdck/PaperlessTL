@@ -87,5 +87,6 @@
     <color name="other_menu_bg_n">#00000000</color>
     <!--设备控制右侧背景色-->
     <color name="device_control_right_bg">#1062BC</color>
+    <color name="login_user_name_color">#619DF1</color>
 
 </resources>

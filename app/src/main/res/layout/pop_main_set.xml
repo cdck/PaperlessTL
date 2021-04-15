@@ -27,7 +27,7 @@
             android:layout_marginBottom="10dp"
             android:text="@string/welcome_login"
             android:textColor="@color/white"
-            android:textSize="22sp"
+            android:textSize="@dimen/text_size_level6"
             android:textStyle="bold" />
     </RelativeLayout>
 
@@ -50,7 +50,7 @@
             android:paddingEnd="5dp"
             android:text="@string/login_name"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_level4" />
 
         <ImageView
             android:layout_width="2dp"
@@ -58,7 +58,7 @@
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
-            android:background="#619DF1" />
+            android:background="@color/login_user_name_color" />
 
         <EditText
             android:id="@+id/edt_user_name"
@@ -66,9 +66,9 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_weight="1"
+            android:background="@null"
             android:lines="1"
             android:singleLine="true"
-            android:background="@null"
             android:textColor="@color/white"
             tools:text="输入参会人名" />
 
@@ -99,7 +99,7 @@
             android:paddingEnd="5dp"
             android:text="@string/login_password"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_size_level4" />
 
         <ImageView
             android:layout_width="2dp"
@@ -107,18 +107,18 @@
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="2dp"
-            android:background="#619DF1" />
+            android:background="@color/login_user_name_color" />
 
         <EditText
             android:id="@+id/edt_user_pwd"
             android:layout_width="0dp"
             android:layout_height="30dp"
             android:layout_gravity="center"
+            android:layout_weight="1"
+            android:background="@null"
             android:inputType="textPassword"
             android:lines="1"
             android:singleLine="true"
-            android:layout_weight="1"
-            android:background="@null"
             android:textColor="@color/white" />
 
         <ImageView
@@ -139,7 +139,7 @@
         android:background="@drawable/btn_login_n_p"
         android:text="@string/login"
         android:textColor="@color/white"
-        android:textSize="24sp" />
+        android:textSize="@dimen/text_size_level7" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -159,7 +159,7 @@
             android:paddingStart="5dp"
             android:text="@string/manage_mode"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_level3" />
 
         <CheckBox
             android:id="@+id/cb_offline_mode"
@@ -170,7 +170,7 @@
             android:paddingStart="5dp"
             android:text="@string/offline_mode"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_level3" />
     </LinearLayout>
 
     <LinearLayout
@@ -190,7 +190,7 @@
             android:paddingStart="5dp"
             android:text="@string/remember_password"
             android:textColor="@color/white"
-            android:textSize="14sp" />
+            android:textSize="@dimen/text_size_level3" />
 
         <RelativeLayout
             android:layout_width="0dp"
@@ -201,10 +201,10 @@
                 android:id="@+id/btn_system_settings"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
-                android:background="@drawable/btn_n_p"
+                android:background="@drawable/btn_style_bg"
                 android:text="@string/system_settings"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="@dimen/text_size_level3" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -212,6 +212,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_login_status"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <RadioGroup
+                android:id="@+id/rg_theme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/rb_theme_blue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:text="@string/theme_blue"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rb_theme_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/theme_red"
+                    android:textColor="@color/white" />
+
+                <RadioButton
+                    android:id="@+id/rb_theme_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/theme_yellow"
+                    android:textColor="@color/white" />
+            </RadioGroup>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_login_status"
@@ -221,6 +261,6 @@
             android:layout_centerHorizontal="true"
             android:text="@string/please_login_to"
             android:textColor="#E91EDF"
-            android:textSize="24sp" />
+            android:textSize="@dimen/text_size_level7" />
     </RelativeLayout>
 </LinearLayout>

@@ -8,7 +8,7 @@
 
     <Button
         android:id="@+id/item_view_1"
-        style="@style/btn_gray_blue_selected_style"
+        style="@style/btn_style_normal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="false"

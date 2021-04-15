@@ -41,16 +41,16 @@
 
         <Button
             android:id="@+id/btn_release"
-            style="@style/btn_blue_gray_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="wrap_content"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_margin="5dp"
             android:text="@string/release" />
 
         <Button
             android:id="@+id/btn_close"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="wrap_content"
-            android:layout_margin="@dimen/dp_5"
+            android:layout_margin="5dp"
             android:text="@string/close" />
     </LinearLayout>
 </LinearLayout>

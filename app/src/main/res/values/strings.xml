@@ -711,6 +711,7 @@
     <string name="reject_device_intercom">%1$s拒绝设备对讲</string>
     <string name="operation_tips">操作询问提示</string>
     <string name="deviceIntercom_Inform_title">是否同意加入%1$s发起的设备对讲？</string>
+    <string name="apply_permissions">是否同意%1$s申请的查看批注文件权限？</string>
     <string name="opening_camera">正在打开摄像头</string>
     <string name="err_NoPermission">你没有权限</string>
     <string name="please_choose_member_or_projection">请选择参会人或投影机</string>
@@ -766,4 +767,8 @@
     <string name="login_fail_tip">登录失败，请检查账号和密码</string>
     <string name="offline_meeting">离线会议</string>
     <string name="delete_dir">删除目录</string>
+    <string name="save_note_at">会议笔记保存在：%1$s</string>
+    <string name="theme_blue">蓝色主题</string>
+    <string name="theme_red">红色主题</string>
+    <string name="theme_yellow">黄色主题</string>
 </resources>

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/dp_350"
-    android:layout_height="@dimen/dp_350"
+    android:layout_width="350dp"
+    android:layout_height="350dp"
     android:layout_gravity="center">
 
     <ImageView
         android:id="@+id/view_bg"
-        android:layout_width="@dimen/dp_350"
-        android:layout_height="@dimen/dp_350"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:src="@drawable/fab_menu_bg"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/iv_view1"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/stop_projective_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,8 +29,8 @@
 
     <ImageView
         android:id="@+id/iv_view2"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/exit_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,8 +42,8 @@
 
     <ImageView
         android:id="@+id/iv_view3"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/join_screen_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,8 +54,8 @@
 
     <ImageView
         android:id="@+id/iv_view4"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/stop_screen_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,8 +67,8 @@
 
     <ImageView
         android:id="@+id/iv_view5"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/start_screen_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -79,8 +79,8 @@
 
     <ImageView
         android:id="@+id/iv_view6"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/note_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -91,8 +91,8 @@
 
     <ImageView
         android:id="@+id/iv_view7"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/vote_result_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -103,8 +103,8 @@
 
     <ImageView
         android:id="@+id/iv_view8"
-        android:layout_width="@dimen/dp_60"
-        android:layout_height="@dimen/dp_60"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/start_projective_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -115,8 +115,8 @@
 
     <ImageView
         android:id="@+id/iv_view9"
-        android:layout_width="@dimen/dp_50"
-        android:layout_height="@dimen/dp_50"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:src="@drawable/return_s"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

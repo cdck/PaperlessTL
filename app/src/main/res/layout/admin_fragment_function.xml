@@ -29,22 +29,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btn_move_up"
-                    style="@style/btn_gray_blue_pressed_style"
+                    style="@style/btn_style_normal"
                     android:layout_width="wrap_content"
-                    android:layout_marginEnd="@dimen/dp_5"
+                    android:layout_marginEnd="5dp"
                     android:text="@string/move_up" />
 
                 <Button
                     android:id="@+id/btn_move_down"
-                    style="@style/btn_gray_blue_pressed_style"
+                    style="@style/btn_style_normal"
                     android:layout_width="wrap_content"
-                    android:layout_marginStart="@dimen/dp_5"
+                    android:layout_marginStart="5dp"
                     android:text="@string/move_down" />
 
             </LinearLayout>
@@ -60,28 +60,28 @@
 
             <Button
                 android:id="@+id/btn_add_all"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_width="wrap_content"
-                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginBottom="10dp"
                 android:text="@string/add_all_" />
 
             <Button
                 android:id="@+id/btn_add"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_width="wrap_content"
-                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginBottom="10dp"
                 android:text="@string/add_" />
 
             <Button
                 android:id="@+id/btn_remove_all"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_width="wrap_content"
-                android:layout_marginBottom="@dimen/dp_10"
+                android:layout_marginBottom="10dp"
                 android:text="@string/remove_all_" />
 
             <Button
                 android:id="@+id/btn_remove"
-                style="@style/btn_gray_blue_pressed_style"
+                style="@style/btn_style_normal"
                 android:layout_width="wrap_content"
                 android:text="@string/remove_" />
         </LinearLayout>
@@ -102,17 +102,17 @@
                 android:background="@color/white" />
             <View
                 android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/dp_5"
-                android:layout_height="@dimen/dp_30"/>
+                android:layout_marginTop="5dp"
+                android:layout_height="30dp"/>
         </LinearLayout>
     </LinearLayout>
 
     <Button
         android:id="@+id/btn_save"
-        style="@style/btn_gray_blue_pressed_style"
+        style="@style/btn_style_normal"
         android:layout_width="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:text="@string/save_configuration" />
 </LinearLayout>

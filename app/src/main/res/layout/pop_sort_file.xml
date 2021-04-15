@@ -45,36 +45,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/dp_5"
+        android:layout_margin="5dp"
         android:gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btn_move_up"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="wrap_content"
-            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginEnd="10dp"
             android:text="@string/move_up" />
 
         <Button
             android:id="@+id/btn_move_down"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="wrap_content"
-            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginEnd="10dp"
             android:text="@string/move_down" />
 
         <Button
             android:id="@+id/btn_save"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="wrap_content"
-            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginEnd="10dp"
             android:text="@string/save" />
 
         <Button
             android:id="@+id/btn_exit"
-            style="@style/btn_gray_blue_pressed_style"
+            style="@style/btn_style_normal"
             android:layout_width="wrap_content"
-            android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginEnd="10dp"
             android:text="@string/exit" />
     </LinearLayout>
 </LinearLayout>
