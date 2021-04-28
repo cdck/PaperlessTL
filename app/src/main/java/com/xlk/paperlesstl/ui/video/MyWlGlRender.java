@@ -25,6 +25,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * @author xlk
  * @date 2019/6/28
+ * https://blog.csdn.net/ywl5320/article/details/78965039?tdsourcetag=s_pcqq_aiomsg
  */
 public class MyWlGlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFrameAvailableListener {
     private final String TAG = "MyWlGlRender-->";
@@ -128,7 +129,7 @@ public class MyWlGlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFr
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        initMediacodecShader();
+        initMediaCodecShader();
         initYuvShader();
         initStop();
     }
@@ -146,7 +147,7 @@ public class MyWlGlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFr
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
         GLES20.glClearColor(0f, 0f, 0f, 1f);
         if (codecType == 1) {
-            renderMediacodec();
+            renderMediaCodec();
         } else if (codecType == 0) {
             renderYuv();
         } else {
@@ -180,7 +181,7 @@ public class MyWlGlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFr
     /**
      * 初始化硬件解码shader
      */
-    private void initMediacodecShader() {
+    private void initMediaCodecShader() {
         //将glsl文件中的内容装换成字符串源码
         String vertexShader = WlShaderUtils.readRawTextFile(context, R.raw.vertex_base);
         String fragmentShader = WlShaderUtils.readRawTextFile(context, R.raw.fragment_mediacodec);
@@ -212,7 +213,7 @@ public class MyWlGlRender implements GLSurfaceView.Renderer, SurfaceTexture.OnFr
     /**
      * 使用硬件解码shader
      */
-    private void renderMediacodec() {
+    private void renderMediaCodec() {
         LogUtils.v(TAG, "onDrawFrame renderMediacodec -->");
         GLES20.glUseProgram(programId_mediacodec);
         surfaceTexture.updateTexImage();

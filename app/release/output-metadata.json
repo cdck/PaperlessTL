@@ -15,7 +15,7 @@
           "value": "armeabi-v7a"
         }
       ],
-      "versionCode": 1,
+      "versionCode": 4,
       "versionName": "1.0",
       "outputFile": "app-armeabi-v7a-release.apk"
     }

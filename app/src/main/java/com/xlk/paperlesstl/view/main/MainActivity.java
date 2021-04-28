@@ -1077,7 +1077,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      */
     public void openSet(View view) {
         boolean spIsRemember = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_remember, false);
-        boolean isAdministratorLogin = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_administrator_login, false);
+        boolean isAdministratorLogin = (boolean) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_administrator_login, true);
         int themeType = (int) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_theme_type, 0);
         String spUser = (String) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_user, "");
         String spPwd = (String) SharedPreferenceHelper.getData(this, SharedPreferenceHelper.key_password, "");

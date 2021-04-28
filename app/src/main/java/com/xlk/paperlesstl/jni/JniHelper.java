@@ -2391,13 +2391,13 @@ public class JniHelper {
         if (bytes != null) {
             try {
                 InterfaceFile.pbui_Type_MeetDirRightDetailInfo pbui_type_meetDirRightDetailInfo = InterfaceFile.pbui_Type_MeetDirRightDetailInfo.parseFrom(bytes);
-                LogUtils.i(TAG, "queryDirPermission 查询会议目录权限成功 dirId=" + dirId);
+                LogUtils.i(TAG, "queryMeetDirPermission 查询会议目录权限成功 dirId=" + dirId);
                 return pbui_type_meetDirRightDetailInfo;
             } catch (InvalidProtocolBufferException e) {
                 e.printStackTrace();
             }
         }
-        LogUtils.e(TAG, "queryDirPermission 查询会议目录权限失败 dirId=" + dirId);
+        LogUtils.e(TAG, "queryMeetDirPermission 查询会议目录权限失败 dirId=" + dirId);
         return null;
     }
 

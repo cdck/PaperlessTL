@@ -47,7 +47,6 @@ public class LiveVideoFragment extends BaseFragment<LiveVideoPresenter> implemen
     private MeetVideoAdapter meetVideoAdapter;
     private FileNodeAdapter fileNodeAdapter;
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_live_video;
