@@ -78,8 +78,8 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
                 startActivityForResult(intent, REQUEST_CODE_EXPORT_NOTE);
                 break;
             }
+            //本机在线状态变更
             case EventType.BUS_NETWORK_CONNECTED: {
-//                NetworkUtils.NetworkType networkType = (NetworkUtils.NetworkType) msg.getObjects()[0];
                 if (!jni.isOnline()) {
                     LogUtils.e(TAG, "网络变更 无法连接服务器");
                     showServerDisconnectedDialog();
@@ -134,28 +134,28 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         }
     }
 
-    private void showNetWorkTipPop() {
-        if (tipDialog != null && tipDialog.isShowing()) {
-            return;
-        }
-        tipDialog = DialogUtil.createTipDialog(this, getString(R.string.network_disconnected_tip), getString(R.string.ensure), getString(R.string.cancel), new DialogUtil.onDialogClickListener() {
-            @Override
-            public void positive(DialogInterface dialog) {
-                dialog.dismiss();
-                NetworkUtils.openWirelessSettings();
-            }
-
-            @Override
-            public void negative(DialogInterface dialog) {
-                dialog.dismiss();
-            }
-
-            @Override
-            public void dismiss(DialogInterface dialog) {
-                tipDialog = null;
-            }
-        });
-    }
+//    private void showNetWorkTipPop() {
+//        if (tipDialog != null && tipDialog.isShowing()) {
+//            return;
+//        }
+//        tipDialog = DialogUtil.createTipDialog(this, getString(R.string.network_disconnected_tip), getString(R.string.ensure), getString(R.string.cancel), new DialogUtil.onDialogClickListener() {
+//            @Override
+//            public void positive(DialogInterface dialog) {
+//                dialog.dismiss();
+//                NetworkUtils.openWirelessSettings();
+//            }
+//
+//            @Override
+//            public void negative(DialogInterface dialog) {
+//                dialog.dismiss();
+//            }
+//
+//            @Override
+//            public void dismiss(DialogInterface dialog) {
+//                tipDialog = null;
+//            }
+//        });
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

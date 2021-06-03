@@ -3,15 +3,15 @@ plugins {
 }
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.3"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.1"
 
     defaultConfig {
         applicationId "com.xlk.paperlesstl"
         minSdkVersion 23
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.0"
+        versionCode 5
+        versionName "1.0.1.0527"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         externalNativeBuild {

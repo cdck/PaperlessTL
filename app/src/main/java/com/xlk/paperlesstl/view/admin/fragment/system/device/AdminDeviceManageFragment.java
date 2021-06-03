@@ -346,7 +346,7 @@ public class AdminDeviceManageFragment extends BaseFragment implements AdminDevi
                 }
                 itemStr += "{"
                         + "\"section\":\"Buffer Dir\","
-                        + "\"key\":\"configdir\","
+                        + "\"key\":\"mediadir\","
                         + "\"value\":\"" + cache_dir + "\""
                         + "}"
                 ;
@@ -619,7 +619,7 @@ public class AdminDeviceManageFragment extends BaseFragment implements AdminDevi
         holder.edt_ip.setText(ip);
         String port = ini.get("areaaddr", "area0port");
         holder.edt_port.setText(port);
-        String configdir = ini.get("Buffer Dir", "configdir");
+        String configdir = ini.get("Buffer Dir", "mediadir");
         String mediadirsize = ini.get("Buffer Dir", "mediadirsize");
         holder.edt_cache_dir.setText(configdir);
         //设置光标在最末尾

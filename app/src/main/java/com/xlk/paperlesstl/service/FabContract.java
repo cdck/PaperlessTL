@@ -39,6 +39,10 @@ public interface FabContract {
         void openArtBoardInform(EventMessage msg);
 
         void updateCanJoinList();
+
+        void showOpenCamera();
+
+        void showRecordingTimeWindow(boolean isStart);
     }
 
     interface Presenter extends IBasePresenter {

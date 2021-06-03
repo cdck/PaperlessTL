@@ -216,7 +216,7 @@ public class JniHelper {
      */
     public void creationFileDownload(String pathName, int mediaId, int isNewFile, int onlyFinish, String userStr) {
         if (downloadingFiles.contains(mediaId)) {
-            LogUtils.e(TAG,"文件下载中...");
+            LogUtils.e(TAG, "文件下载中...");
 //            ToastUtils.showShort(R.string.file_downloading);
             return;
         }
@@ -576,6 +576,18 @@ public class JniHelper {
         builder.addItem(builder1);
         jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETSEAT.getNumber(), InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_MODIFY_VALUE, builder.build().toByteArray());
         LogUtils.e(TAG, "modifMeetRanking:  修改会议排位 --->>>nameid: " + nameid + ", role:  " + role + " , devid: " + seatid);
+    }
+
+    /**
+     * 修改会议排位
+     */
+    public void modifyMeetRanking(List<InterfaceRoom.pbui_Item_MeetSeatDetailInfo> items) {
+        InterfaceRoom.pbui_Type_MeetSeatDetailInfo build = InterfaceRoom.pbui_Type_MeetSeatDetailInfo.newBuilder()
+                .addAllItem(items)
+                .build();
+        jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETSEAT.getNumber(),
+                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_MODIFY_VALUE, build.toByteArray());
+        LogUtils.e(TAG, "modifMeetRanking:  修改会议排位 --->>>");
     }
 
 
@@ -2067,6 +2079,7 @@ public class JniHelper {
         LogUtils.e(TAG, "queryAllMeeting 查询会议失败");
         return null;
     }
+
     /**
      * 删除会议
      *
@@ -2487,24 +2500,6 @@ public class JniHelper {
         LogUtils.e(TAG, "createVote:  新建多个投票 --->>> ");
     }
 
-    /**
-     * 查询会议双屏显示
-     */
-    public InterfaceTablecard.pbui_Type_MeetTableCardDetailInfo queryTableCard() {
-        byte[] bytes = jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETTABLECARD_VALUE,
-                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_QUERY_VALUE, null);
-        if (bytes != null) {
-            try {
-                InterfaceTablecard.pbui_Type_MeetTableCardDetailInfo info = InterfaceTablecard.pbui_Type_MeetTableCardDetailInfo.parseFrom(bytes);
-                LogUtils.i(TAG, "queryTableCard 查询会议双屏显示" + "成功");
-                return info;
-            } catch (InvalidProtocolBufferException e) {
-                e.printStackTrace();
-            }
-        }
-        LogUtils.e(TAG, "queryTableCard 查询会议双屏显示" + "失败");
-        return null;
-    }
 
     /**
      * 高级查询文件
@@ -2542,6 +2537,25 @@ public class JniHelper {
             }
         }
         LogUtils.e(TAG, "queryFile 高级查询文件 失败");
+        return null;
+    }
+
+    /**
+     * 查询会议双屏显示
+     */
+    public InterfaceTablecard.pbui_Type_MeetTableCardDetailInfo queryTableCard() {
+        byte[] bytes = jni.call_method(InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_MEETTABLECARD_VALUE,
+                InterfaceMacro.Pb_Method.Pb_METHOD_MEET_INTERFACE_QUERY_VALUE, null);
+        if (bytes != null) {
+            try {
+                InterfaceTablecard.pbui_Type_MeetTableCardDetailInfo info = InterfaceTablecard.pbui_Type_MeetTableCardDetailInfo.parseFrom(bytes);
+                LogUtils.i(TAG, "queryTableCard 查询会议双屏显示" + "成功");
+                return info;
+            } catch (InvalidProtocolBufferException e) {
+                e.printStackTrace();
+            }
+        }
+        LogUtils.e(TAG, "queryTableCard 查询会议双屏显示" + "失败");
         return null;
     }
 
@@ -3087,12 +3101,12 @@ public class JniHelper {
 
     /**
      * 判断是否连接服务器（在线）
+     *
      * @return 是否在线
      */
     public boolean isOnline() {
         boolean isonline = false;
-        byte[] bytes = queryDevicePropertiesById(InterfaceMacro.Pb_MeetDevicePropertyID.Pb_MEETDEVICE_PROPERTY_NETSTATUS_VALUE,
-                GlobalValue.localDeviceId);
+        byte[] bytes = queryDevicePropertiesById(InterfaceMacro.Pb_MeetDevicePropertyID.Pb_MEETDEVICE_PROPERTY_NETSTATUS_VALUE, GlobalValue.localDeviceId);
         if (bytes != null) {
             InterfaceDevice.pbui_DeviceInt32uProperty pbui_deviceInt32uProperty = null;
             try {

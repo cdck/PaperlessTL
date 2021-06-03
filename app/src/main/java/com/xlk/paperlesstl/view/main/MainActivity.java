@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import cc.shinichi.library.tool.ui.ToastUtil;
 import skin.support.SkinCompatManager;
 
 import android.Manifest;
@@ -147,6 +148,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
                 Permission.READ_PHONE_STATE
         });
     }
+
 
     private void initView() {
         mainRootLayout = (ConstraintLayout) findViewById(R.id.main_root_layout);
@@ -539,7 +541,7 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
             signInPop.dismiss();
         });
         signInPop.setOnDismissListener(() -> {
-            if (art_board != null) {
+            if (art_board != null && art_board.isNotEmpty()) {
                 art_board.clear();
             }
         });
@@ -860,9 +862,19 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
     @Override
     public void updateUI(InterfaceDevice.pbui_Type_DeviceFaceShowDetail devMeetInfo) {
         memberTvMain.setText(devMeetInfo.getMembername().toStringUtf8());
-        meetTvMain.setText(devMeetInfo.getMeetingname().toStringUtf8());
+        String meetingName = devMeetInfo.getMeetingname().toStringUtf8();
+        meetTvMain.setText(meetingName);
         unitTvMain.setText(getString(R.string.unit_name_, devMeetInfo.getCompany().toStringUtf8()));
         postTvMain.setText(getString(R.string.job_name_, devMeetInfo.getJob().toStringUtf8()));
+        if (GlobalValue.localMeetingId == 0) {
+            memberTvMain.setText("");
+            meetTvMain.setText(getString(R.string.please_join_meeting_first));
+            unitTvMain.setText("");
+            postTvMain.setText("");
+            noteInfo.setText("");
+            meetState.setText("");
+            memberRole.setText("");
+        }
     }
 
     @Override
@@ -882,8 +894,8 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
      * @param view
      */
     public void enterMeeting(View view) {
-        if (!meetTvMain.getText().toString().isEmpty()) {
-            if (!memberTvMain.getText().toString().isEmpty()) {
+        if (GlobalValue.localMeetingId != 0) {
+            if (GlobalValue.localMemberId != 0) {
                 readySignIn();
             } else {
                 ToastUtils.showShort(R.string.please_bind_member_first);
@@ -979,6 +991,18 @@ public class MainActivity extends BaseActivity<MainPresenter> implements MainCon
         });
         inflate.findViewById(R.id.btn_cancel).setOnClickListener(v -> createMemberPop.dismiss());
         createMemberPop.setOnDismissListener(this::showUnBindMembers);
+    }
+
+    private long lastClickTime;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - lastClickTime > 2000) {
+            lastClickTime = System.currentTimeMillis();
+            ToastUtils.showShort(R.string.click_again_exit);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override

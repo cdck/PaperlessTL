@@ -15,6 +15,7 @@ public class Constant {
     public static final String ROOT_DIR = Environment.getExternalStorageDirectory().getAbsolutePath() + "/PaperlessTL/";
 
     public static final String LOGCAT_DIR = ROOT_DIR + "myLog";
+    public static final String meeting_note_file_path = ROOT_DIR + "会议笔记.txt";
     public static final String FILE_DIR = ROOT_DIR + "File/";
     public static final String DIR_PICTURE = FILE_DIR + "Picture/";
     public static final String DOWNLOAD_DIR = FILE_DIR + "Download File/";
@@ -22,7 +23,6 @@ public class Constant {
     public static final String DIR_ARCHIVE_TEMP = FILE_DIR + "Conference archive cache directory/";
     public static final String DIR_ARCHIVE_ZIP = FILE_DIR + "Conference archive/";
 
-    public static final String meeting_note_file_path = ROOT_DIR + "会议笔记.txt";
 
     //主题类型type值
 
@@ -355,6 +355,7 @@ public class Constant {
      * 投票权限
      */
     public static final int permission_code_vote = 16;
+
     /**
      * 发送广播时的action和extra
      */

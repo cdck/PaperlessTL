@@ -155,15 +155,20 @@ public class SeatBindFragment extends BaseFragment implements SeatBindInterface,
 
     @Override
     public void updateSeatData(List<InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo> seatData) {
-        seatBeans.clear();
-        for (int i = 0; i < seatData.size(); i++) {
-            InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo info = seatData.get(i);
-            SeatBean seatBean = new SeatBean(info.getDevid(), info.getDevname().toStringUtf8(), info.getX(), info.getY(),
-                    info.getDirection(), info.getMemberid(), info.getMembername().toStringUtf8(),
-                    info.getIssignin(), info.getRole(), info.getFacestate());
-            seatBeans.add(seatBean);
+        if (getActivity() == null) {
+            return;
         }
-        bind_seat_view.addSeat(seatBeans);
+        getActivity().runOnUiThread(() -> {
+            seatBeans.clear();
+            for (int i = 0; i < seatData.size(); i++) {
+                InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo info = seatData.get(i);
+                SeatBean seatBean = new SeatBean(info.getDevid(), info.getDevname().toStringUtf8(), info.getX(), info.getY(),
+                        info.getDirection(), info.getMemberid(), info.getMembername().toStringUtf8(),
+                        info.getIssignin(), info.getRole(), info.getFacestate());
+                seatBeans.add(seatBean);
+            }
+            bind_seat_view.addSeat(seatBeans);
+        });
     }
 
     @Override

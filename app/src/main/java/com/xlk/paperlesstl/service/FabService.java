@@ -1,6 +1,7 @@
 package com.xlk.paperlesstl.service;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,7 +11,9 @@ import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.media.ImageReader;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -31,6 +34,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.AppUtils;
 import com.blankj.utilcode.util.FileIOUtils;
 import com.blankj.utilcode.util.FileUtils;
 import com.blankj.utilcode.util.LogUtils;
@@ -63,6 +67,7 @@ import com.xlk.paperlesstl.model.data.EventMessage;
 import com.xlk.paperlesstl.model.data.EventType;
 import com.xlk.paperlesstl.model.data.VoteResultSubmitMember;
 import com.xlk.paperlesstl.ui.ArtBoard;
+import com.xlk.paperlesstl.util.AppUtil;
 import com.xlk.paperlesstl.util.DateUtil;
 import com.xlk.paperlesstl.util.DialogUtil;
 import com.xlk.paperlesstl.view.draw.DrawActivity;
@@ -76,10 +81,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
+//import androidx.appcompat.app.AlertDialog;
+import android.app.AlertDialog;
+
 import androidx.appcompat.graphics.drawable.DrawableWrapper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -148,6 +157,22 @@ public class FabService extends Service implements FabContract.View {
     private int currentBulletId;
 
     public static String saveNoteContent = "";
+    private View recordingTimeView;
+    private Button timeButton;
+    private WindowManager.LayoutParams timeParams;
+    private boolean timeButtonIsShow;
+    private Timer timeTimer;
+    private int nowTime;
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                String p = (String) msg.obj;
+                timeButton.setText(p);
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -184,8 +209,16 @@ public class FabService extends Service implements FabContract.View {
         mScreenDensity = metrics.densityDpi;
         mImageReader = ImageReader.newInstance(GlobalValue.screen_width, GlobalValue.screen_height, 0x1, 2);
         initAdapter();
-        hoverButton = new SkinCompatImageView(ActivityUtils.getTopActivity());
-//        hoverButton = new ImageView(ActivityUtils.getTopActivity());
+
+        /** **** **  时间控件  ** **** **/
+        timeButton = new Button(context);
+        timeButton.setTag("timeButton");
+        timeButton.setTextColor(Color.RED);
+        //设置按钮的背景透明，只显示文本
+        timeButton.getBackground().setAlpha(50);
+
+        hoverButton = new SkinCompatImageView(App.currentActivity);
+//        hoverButton = new ImageView(App.currentActivity);
         hoverButton.setTag("hoverButton");
 //        Drawable drawable = context.getResources().getDrawable(R.drawable.sided);
 //        hoverButton.setImageDrawable(drawable);
@@ -251,7 +284,7 @@ public class FabService extends Service implements FabContract.View {
      * 展示主菜单
      */
     private void showMenuView() {
-        menuView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_menu_test, null);
+        menuView = LayoutInflater.from(App.currentActivity).inflate(R.layout.fab_menu_test, null);
         menuView.setFocusable(true);
         menuView.setFocusableInTouchMode(true);
         menuView.setTag("menuView");
@@ -322,6 +355,58 @@ public class FabService extends Service implements FabContract.View {
     }
 
     @Override
+    public void showRecordingTimeWindow(boolean isStart) {
+        LogUtils.i("showRecordingTimeWindow isStart=" + isStart);
+        if (isStart) {
+            if (!timeButtonIsShow) {
+                nowTime = 0;
+                timeTimer = new Timer();
+                timeTimer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        nowTime++;
+                        String time = DateUtil.intTotime(nowTime);
+                        Message message = new Message();
+                        message.what = 1;
+                        message.obj = time;
+                        handler.sendMessage(message);
+                    }
+                }, 0, 1000);
+                /** **** **  悬浮按钮  ** **** **/
+                timeParams = new WindowManager.LayoutParams();
+                //设置view不可点击且不会消费点击事件->不拦截底层view的点击事件
+                timeParams.flags = WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE;
+                setParamsType(timeParams);
+                timeParams.format = PixelFormat.RGBA_8888;
+                timeParams.gravity = Gravity.START | Gravity.TOP;
+                timeParams.width = FrameLayout.LayoutParams.WRAP_CONTENT;
+                timeParams.height = FrameLayout.LayoutParams.WRAP_CONTENT;
+                timeParams.x = 0;
+                timeParams.y = 0;
+                wm.addView(timeButton, timeParams);
+                timeButtonIsShow = true;
+            }
+        } else {
+            exitTiming();
+        }
+    }
+
+    //退出录屏时的计时
+    private void exitTiming() {
+        LogUtils.i("exitTiming-----------------------");
+        if (timeTimer != null) {
+            timeTimer.cancel();
+            timeTimer = null;
+        }
+        if (timeButtonIsShow) {
+            wm.removeView(timeButton);
+            timeButtonIsShow = false;
+        }
+        handler.removeCallbacksAndMessages(null);
+        nowTime = 0;
+    }
+
+    @Override
     public void updateCanJoinList() {
         LogUtils.e(TAG, "updateCanJoinList");
         if (canJoinMemberAdapter != null) {
@@ -336,7 +421,7 @@ public class FabService extends Service implements FabContract.View {
      * 展示可加入的同屏
      */
     private void showCanJoinWindow() {
-        canJoinView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_join_screen, null);
+        canJoinView = LayoutInflater.from(App.currentActivity).inflate(R.layout.fab_join_screen, null);
         canJoinView.setTag("canJoinView");
         canJoinViewEvent(canJoinView);
         showPop(menuView, canJoinView);
@@ -398,7 +483,7 @@ public class FabService extends Service implements FabContract.View {
      * 展示投票结果窗口
      */
     private void showVoteResultsWindow() {
-        voteResultView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_vote_result_view, null);
+        voteResultView = LayoutInflater.from(App.currentActivity).inflate(R.layout.fab_vote_result_view, null);
         voteResultView.setTag("voteResultView");
         CustomBaseViewHolder.VoteResultViewHolder holder = new CustomBaseViewHolder.VoteResultViewHolder(voteResultView);
         voteResultHolderEvent(holder);
@@ -641,7 +726,7 @@ public class FabService extends Service implements FabContract.View {
      * @param type =1发起，=2结束
      */
     private void showScreenWindow(int type) {
-        screenView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_screen_view, null);
+        screenView = LayoutInflater.from(App.currentActivity).inflate(R.layout.fab_screen_view, null);
         screenView.setTag("screenView");
         CustomBaseViewHolder.WmScreenViewHolder holder = new CustomBaseViewHolder.WmScreenViewHolder(screenView);
         ScreenViewHolderEvent(holder, type);
@@ -700,7 +785,7 @@ public class FabService extends Service implements FabContract.View {
      * @param type =1发起，=2结束
      */
     private void showProjectionWindow(int type) {
-        projectionView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_projection_view, null);
+        projectionView = LayoutInflater.from(App.currentActivity).inflate(R.layout.fab_projection_view, null);
         projectionView.setTag("projectionView");
         CustomBaseViewHolder.WmProViewHolder holder = new CustomBaseViewHolder.WmProViewHolder(projectionView);
         proViewHolderEvent(holder, type);
@@ -838,6 +923,29 @@ public class FabService extends Service implements FabContract.View {
                 });
     }
 
+    @Override
+    public void showOpenCamera() {
+//        AppUtil.checkCamera()
+        DialogUtil.createTipDialog(context, getString(R.string.please_choose_camera),
+                getString(R.string.front_camera), getString(R.string.rear_camera),
+                new DialogUtil.onDialogClickListener() {
+                    @Override
+                    public void positive(DialogInterface dialog) {
+
+                    }
+
+                    @Override
+                    public void negative(DialogInterface dialog) {
+
+                    }
+
+                    @Override
+                    public void dismiss(DialogInterface dialog) {
+
+                    }
+                });
+    }
+
     /**
      * 收到请求加入白板
      *
@@ -932,7 +1040,7 @@ public class FabService extends Service implements FabContract.View {
             return;
         }
         currentVoteId = info.getVoteid();
-        voteDialog = DialogUtil.createTipDialog(context, R.layout.dialog_receive_vote, false, GlobalValue.screen_width, GlobalValue.screen_height);
+        voteDialog = DialogUtil.createTipDialog(App.currentActivity, R.layout.dialog_receive_vote, false, GlobalValue.screen_width, GlobalValue.screen_height);
         VoteViewHolder voteViewHolder = new VoteViewHolder(voteDialog);
         voteViewHolderEvent(voteViewHolder, info);
         voteDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
@@ -1201,7 +1309,7 @@ public class FabService extends Service implements FabContract.View {
             return;
         }
         dialogIsShowing = true;
-        DialogUtil.createTipDialog(ActivityUtils.getTopActivity(), getString(R.string.apply_permissions, presenter.getMemberNameByDeviceId(info.getDeviceid())),
+        DialogUtil.createTipDialog(App.currentActivity, getString(R.string.apply_permissions, presenter.getMemberNameByDeviceId(info.getDeviceid())),
                 getString(R.string.agree), getString(R.string.reject), new DialogUtil.onDialogClickListener() {
                     @Override
                     public void positive(DialogInterface dialog) {
@@ -1243,7 +1351,7 @@ public class FabService extends Service implements FabContract.View {
             return;
         }
         currentBulletId = bullet.getBulletid();
-        bulletDialog = DialogUtil.createTipDialog(context, R.layout.pop_receive_bullet, false, GlobalValue.screen_width, GlobalValue.screen_height);
+        bulletDialog = DialogUtil.createTipDialog(App.currentActivity, R.layout.pop_receive_bullet, false, GlobalValue.screen_width, GlobalValue.screen_height);
         bullet_title = bulletDialog.findViewById(R.id.bullet_title);
         bullet_content = bulletDialog.findViewById(R.id.bullet_content);
         bullet_title.setText(bullet.getTitle().toStringUtf8());
@@ -1286,7 +1394,7 @@ public class FabService extends Service implements FabContract.View {
      */
     public void showNoteWindow(View removeView, String content) {
         saveNoteContent = content;
-        noteView = LayoutInflater.from(ActivityUtils.getTopActivity()).inflate(R.layout.fab_note_view, null);
+        noteView = LayoutInflater.from(App.currentActivity).inflate(R.layout.fab_note_view, null);
         noteView.setTag("noteView");
         CustomBaseViewHolder.NoteViewHolder holder = new CustomBaseViewHolder.NoteViewHolder(noteView);
         noteViewHolderEvent(holder);

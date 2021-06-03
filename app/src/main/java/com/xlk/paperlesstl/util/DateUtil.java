@@ -109,4 +109,33 @@ public class DateUtil {
         SimpleDateFormat timeFormat = new SimpleDateFormat("mm分ss秒");
         return timeFormat.format(date);
     }
+
+
+    /**
+     * 将一个数字转换成时间 00:00:00
+     *
+     * @param nowTime 秒数
+     * @return
+     */
+    public static String intTotime(int nowTime) {
+        int hour = 0;
+        int min = 0;
+        int sec = 0;
+        if (nowTime % 3600 == 0) {
+            hour = nowTime / 3600;
+        } else {
+            hour = nowTime / 3600;
+            int lastTime = nowTime % 3600;
+            if (lastTime % 60 == 0) {
+                min = lastTime / 60;
+            } else {
+                min = lastTime / 60;
+                sec = lastTime % 60;
+            }
+        }
+        String hourStr = (hour < 10) ? "0" + hour : hour + "";
+        String minStr = (min < 10) ? "0" + min : min + "";
+        String secStr = (sec < 10) ? "0" + sec : sec + "";
+        return hourStr + ":" + minStr + ":" + secStr;
+    }
 }

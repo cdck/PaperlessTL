@@ -52,6 +52,11 @@ public class FabPresenter extends BasePresenter<FabContract.View> implements Fab
     @Override
     protected void busEvent(EventMessage msg) throws InvalidProtocolBufferException {
         switch (msg.getType()) {
+            case EventType.BUS_SCREEN_RECORDER:{
+                boolean isStart = (boolean) msg.getObjects()[0];
+                mView.showRecordingTimeWindow(isStart);
+                break;
+            }
             //设备寄存器变更通知
             case InterfaceMacro.Pb_Type.Pb_TYPE_MEET_INTERFACE_DEVICEINFO_VALUE: {
                 LogUtils.i(TAG, "BusEvent -->" + "设备寄存器变更通知");

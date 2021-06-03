@@ -585,7 +585,7 @@ public class MemberFragment extends BaseFragment implements MemberInterface, Vie
             return;
         }
         String phone = edt_phone.getText().toString();
-        if (!TextUtils.isEmpty(phone) && !RegexUtils.isMobileSimple(phone)) {
+        if (!TextUtils.isEmpty(phone) && !RegexUtils.isTel(phone)) {
             ToastUtils.showShort(R.string.phone_format_error);
             return;
         }

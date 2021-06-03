@@ -49,7 +49,7 @@ public class ArtBoard extends View {
     /**
      * 画板的宽高，会根据图片大小改变
      */
-    public static int artBoardWidth, artBoardHeight;
+    public static int artBoardWidth=0, artBoardHeight=0;
     /**
      * =true表示是通过构造器动态创建
      */

@@ -14,7 +14,8 @@ import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.model.GlobalValue;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+//import androidx.appcompat.app.AlertDialog;
+import android.app.AlertDialog;
 
 /**
  * @author Created by xlk on 2021/3/9.
@@ -67,16 +68,11 @@ public class DialogUtil {
         btn_ensure.setText(positive);
         btn_cancel.setText(negative);
         builder.setView(inflate);
-        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                listener.dismiss(dialog);
-            }
-        });
+        builder.setOnDismissListener(dialog -> listener.dismiss(dialog));
         AlertDialog dialog = builder.create();
-        setParamsType(dialog.getWindow());
         dialog.setCanceledOnTouchOutside(false);//点击外部不消失
         dialog.setCancelable(false);//用户点击返回键使其无效
+        setParamsType(dialog.getWindow());
         dialog.show();//这行代码要在设置宽高的前面，宽高才有用
         //宽高必须要在show之后设置
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();
@@ -115,11 +111,11 @@ public class DialogUtil {
         View inflate = LayoutInflater.from(context).inflate(layoutId, null);
         builder.setView(inflate);
         AlertDialog dialog = builder.create();
-        setParamsType(dialog.getWindow());
         //=false 点击外部不消失
         dialog.setCanceledOnTouchOutside(outside);
         //=false 用户点击返回键使其无效
         dialog.setCancelable(outside);
+        setParamsType(dialog.getWindow());
         dialog.show();
         //宽高必须要在show之后设置
         WindowManager.LayoutParams attributes = dialog.getWindow().getAttributes();

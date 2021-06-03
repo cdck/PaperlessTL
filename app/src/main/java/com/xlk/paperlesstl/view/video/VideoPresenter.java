@@ -489,6 +489,7 @@ public class VideoPresenter extends BasePresenter<VideoContract.View> implements
                 return true;
         }
     }
+
     @Override
     public void stopPlay() {
         if (isShareing) {

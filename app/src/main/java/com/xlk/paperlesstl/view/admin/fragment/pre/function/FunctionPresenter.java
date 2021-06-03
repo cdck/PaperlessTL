@@ -9,6 +9,7 @@ import com.xlk.paperlesstl.view.admin.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * @author Created by xlk on 2020/10/24.
  * @desc
@@ -93,31 +94,31 @@ public class FunctionPresenter extends BasePresenter {
     }
 
     public void queryFunction() {
-            InterfaceMeetfunction.pbui_Type_MeetFunConfigDetailInfo info = jni.queryMeetFunction();
-            meetFunction.clear();
-            hideMeetFunction.clear();
-            if (info != null) {
-                for (int i = 0; i < info.getItemList().size(); i++) {
-                    InterfaceMeetfunction.pbui_Item_MeetFunConfigDetailInfo item = info.getItemList().get(i);
-                    meetFunction.add(new FunctionBean(item.getFuncode(), item.getPosition()));
-                }
-                for (int i = 0; i < allMeetFunction.size(); i++) {
-                    FunctionBean item = allMeetFunction.get(i);
-                    boolean isHide = true;
-                    for (int j = 0; j < meetFunction.size(); j++) {
-                        if (meetFunction.get(j).getFuncode() == item.getFuncode()) {
-                            isHide = false;
-                            break;
-                        }
-                    }
-                    LogUtils.e(TAG, "queryFunction isHide=" + isHide);
-                    if (isHide) {
-                        item.setPosition(hideMeetFunction.size());
-                        hideMeetFunction.add(item);
-                    }
+        InterfaceMeetfunction.pbui_Type_MeetFunConfigDetailInfo info = jni.queryMeetFunction();
+        meetFunction.clear();
+        hideMeetFunction.clear();
+        if (info != null) {
+            for (int i = 0; i < info.getItemList().size(); i++) {
+                InterfaceMeetfunction.pbui_Item_MeetFunConfigDetailInfo item = info.getItemList().get(i);
+                meetFunction.add(new FunctionBean(item.getFuncode(), item.getPosition()));
+            }
+        }
+        for (int i = 0; i < allMeetFunction.size(); i++) {
+            FunctionBean item = allMeetFunction.get(i);
+            boolean isHide = true;
+            for (int j = 0; j < meetFunction.size(); j++) {
+                if (meetFunction.get(j).getFuncode() == item.getFuncode()) {
+                    isHide = false;
+                    break;
                 }
             }
-            view.updateFunctionRv(meetFunction, hideMeetFunction);
+            LogUtils.e(TAG, "queryFunction isHide=" + isHide);
+            if (isHide) {
+                item.setPosition(hideMeetFunction.size());
+                hideMeetFunction.add(item);
+            }
+        }
+        view.updateFunctionRv(meetFunction, hideMeetFunction);
     }
 
     public List<FunctionBean> getMeetFunction() {

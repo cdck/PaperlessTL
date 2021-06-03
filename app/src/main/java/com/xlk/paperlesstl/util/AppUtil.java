@@ -6,6 +6,8 @@ import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.provider.Settings;
 
+import com.blankj.utilcode.util.AppUtils;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -65,10 +67,14 @@ public class AppUtil {
     }
 
 
+    public static void getCameraConfig(){
+
+    }
     /**
-     * @param context
+     * 判断是否有指定摄像头
+     * @param context 上下文
      * @param type    =0检查是否有后置摄像头，=1检查是否有前置摄像头
-     * @return
+     * @return @return {@code true}: 有<br>{@code false}: 没有
      */
     public static boolean checkCamera(Context context, int type) {
         try {

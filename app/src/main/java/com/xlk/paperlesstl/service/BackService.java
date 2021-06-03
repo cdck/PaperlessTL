@@ -160,8 +160,10 @@ public class BackService extends Service implements NetworkUtils.OnNetworkStatus
                 int deviceid = info.getDeviceid();
                 //寄存器id 0:net status  50:res status  63:base info
                 int attribid = info.getAttribid();
-                LogUtils.i(TAG, "busEvent 设备寄存器变更通知 attribid=" + attribid + ",deviceid=" + deviceid+",本机设备ID="+GlobalValue.localDeviceId);
+                LogUtils.i(TAG, "busEvent 设备寄存器变更通知 attribid=" + attribid + ",deviceid=" + deviceid + ",本机设备ID=" + GlobalValue.localDeviceId);
                 if (attribid == 0 && deviceid == GlobalValue.localDeviceId) {
+                    //本机在线状态变更
+                    LogUtils.d("本机在线状态变更");
                     EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_NETWORK_CONNECTED).build());
                 }
                 break;
@@ -226,7 +228,6 @@ public class BackService extends Service implements NetworkUtils.OnNetworkStatus
                 break;
         }
     }
-
 
     private void initializationResult(int code) {
         String msg;

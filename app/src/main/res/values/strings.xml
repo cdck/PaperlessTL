@@ -54,7 +54,7 @@
     <string name="state_meet_not">未开始会议</string>
     <string name="state_meet_start">已开始会议</string>
     <string name="state_meet_end">已结束会议</string>
-    <string name="version_">版本：Ver%1$s</string>
+    <string name="version_">版本：%1$s</string>
     <string name="please_join_meeting_first">请先加入会议</string>
     <string name="please_bind_member_first">请先绑定参会人</string>
     <string name="bind_member">绑定参会人</string>
@@ -462,7 +462,7 @@
     <string name="choose_release_device">选择发布设备</string>
     <string name="task_name_err">任务名称不能为空或不能超过80个字符</string>
     <string name="please_choose_task_first">请先选择任务</string>
-    <string name="password_format_error">密码格式错误</string>
+    <string name="password_format_error">密码只能输入6位数字</string>
     <string name="login_backstage_is_enabled">已开启后台登录</string>
     <string name="choose_release_file">选择发布文件</string>
     <string name="login_backstage_is_closed">已关闭后台登录</string>
@@ -771,4 +771,10 @@
     <string name="theme_blue">蓝色主题</string>
     <string name="theme_red">红色主题</string>
     <string name="theme_yellow">黄色主题</string>
+    <string name="on">开</string>
+    <string name="off">关</string>
+    <string name="click_again_exit">再次点击退出应用</string>
+    <string name="please_choose_camera">请选择摄像头</string>
+    <string name="front_camera">前置摄像头</string>
+    <string name="rear_camera">后置摄像头</string>
 </resources>

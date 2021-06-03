@@ -5,7 +5,8 @@ package com.xlk.paperlesstl.view.admin.fragment.after.archive;
  * @desc
  */
 public class ArchiveInform {
-    int id;
+    int type;
+    int mediaId;
     String content;
     String result;
 
@@ -14,18 +15,33 @@ public class ArchiveInform {
         this.result = result;
     }
 
-    public ArchiveInform(int id, String content, String result) {
-        this.id = id;
+    public ArchiveInform(int type, int mediaId, String content, String result) {
+        this.type = type;
+        this.mediaId = mediaId;
         this.content = content;
         this.result = result;
     }
 
-    public int getId() {
-        return id;
+    public ArchiveInform(int id, String content, String result) {
+        this.mediaId = id;
+        this.content = content;
+        this.result = result;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public int getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(int mediaId) {
+        this.mediaId = mediaId;
     }
 
     public String getContent() {

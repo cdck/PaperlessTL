@@ -16,12 +16,12 @@ import com.xlk.paperlesstl.view.admin.fragment.pre.member.MemberRoleBean;
  * @desc 座位绑定中参会人列表
  */
 public class BindMemberAdapter extends BaseQuickAdapter<MemberRoleBean, BaseViewHolder> {
-    private int selectedId;
+
 
     public BindMemberAdapter(int layoutResId, @Nullable List<MemberRoleBean> data) {
         super(layoutResId, data);
     }
-
+    private int selectedId;
     public void setSelected(int id) {
         selectedId = id;
         notifyDataSetChanged();

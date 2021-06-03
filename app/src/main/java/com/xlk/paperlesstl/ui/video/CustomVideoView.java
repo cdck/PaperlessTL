@@ -29,6 +29,7 @@ public class CustomVideoView extends ViewGroup {
     private boolean isEnlarge;//当前是否是最大的界面
     private List<MyGLSurfaceView> shrinkSfvs = new ArrayList<>();
     List<Integer> resids = new ArrayList<>();
+    private int largeResId=-1;
 
     public CustomVideoView(Context context) {
         this(context, null);
@@ -61,15 +62,42 @@ public class CustomVideoView extends ViewGroup {
         View videoView4 = getChildAt(3);
         LayoutParams params = new LayoutParams(parentWidth, parentHeight);
         LayoutParams params2_1 = new LayoutParams(parentWidth / 2, parentHeight / 2);
+        LayoutParams params1_1 = new LayoutParams(1, 1);
         switch (getChildCount()) {
             case 1:
                 videoView1.setLayoutParams(params);
                 break;
             case 4:
-                videoView1.setLayoutParams(params2_1);
-                videoView2.setLayoutParams(params2_1);
-                videoView3.setLayoutParams(params2_1);
-                videoView4.setLayoutParams(params2_1);
+                if (largeResId == -1) {
+                    videoView1.setLayoutParams(params2_1);
+                    videoView2.setLayoutParams(params2_1);
+                    videoView3.setLayoutParams(params2_1);
+                    videoView4.setLayoutParams(params2_1);
+                } else if (largeResId == 1) {
+                    videoView1.setLayoutParams(params);
+                    videoView2.setLayoutParams(params1_1);
+                    videoView3.setLayoutParams(params1_1);
+                    videoView4.setLayoutParams(params1_1);
+                } else if (largeResId == 2) {
+                    videoView1.setLayoutParams(params1_1);
+                    videoView2.setLayoutParams(params);
+                    videoView3.setLayoutParams(params1_1);
+                    videoView4.setLayoutParams(params1_1);
+                } else if (largeResId == 3) {
+                    videoView1.setLayoutParams(params1_1);
+                    videoView2.setLayoutParams(params1_1);
+                    videoView3.setLayoutParams(params);
+                    videoView4.setLayoutParams(params1_1);
+                } else if (largeResId == 4) {
+                    videoView1.setLayoutParams(params1_1);
+                    videoView2.setLayoutParams(params1_1);
+                    videoView3.setLayoutParams(params1_1);
+                    videoView4.setLayoutParams(params);
+                }
+//                videoView1.setLayoutParams(params2_1);
+//                videoView2.setLayoutParams(params2_1);
+//                videoView3.setLayoutParams(params2_1);
+//                videoView4.setLayoutParams(params2_1);
                 break;
             default:
         }
@@ -291,6 +319,7 @@ public class CustomVideoView extends ViewGroup {
     //放大或缩小
     public void zoom(int resId) {
         LogUtils.d(TAG, "zoom -->" + "isEnlarge = " + isEnlarge + ", resId= " + resId);
+        largeResId = isEnlarge ? -1 : resId;
         if (isEnlarge) {
             isEnlarge = false;
             shrink(resId);
@@ -298,46 +327,52 @@ public class CustomVideoView extends ViewGroup {
             isEnlarge = true;
             enlarge(resId);
         }
+        reDraw();
     }
 
     //缩小
     private void shrink(int resId) {
-        resids.clear();
-        long l = System.currentTimeMillis();
-        MyGLSurfaceView childAt = (MyGLSurfaceView) getChildAt(0);
-        shrinkSfvs.add(childAt);
-        removeView(childAt);
-        List<MyGLSurfaceView> temps = new ArrayList<>(shrinkSfvs);
-        for (int i = 0; i < shrinkSfvs.size(); i++) {
-            MyGLSurfaceView child = shrinkSfvs.get(i);
-            int resId1 = child.getResId();
-            resids.add(resId1);
-            temps.set(resId1 - 1, child);
+        for (int i = 0; i < getChildCount(); i++) {
+            getChildAt(i).setVisibility(VISIBLE);
         }
-        for (MyGLSurfaceView view : temps) {
-            addView(view);
-        }
-        LogUtils.d(TAG, "shrink -->" + "用时：" + (System.currentTimeMillis() - l));
-        reDraw();
+//        resids.clear();
+//        long l = System.currentTimeMillis();
+//        MyGLSurfaceView childAt = (MyGLSurfaceView) getChildAt(0);
+//        shrinkSfvs.add(childAt);
+////        removeView(childAt);
+//        List<MyGLSurfaceView> temps = new ArrayList<>(shrinkSfvs);
+//        for (int i = 0; i < shrinkSfvs.size(); i++) {
+//            MyGLSurfaceView child = shrinkSfvs.get(i);
+//            int resId1 = child.getResId();
+//            resids.add(resId1);
+//            temps.set(resId1 - 1, child);
+//        }
+//        for (MyGLSurfaceView view : temps) {
+//            if (indexOfChild(view) == -1) {
+//                LogUtils.i("没有该子view才进行添加");
+//                addView(view);
+//            }
+//        }
+//        LogUtils.d(TAG, "shrink -->" + "用时：" + (System.currentTimeMillis() - l));
+//        reDraw();
     }
 
     //放大
     private void enlarge(int resId) {
-        resids.clear();
-        resids.add(resId);
-        shrinkSfvs.clear();
-        for (int i = 0; i < getChildCount(); i++) {
-            MyGLSurfaceView childAt = (MyGLSurfaceView) getChildAt(i);
-            if (childAt.getResId() != resId) {
-//                childAt.destroy();
-//                childAt.setCodecType(2);
-                shrinkSfvs.add(childAt);
-            }
-        }
-        for (int i = 0; i < shrinkSfvs.size(); i++) {
-            removeView(shrinkSfvs.get(i));
-        }
-        reDraw();
+//        resids.clear();
+//        resids.add(resId);
+//        shrinkSfvs.clear();
+//        for (int i = 0; i < getChildCount(); i++) {
+//            MyGLSurfaceView childAt = (MyGLSurfaceView) getChildAt(i);
+//            if (childAt.getResId() != resId) {
+////                childAt.destroy();
+////                childAt.setCodecType(2);
+//                shrinkSfvs.add(childAt);
+//            }
+//        }
+//        for (int i = 0; i < shrinkSfvs.size(); i++) {
+//            removeView(shrinkSfvs.get(i));
+//        }
     }
 
     public void setViewClickListener(ViewClickListener listener) {

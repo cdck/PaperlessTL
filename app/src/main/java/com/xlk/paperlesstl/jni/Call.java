@@ -158,7 +158,7 @@ public class Call {
 //            LogUtils.v("videodata", "callback_videodecode -->" + "后台videodecode数据");
             EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_VIDEO_DECODE)
                     .objects(isKeyframe, res, codecid, w, h, packet, pts, codecdata).build());
-        }else {
+        } else {
 //            LogUtils.e("videodata", "callback_videodecode -->" + "packet为空");
         }
         return 0;

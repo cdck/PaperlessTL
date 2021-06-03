@@ -52,9 +52,9 @@ import static com.xlk.paperlesstl.model.GlobalValue.isMandatoryPlaying;
 public class VideoActivity extends BaseActivity<VideoPresenter> implements VideoContract.View, WlOnGlSurfaceViewOncreateListener {
 
     private ConstraintLayout video_root_layout;
+    private MyGLSurfaceView video_view;
     private SeekBar seekBar;
     private TextView pop_video_time, pop_video_current_time;
-    private MyGLSurfaceView video_view;
     private LinearLayout pop_video_schedule;
     private RelativeLayout play_mp3_view;
     private ImageView opticalDisk, plectrum;
@@ -391,10 +391,18 @@ public class VideoActivity extends BaseActivity<VideoPresenter> implements Video
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (!isMandatoryPlaying) {
+            super.onBackPressed();
+        }
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(popView!=null && popView.isShowing()){
+        if (popView != null && popView.isShowing()) {
             popView.dismiss();
         }
         GlobalValue.isVideoPlaying = false;

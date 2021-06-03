@@ -84,16 +84,16 @@ public class AdminSignInPresenter extends BasePresenter {
     }
 
     public void queryAttendPeople() {
-            InterfaceMember.pbui_Type_MemberDetailInfo info = jni.queryMember();
-            signInBeans.clear();
-            if (info != null) {
-                List<InterfaceMember.pbui_Item_MemberDetailInfo> itemList = info.getItemList();
-                for (int i = 0; i < itemList.size(); i++) {
-                    signInBeans.add(new SignInBean(itemList.get(i)));
-                }
+        InterfaceMember.pbui_Type_MemberDetailInfo info = jni.queryMember();
+        signInBeans.clear();
+        if (info != null) {
+            List<InterfaceMember.pbui_Item_MemberDetailInfo> itemList = info.getItemList();
+            for (int i = 0; i < itemList.size(); i++) {
+                signInBeans.add(new SignInBean(itemList.get(i)));
             }
-            querySignIn();
-            queryMeetById();
+        }
+        querySignIn();
+        queryMeetById();
     }
 
     public void querySignIn() {

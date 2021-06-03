@@ -261,7 +261,7 @@ public class ArchivePresenter extends BasePresenter {
                 int progress = (int) objects[2];
                 for (int i = 0; i < archiveInforms.size(); i++) {
                     ArchiveInform archiveInform = archiveInforms.get(i);
-                    if (archiveInform.getId() == mediaId) {
+                    if (archiveInform.getMediaId() == mediaId) {
                         archiveInform.setContent("开始下载文件：" + fileName);
                         archiveInform.setResult("下载进度：" + progress + "%");
                         break;
@@ -453,34 +453,34 @@ public class ArchivePresenter extends BasePresenter {
     }
 
     private void queryMember() {
-            InterfaceMember.pbui_Type_MemberDetailInfo pbui_type_memberDetailInfo = jni.queryMember();
-            devSeatInfos.clear();
-            signInData.clear();
-            if (pbui_type_memberDetailInfo != null) {
-                List<InterfaceMember.pbui_Item_MemberDetailInfo> itemList = pbui_type_memberDetailInfo.getItemList();
-                for (int i = 0; i < itemList.size(); i++) {
-                    devSeatInfos.add(new MemberRoleBean(itemList.get(i)));
-                    signInData.add(new SignInBean(itemList.get(i)));
-                }
+        InterfaceMember.pbui_Type_MemberDetailInfo pbui_type_memberDetailInfo = jni.queryMember();
+        devSeatInfos.clear();
+        signInData.clear();
+        if (pbui_type_memberDetailInfo != null) {
+            List<InterfaceMember.pbui_Item_MemberDetailInfo> itemList = pbui_type_memberDetailInfo.getItemList();
+            for (int i = 0; i < itemList.size(); i++) {
+                devSeatInfos.add(new MemberRoleBean(itemList.get(i)));
+                signInData.add(new SignInBean(itemList.get(i)));
             }
-            querySignin();
-            queryPlaceRanking();
+        }
+        querySignin();
+        queryPlaceRanking();
     }
 
     private void queryPlaceRanking() {
-            InterfaceRoom.pbui_Type_MeetRoomDevSeatDetailInfo info = jni.placeDeviceRankingInfo(queryCurrentRoomId());
-            if (info != null) {
-                for (int i = 0; i < devSeatInfos.size(); i++) {
-                    MemberRoleBean bean = devSeatInfos.get(i);
-                    for (int j = 0; j < info.getItemList().size(); j++) {
-                        InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo item = info.getItemList().get(j);
-                        if (item.getMemberid() == bean.getMember().getPersonid()) {
-                            bean.setSeat(item);
-                            break;
-                        }
+        InterfaceRoom.pbui_Type_MeetRoomDevSeatDetailInfo info = jni.placeDeviceRankingInfo(queryCurrentRoomId());
+        if (info != null) {
+            for (int i = 0; i < devSeatInfos.size(); i++) {
+                MemberRoleBean bean = devSeatInfos.get(i);
+                for (int j = 0; j < info.getItemList().size(); j++) {
+                    InterfaceRoom.pbui_Item_MeetRoomDevSeatDetailInfo item = info.getItemList().get(j);
+                    if (item.getMemberid() == bean.getMember().getPersonid()) {
+                        bean.setSeat(item);
+                        break;
                     }
                 }
             }
+        }
     }
 
     private void querySignin() {
@@ -520,21 +520,21 @@ public class ArchivePresenter extends BasePresenter {
     }
 
     private void queryAgenda() {
-            InterfaceAgenda.pbui_meetAgenda meetAgenda = jni.queryAgenda();
-            if (meetAgenda != null) {
-                agendaType = meetAgenda.getAgendatype();
-                agendaContent = meetAgenda.getText().toStringUtf8();
-                agendaMediaId = meetAgenda.getMediaid();
-                LogUtils.i(TAG, "queryAgenda agendaMediaId=" + agendaMediaId + ",agendaContent=" + agendaContent.length());
-            }
+        InterfaceAgenda.pbui_meetAgenda meetAgenda = jni.queryAgenda();
+        if (meetAgenda != null) {
+            agendaType = meetAgenda.getAgendatype();
+            agendaContent = meetAgenda.getText().toStringUtf8();
+            agendaMediaId = meetAgenda.getMediaid();
+            LogUtils.i(TAG, "queryAgenda agendaMediaId=" + agendaMediaId + ",agendaContent=" + agendaContent.length());
+        }
     }
 
     private void queryNotice() {
-            InterfaceBullet.pbui_BulletDetailInfo pbui_bulletDetailInfo = jni.queryNotice();
-            noticeData.clear();
-            if (pbui_bulletDetailInfo != null) {
-                noticeData.addAll(pbui_bulletDetailInfo.getItemList());
-            }
+        InterfaceBullet.pbui_BulletDetailInfo pbui_bulletDetailInfo = jni.queryNotice();
+        noticeData.clear();
+        if (pbui_bulletDetailInfo != null) {
+            noticeData.addAll(pbui_bulletDetailInfo.getItemList());
+        }
     }
 
     private void queryMeetById() {
@@ -710,7 +710,7 @@ public class ArchivePresenter extends BasePresenter {
         for (int i = 0; i < shareFileData.size(); i++) {
             InterfaceFile.pbui_Item_MeetDirFileDetailInfo item = shareFileData.get(i);
             String fileName = item.getName().toStringUtf8();
-            archiveInforms.add(new ArchiveInform(item.getMediaid(), "开始下载文件：" + fileName, "0%"));
+            archiveInforms.add(new ArchiveInform(0, item.getMediaid(), "开始下载文件：" + fileName, "0%"));
             view.updateArchiveInform(archiveInforms);
             addTask(String.valueOf(item.getMediaid()));
             jni.creationFileDownload(Constant.DIR_ARCHIVE_TEMP + "共享文件/" + fileName, item.getMediaid(), 1, 0, Constant.ARCHIVE_DOWNLOAD_FILE);
@@ -728,7 +728,7 @@ public class ArchivePresenter extends BasePresenter {
         for (int i = 0; i < annotationFileData.size(); i++) {
             InterfaceFile.pbui_Item_MeetDirFileDetailInfo item = annotationFileData.get(i);
             String fileName = item.getName().toStringUtf8();
-            archiveInforms.add(new ArchiveInform(item.getMediaid(), "开始下载文件：" + fileName, "0%"));
+            archiveInforms.add(new ArchiveInform(1, item.getMediaid(), "开始下载文件：" + fileName, "0%"));
             view.updateArchiveInform(archiveInforms);
             addTask(String.valueOf(item.getMediaid()));
             jni.creationFileDownload(Constant.DIR_ARCHIVE_TEMP + "批注文件/" + fileName, item.getMediaid(), 1, 0, Constant.ARCHIVE_DOWNLOAD_FILE);
@@ -746,7 +746,7 @@ public class ArchivePresenter extends BasePresenter {
         for (int i = 0; i < otherFileData.size(); i++) {
             InterfaceFile.pbui_Item_MeetDirFileDetailInfo item = otherFileData.get(i);
             String fileName = item.getName().toStringUtf8();
-            archiveInforms.add(new ArchiveInform(item.getMediaid(), "开始下载文件：" + fileName, "0%"));
+            archiveInforms.add(new ArchiveInform(2, item.getMediaid(), "开始下载文件：" + fileName, "0%"));
             view.updateArchiveInform(archiveInforms);
             addTask(String.valueOf(item.getMediaid()));
             jni.creationFileDownload(Constant.DIR_ARCHIVE_TEMP + "其它文件/" + fileName, item.getMediaid(), 1, 0, Constant.ARCHIVE_DOWNLOAD_FILE);

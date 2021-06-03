@@ -93,7 +93,7 @@ public class EventType {
     public static final int BUS_SIGN_IN_DETAILS = BUS_BASE + 35;
     public static final int BUS_SIGN_IN = BUS_BASE + 36;
     /**
-     * 网络连接
+     * 本机在线状态变更
      */
     public static final int BUS_NETWORK_CONNECTED = BUS_BASE + 37;
     /**
@@ -104,4 +104,8 @@ public class EventType {
      * 通知关闭服务器未连接的提示窗口
      */
     public static final int BUS_CLOSE_SERVER_DISCONNECTED_DIALOG = BUS_BASE + 39;
+    /**
+     * 开始/结束同屏
+     */
+    public static final int BUS_SCREEN_RECORDER = BUS_BASE + 40;
 }

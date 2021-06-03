@@ -503,47 +503,52 @@ class MainPresenter extends BasePresenter<MainContract.View> implements MainCont
     @Override
     public void queryDeviceMeetInfo() {
         InterfaceDevice.pbui_Type_DeviceFaceShowDetail devMeetInfo = jni.queryDeviceMeetInfo();
-        if (devMeetInfo != null) {
-            GlobalValue.localMeetingId = devMeetInfo.getMeetingid();
-            GlobalValue.localMeetingName = devMeetInfo.getMeetingname().toStringUtf8();
-            GlobalValue.localMemberId = devMeetInfo.getMemberid();
-            GlobalValue.localMemberName = devMeetInfo.getMembername().toStringUtf8();
-            GlobalValue.localRoomId = devMeetInfo.getRoomid();
-            GlobalValue.signinType = devMeetInfo.getSigninType();
-            cacheData();
-            mView.updateUI(devMeetInfo);
-            if (GlobalValue.localMeetingId != 0) {
-                queryMeetingState();
-            } else {
-                mView.updateMeetingState(-1);
+        if (devMeetInfo == null) {
+            return;
+        }
+        LogUtils.e(devMeetInfo.getDeviceid() + ",会议ID=" + devMeetInfo.getMeetingid() + ",人员ID=" + devMeetInfo.getMemberid() + ",会场ID=" + devMeetInfo.getRoomid()
+                + "\n会议名称=" + devMeetInfo.getMeetingname().toStringUtf8() + ",人员名称=" + devMeetInfo.getMembername().toStringUtf8() + ",公司名称=" + devMeetInfo.getCompany().toStringUtf8() +
+                "职位名称=" + devMeetInfo.getJob().toStringUtf8());
+        mView.updateUI(devMeetInfo);
+        GlobalValue.localMeetingId = devMeetInfo.getMeetingid();
+        GlobalValue.localMeetingName = devMeetInfo.getMeetingname().toStringUtf8();
+        GlobalValue.localMemberId = devMeetInfo.getMemberid();
+        GlobalValue.localMemberName = devMeetInfo.getMembername().toStringUtf8();
+        GlobalValue.localRoomId = devMeetInfo.getRoomid();
+        GlobalValue.signinType = devMeetInfo.getSigninType();
+        cacheData();
+        if (GlobalValue.localMeetingId != 0) {
+            queryMeetingState();
+        } else {
+            mView.updateMeetingState(-1);
+        }
+        if (GlobalValue.localMemberId != 0) {
+            //查询参会人单位
+            InterfaceMember.pbui_Type_MeetMembeProperty info = jni.queryMemberProperty(InterfaceMacro.Pb_MemberPropertyID.Pb_MEETMEMBER_PROPERTY_COMPANY_VALUE, 0);
+            if (info != null) {
+                String unit = info.getPropertytext().toStringUtf8();
+                LogUtils.d(TAG, "queryDevMeetInfo --> 单位：" + unit);
+                mView.updateUnit(unit);
             }
-            if (GlobalValue.localMemberId != 0) {
-                //查询参会人单位
-                InterfaceMember.pbui_Type_MeetMembeProperty info = jni.queryMemberProperty(InterfaceMacro.Pb_MemberPropertyID.Pb_MEETMEMBER_PROPERTY_COMPANY_VALUE, 0);
-                if (info != null) {
-                    String unit = info.getPropertytext().toStringUtf8();
-                    LogUtils.d(TAG, "queryDevMeetInfo --> 单位：" + unit);
-                    mView.updateUnit(unit);
-                }
-                //查询备注
-                InterfaceMember.pbui_Type_MeetMembeProperty info1 = jni.queryMemberProperty(InterfaceMacro.Pb_MemberPropertyID.Pb_MEETMEMBER_PROPERTY_COMMENT_VALUE, 0);
-                if (info1 != null) {
-                    String noteinfo = info1.getPropertytext().toStringUtf8();
-                    LogUtils.d(TAG, "queryDevMeetInfo --> 备注：" + noteinfo);
-                    mView.updateNote(appContext.getString(R.string.note_info_, noteinfo));
-                }
-                queryLocalRole();
-            } else {
-                mView.updateMemberRole("");
-                mView.updateNote("");
-                mView.updateUnit("");
+            //查询备注
+            InterfaceMember.pbui_Type_MeetMembeProperty info1 = jni.queryMemberProperty(InterfaceMacro.Pb_MemberPropertyID.Pb_MEETMEMBER_PROPERTY_COMMENT_VALUE, 0);
+            if (info1 != null) {
+                String noteinfo = info1.getPropertytext().toStringUtf8();
+                LogUtils.d(TAG, "queryDevMeetInfo --> 备注：" + noteinfo);
+                mView.updateNote(appContext.getString(R.string.note_info_, noteinfo));
             }
+            queryLocalRole();
+        } else {
+            mView.updateMemberRole("");
+            mView.updateNote("");
+            mView.updateUnit("");
         }
     }
 
     public void queryMeetingState() {
         byte[] bytes = jni.queryMeetingProperty(InterfaceMacro.Pb_MeetPropertyID.Pb_MEET_PROPERTY_STATUS_VALUE, GlobalValue.localMeetingId, 0);
         if (bytes == null) {
+            mView.updateMeetingState(-1);
             return;
         }
         try {

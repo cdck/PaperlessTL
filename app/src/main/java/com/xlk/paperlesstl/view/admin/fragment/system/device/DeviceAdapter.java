@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.mogujie.tt.protobuf.InterfaceDevice;
+import com.mogujie.tt.protobuf.InterfaceMacro;
 import com.xlk.paperlesstl.R;
 import com.xlk.paperlesstl.model.Constant;
 
@@ -41,6 +42,8 @@ public class DeviceAdapter extends BaseQuickAdapter<InterfaceDevice.pbui_Item_De
     protected void convert(BaseViewHolder helper, InterfaceDevice.pbui_Item_DeviceDetailInfo item) {
         boolean online = item.getNetstate() == 1;
         InterfaceDevice.pbui_SubItem_DeviceIpAddrInfo ipinfo = item.getIpinfo(0);
+        //判断是否是访客模式
+        boolean isGuestMode = (item.getDeviceflag() & InterfaceMacro.Pb_MeetDeviceFlag.Pb_MEETDEVICE_FLAG_GUESTMODE_VALUE) == InterfaceMacro.Pb_MeetDeviceFlag.Pb_MEETDEVICE_FLAG_GUESTMODE_VALUE;
         helper.setText(R.id.item_tv_number, String.valueOf(helper.getLayoutPosition() + 1))
                 .setText(R.id.item_tv_dev_id, String.valueOf(item.getDevcieid()))
                 .setText(R.id.item_tv_dev_name, String.valueOf(item.getDevname().toStringUtf8()))
@@ -48,7 +51,7 @@ public class DeviceAdapter extends BaseQuickAdapter<InterfaceDevice.pbui_Item_De
                 .setText(R.id.item_tv_dev_version, item.getHardversion() + "." + item.getSoftversion())
                 .setText(R.id.item_tv_dev_ip, ipinfo.getIp().toStringUtf8())
                 .setText(R.id.item_tv_port, String.valueOf(ipinfo.getPort()))
-                .setText(R.id.item_tv_guest_mode, String.valueOf(0))
+                .setText(R.id.item_tv_guest_mode, isGuestMode ? getContext().getString(R.string.on) : getContext().getString(R.string.off))
                 .setText(R.id.item_tv_online, online ? getContext().getString(R.string.online) : getContext().getString(R.string.offline))
                 .setText(R.id.item_tv_interface, Constant.getInterfaceStateName(getContext(), item.getFacestate()))
                 .setText(R.id.item_tv_lift_id, String.valueOf(item.getLiftgroupres0()))

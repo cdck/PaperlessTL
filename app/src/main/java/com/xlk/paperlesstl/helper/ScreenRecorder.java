@@ -11,7 +11,11 @@ import android.view.Surface;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.xlk.paperlesstl.jni.Call;
+import com.xlk.paperlesstl.model.data.EventMessage;
+import com.xlk.paperlesstl.model.data.EventType;
 import com.xlk.paperlesstl.util.ArithUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -104,6 +108,7 @@ public class ScreenRecorder extends Thread {
             recordVirtualDisplay();
         } finally {
             release();
+            EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_SCREEN_RECORDER).objects(false).build());
         }
     }
 
@@ -162,6 +167,7 @@ public class ScreenRecorder extends Thread {
         mSurface = encoder.createInputSurface();
         LogUtils.v(TAG, "created input surface: " + mSurface);
         encoder.start();// 开始编码
+        EventBus.getDefault().post(new EventMessage.Builder().type(EventType.BUS_SCREEN_RECORDER).objects(true).build());
     }
 
     public byte[] configbyte;

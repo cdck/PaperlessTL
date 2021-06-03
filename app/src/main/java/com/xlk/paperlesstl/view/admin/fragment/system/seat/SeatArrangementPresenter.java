@@ -15,6 +15,8 @@ import com.xlk.paperlesstl.view.admin.BasePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -40,6 +42,8 @@ public class SeatArrangementPresenter extends BasePresenter {
      * 所有背景图片文件
      */
     public List<InterfaceFile.pbui_Item_MeetDirFileDetailInfo> pictureData = new ArrayList<>();
+    private Timer timer;
+    private TimerTask task;
 
     public SeatArrangementPresenter(SeatArrangementInterface view) {
         super();
@@ -76,7 +80,8 @@ public class SeatArrangementPresenter extends BasePresenter {
                 int opermethod = pbui_meetNotifyMsgForDouble.getOpermethod();
                 LogUtils.i(TAG, "BusEvent 会场设备信息变更通知 -->id=" + id + ",subId=" + subid + ",opermethod=" + opermethod);
                 if (currentRoomId == id && currentRoomId != 0) {
-                    placeDeviceRankingInfo(id);
+//                    placeDeviceRankingInfo(id);
+                    executeLater();
                 }
                 break;
             }
@@ -107,6 +112,26 @@ public class SeatArrangementPresenter extends BasePresenter {
             }
             default:
                 break;
+        }
+    }
+
+    private void executeLater() {
+        //解决短时间内收到很多通知，查询很多次的问题
+        if (timer == null) {
+            timer = new Timer();
+            LogUtils.i( "创建timer");
+            task = new TimerTask() {
+                @Override
+                public void run() {
+                    placeDeviceRankingInfo(currentRoomId);
+                    task.cancel();
+                    timer.cancel();
+                    task = null;
+                    timer = null;
+                }
+            };
+            LogUtils.i( "500毫秒之后查询");
+            timer.schedule(task, 500);
         }
     }
 
@@ -148,13 +173,13 @@ public class SeatArrangementPresenter extends BasePresenter {
      */
     public void placeDeviceRankingInfo(int roomid) {
         LogUtils.i(TAG, "placeDeviceRankingInfo roomid=" + roomid);
-            currentRoomId = roomid;
-            InterfaceRoom.pbui_Type_MeetRoomDevSeatDetailInfo info = jni.placeDeviceRankingInfo(roomid);
-            seatData.clear();
-            if (info != null) {
-                seatData.addAll(info.getItemList());
-            }
-            view.updateSeatData(seatData);
+        currentRoomId = roomid;
+        InterfaceRoom.pbui_Type_MeetRoomDevSeatDetailInfo info = jni.placeDeviceRankingInfo(roomid);
+        seatData.clear();
+        if (info != null) {
+            seatData.addAll(info.getItemList());
+        }
+        view.updateSeatData(seatData);
     }
 
     public void queryBgPicture() {
@@ -173,21 +198,21 @@ public class SeatArrangementPresenter extends BasePresenter {
     }
 
     public void queryRoomIcon() {
-            InterfaceFaceconfig.pbui_Type_FaceConfigInfo pbui_type_faceConfigInfo = jni.queryInterFaceConfiguration();
-            if (pbui_type_faceConfigInfo != null) {
-                List<InterfaceFaceconfig.pbui_Item_FaceTextItemInfo> textList = pbui_type_faceConfigInfo.getTextList();
-                for (int i = 0; i < textList.size(); i++) {
-                    InterfaceFaceconfig.pbui_Item_FaceTextItemInfo item = textList.get(i);
-                    int faceid = item.getFaceid();
-                    int flag = item.getFlag();
-                    if (InterfaceMacro.Pb_MeetFaceID.Pb_MEET_FACE_SeatIcoShow_GEO_VALUE == faceid) {
-                        boolean showFlag = (InterfaceMacro.Pb_MeetFaceFlag.Pb_MEET_FACEFLAG_SHOW_VALUE
-                                == (flag & InterfaceMacro.Pb_MeetFaceFlag.Pb_MEET_FACEFLAG_SHOW_VALUE));
-                        view.updateShowIcon(!showFlag);
-                        return;
-                    }
+        InterfaceFaceconfig.pbui_Type_FaceConfigInfo pbui_type_faceConfigInfo = jni.queryInterFaceConfiguration();
+        if (pbui_type_faceConfigInfo != null) {
+            List<InterfaceFaceconfig.pbui_Item_FaceTextItemInfo> textList = pbui_type_faceConfigInfo.getTextList();
+            for (int i = 0; i < textList.size(); i++) {
+                InterfaceFaceconfig.pbui_Item_FaceTextItemInfo item = textList.get(i);
+                int faceid = item.getFaceid();
+                int flag = item.getFlag();
+                if (InterfaceMacro.Pb_MeetFaceID.Pb_MEET_FACE_SeatIcoShow_GEO_VALUE == faceid) {
+                    boolean showFlag = (InterfaceMacro.Pb_MeetFaceFlag.Pb_MEET_FACEFLAG_SHOW_VALUE
+                            == (flag & InterfaceMacro.Pb_MeetFaceFlag.Pb_MEET_FACEFLAG_SHOW_VALUE));
+                    view.updateShowIcon(!showFlag);
+                    return;
                 }
             }
+        }
     }
 
     /**
